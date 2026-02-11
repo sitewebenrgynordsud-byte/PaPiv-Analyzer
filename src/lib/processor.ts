@@ -1,9 +1,11 @@
 
 export function processText(toolSlug: string, input: string): string {
+  const trimmedInput = input.trim();
+
   switch (toolSlug) {
     case 'word-counter': {
-      if (!input) return 'Words: 0, Chars: 0';
-      const wordCount = input.trim().split(/\s+/).filter(Boolean).length;
+      if (!trimmedInput) return 'Words: 0, Chars: 0';
+      const wordCount = trimmedInput.split(/\s+/).filter(Boolean).length;
       const charCount = input.length;
       return `Words: ${wordCount}, Chars: ${charCount}`;
     }
@@ -11,33 +13,44 @@ export function processText(toolSlug: string, input: string): string {
       return input.toLowerCase();
     }
     case 'json-to-csv': {
+      if (!trimmedInput) {
+        return '';
+      }
       try {
-        const data = JSON.parse(input);
-        if (!Array.isArray(data) || data.length === 0) {
-          return 'Error: Input must be a non-empty array of JSON objects.';
+        const data = JSON.parse(trimmedInput);
+        if (!Array.isArray(data)) {
+          return 'Error: Input must be a JSON array of objects.';
+        }
+        if (data.length === 0) {
+          return ''; // An empty array results in an empty CSV.
         }
 
-        // Extract headers from the first object
-        const headers = Object.keys(data[0]);
+        const firstItem = data[0];
+        if (typeof firstItem !== 'object' || firstItem === null || Array.isArray(firstItem)) {
+            return 'Error: JSON array must contain objects.';
+        }
+
+        const headers = Object.keys(firstItem);
         const csvHeader = headers.join(',');
 
-        // Convert each object to a CSV row
         const csvRows = data.map(obj => {
+          if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
+             return headers.map(() => '').join(',');
+          }
           return headers
             .map(header => {
-              let value = obj[header];
+              const value = obj[header as keyof typeof obj];
+
               if (value === null || value === undefined) {
                 return '';
               }
-              value = String(value);
-              // Escape quotes and wrap in quotes if it contains a comma
-              if (value.includes('"')) {
-                value = value.replace(/"/g, '""');
+              
+              let stringValue = String(value);
+
+              if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
+                stringValue = `"${stringValue.replace(/"/g, '""')}"`;
               }
-              if (value.includes(',')) {
-                value = `"${value}"`;
-              }
-              return value;
+              return stringValue;
             })
             .join(',');
         });
@@ -45,7 +58,7 @@ export function processText(toolSlug: string, input: string): string {
         return [csvHeader, ...csvRows].join('\n');
       } catch (error) {
         if (error instanceof SyntaxError) {
-          return 'Error: Invalid JSON format.';
+          return 'Error: Invalid JSON format. Please check for missing commas or brackets.';
         }
         return `Error: ${error instanceof Error ? error.message : 'An unknown error occurred.'}`;
       }
