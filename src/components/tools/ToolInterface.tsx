@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Copy, Wand2 } from 'lucide-react';
 
 import { type ToolConfig } from '@/config/tools';
@@ -16,9 +16,14 @@ interface ToolInterfaceProps {
 }
 
 export default function ToolInterface({ tool }: ToolInterfaceProps) {
+  const [mounted, setMounted] = useState(false);
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const { toast } = useToast();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleProcess = () => {
     const result = processText(tool.slug, input);
@@ -34,6 +39,10 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     });
   };
 
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="grid gap-8 md:grid-cols-2">
@@ -43,7 +52,9 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid w-full gap-1.5">
-              <Label htmlFor="input-textarea" className="sr-only">Your {tool.inputType} input</Label>
+              <Label htmlFor="input-textarea" className="sr-only">
+                Your {tool.inputType} input
+              </Label>
               <Textarea
                 id="input-textarea"
                 placeholder={`Paste your ${tool.inputType} here...`}
@@ -60,11 +71,15 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="capitalize">Output: {tool.outputType}</CardTitle>
+            <CardTitle className="capitalize">
+              Output: {tool.outputType}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid w-full gap-1.5 relative">
-              <Label htmlFor="output-textarea" className="sr-only">Your {tool.outputType} output</Label>
+              <Label htmlFor="output-textarea" className="sr-only">
+                Your {tool.outputType} output
+              </Label>
               <Textarea
                 id="output-textarea"
                 readOnly
