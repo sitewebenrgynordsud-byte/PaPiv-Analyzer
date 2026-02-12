@@ -1,8 +1,9 @@
 export function processText(toolSlug: string, input: string): string {
   if (!input) return '';
   const text = input.trim();
+  const slug = toolSlug.toLowerCase();
 
-  switch (toolSlug) {
+  switch (slug) {
     case 'text-to-camelcase':
       return text.replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
         index === 0 ? word.toLowerCase() : word.toUpperCase()
@@ -19,8 +20,9 @@ export function processText(toolSlug: string, input: string): string {
         .replace(/[^\w ]+/g, '')
         .replace(/ +/g, '-');
 
-    case 'word-counter':
-      return `Words: ${text.split(/\s+/).length}\nCharacters: ${text.length}`;
+    case 'text-statistics':
+      const words = text === '' ? 0 : text.split(/\s+/).length;
+      return `📊 Statistics:\n- Words: ${words}\n- Characters: ${input.length}\n- Lines: ${input.split('\n').length}`;
 
     case 'json-to-csv':
       try {
@@ -40,6 +42,6 @@ export function processText(toolSlug: string, input: string): string {
         return input.toLowerCase();
 
     default:
-      return `Error: Tool with slug '${toolSlug}' not found.`;
+      return `Error: Tool with slug '${slug}' not found.`;
   }
 }

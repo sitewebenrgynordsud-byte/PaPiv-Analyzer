@@ -14,8 +14,8 @@ export const ALL_TOOLS: ToolConfig[] = [
   {
     slug: 'text-statistics',
     title: 'Professional Text Statistics',
-    description: 'Analyze word density, characters, and reading time.',
-    category: 'Text',
+    description: 'Analyze word density, characters, and reading time instantly.',
+    category: 'Analysis',
     inputType: 'text',
     outputType: 'text',
   },
@@ -70,5 +70,6 @@ export const ALL_TOOLS: ToolConfig[] = [
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
-  return ALL_TOOLS.find((tool) => tool.slug === slug);
+  const normalizedSlug = decodeURIComponent(slug).toLowerCase();
+  return ALL_TOOLS.find((tool) => tool.slug.toLowerCase() === normalizedSlug);
 }

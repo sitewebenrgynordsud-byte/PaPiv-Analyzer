@@ -1,7 +1,6 @@
-import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
-import { ALL_TOOLS, getToolBySlug } from '@/config/tools';
+import { ALL_TOOLS } from '@/config/tools';
 import Header from '@/components/header';
 import ToolLoader from '@/components/tools/ToolLoader';
 
@@ -20,7 +19,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: ToolPageProps): Promise<Metadata> {
-  const tool = getToolBySlug(params.slug);
+  const currentSlug = decodeURIComponent(params.slug).toLowerCase();
+  const tool = ALL_TOOLS.find((t) => t.slug.toLowerCase() === currentSlug);
 
   if (!tool) {
     return {
@@ -35,10 +35,22 @@ export async function generateMetadata({
 }
 
 export default function ToolPage({ params }: ToolPageProps) {
-  const tool = getToolBySlug(params.slug);
+  const currentSlug = decodeURIComponent(params.slug).toLowerCase();
+  const tool = ALL_TOOLS.find((t) => t.slug.toLowerCase() === currentSlug);
 
   if (!tool) {
-    notFound();
+    return (
+      <div className="flex flex-col min-h-screen bg-background">
+        <Header />
+        <main className="flex-1 container mx-auto py-12 px-4 md:px-6">
+          <div className="p-8 text-red-500 bg-red-50 border border-red-200 rounded-lg">
+            Critical Error: Tool "{params.slug}" not found in registry.
+            <br />
+            Current Registry Slugs: {ALL_TOOLS.map((t) => t.slug).join(', ')}
+          </div>
+        </main>
+      </div>
+    );
   }
 
   return (
@@ -74,7 +86,7 @@ export default function ToolPage({ params }: ToolPageProps) {
                 Paste your {tool.inputType} content into the input area.
               </li>
               <li>
-                Click the &quot;Process&quot; button to run the transformation.
+                The result will appear instantly as you type.
               </li>
               <li>
                 Copy your generated {tool.outputType} from the output area.
