@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Copy, Trash, Terminal, Check, Share2 } from 'lucide-react';
+import { Copy, Trash, Terminal, Check, Share2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import confetti from 'canvas-confetti';
 
@@ -60,6 +60,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
         const result = processText(tool.slug, input);
         if (result.startsWith('Error:') || result.startsWith('❌') || result.startsWith('⚠️') || result.startsWith('Invalid JSON')) {
           setError(result);
+
           setOutput('');
           setStats(null);
         } else if (tool.slug === 'text-statistics' && input.trim() !== '') {
@@ -240,16 +241,24 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
             <h2 className="text-2xl font-bold font-headline text-center mb-8">You Might Also Like</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {relatedTools.map(relatedTool => (
-                    <Link href={`/tool/${relatedTool.slug}`} key={relatedTool.slug} className="block" prefetch={false}>
-                        <Card className="h-full hover:border-accent transition-shadow duration-300 shadow-sm hover:shadow-lg">
-                            <CardHeader>
-                                <CardTitle className="font-headline text-lg">{relatedTool.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-sm text-muted-foreground">{relatedTool.description}</p>
-                            </CardContent>
-                        </Card>
-                    </Link>
+                    <Card key={relatedTool.slug} className="h-full flex flex-col hover:border-accent transition-shadow duration-300 shadow-sm hover:shadow-lg">
+                        <CardHeader>
+                            <CardTitle className="font-headline text-lg">
+                                <Link href={`/tool/${relatedTool.slug}`} prefetch={false} className="hover:underline focus:outline-none focus:ring-2 focus:ring-ring rounded-sm">
+                                    {relatedTool.title}
+                                </Link>
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                            <p className="text-sm text-muted-foreground">{relatedTool.description}</p>
+                        </CardContent>
+                        <div className="p-6 pt-0">
+                             <Link href={`/tool/${relatedTool.slug}`} prefetch={false} className="font-semibold text-accent inline-flex items-center gap-1 group">
+                                Try the {relatedTool.title}
+                                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            </Link>
+                        </div>
+                    </Card>
                 ))}
             </div>
         </div>
