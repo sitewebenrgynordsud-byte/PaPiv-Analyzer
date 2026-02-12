@@ -16,10 +16,6 @@ export const metadata: Metadata = {
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
-  icons: {
-    icon: '/icon.png?v=1',
-    apple: '/apple-icon.png?v=1',
-  },
   openGraph: {
     title: 'PaPiv Suite | Free Real-Time Developer & Text Tools',
     description:
