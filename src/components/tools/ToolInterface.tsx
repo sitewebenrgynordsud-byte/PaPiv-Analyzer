@@ -35,7 +35,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     try {
       const result = processText(tool.slug, input);
       // Check for custom error prefixes from the processor
-      if (result.startsWith('Error:') || result.startsWith('❌') || result.startsWith('⚠️')) {
+      if (result.startsWith('Error:') || result.startsWith('❌') || result.startsWith('⚠️') || result.startsWith('Invalid JSON')) {
         setError(result);
         setOutput('');
       } else {
@@ -67,8 +67,6 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     setInput('');
   };
 
-  const isCodeTool = ['json', 'csv', 'markdown'].includes(tool.inputType) || ['json', 'csv', 'html'].includes(tool.outputType);
-
   if (!mounted) {
     return null;
   }
@@ -95,7 +93,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 placeholder={`Paste your ${tool.inputType} here...`}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className={`min-h-[300px] resize-y ${isCodeTool ? 'font-mono' : ''}`}
+                className="min-h-[300px] resize-y font-mono"
               />
             </div>
           </CardContent>
@@ -132,7 +130,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 id="output-textarea"
                 readOnly
                 value={output}
-                className={`min-h-[300px] resize-y bg-muted ${isCodeTool ? 'font-mono' : ''}`}
+                className="min-h-[300px] resize-y bg-muted font-mono whitespace-pre-wrap"
                 placeholder="Result will appear here..."
               />
             </div>

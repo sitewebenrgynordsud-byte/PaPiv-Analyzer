@@ -12,9 +12,9 @@ export interface ToolConfig {
 
 export const ALL_TOOLS: ToolConfig[] = [
   {
-    slug: 'word-counter',
-    title: 'Word Counter',
-    description: 'A simple tool to count words, characters, and sentences in your text.',
+    slug: 'text-statistics',
+    title: 'Professional Text Statistics',
+    description: 'Analyze word density, characters, and reading time.',
     category: 'Text',
     inputType: 'text',
     outputType: 'text',

@@ -8,7 +8,7 @@ import {
   CardContent,
 } from '@/components/ui/card';
 import { ALL_TOOLS } from '@/config/tools';
-import { ArrowRight, BrainCircuit } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -27,32 +27,6 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Link href="/analyzer" className="block">
-              <Card className="h-full flex flex-col hover:border-accent hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <BrainCircuit className="w-6 h-6 text-primary" />
-                    </div>
-                    <CardTitle className="font-headline text-xl">
-                      Document Analyzer
-                    </CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <CardDescription>
-                    Upload or paste text to get AI-powered insights, summaries,
-                    and sentiment analysis.
-                  </CardDescription>
-                </CardContent>
-                <div className="p-6 pt-0 flex justify-end">
-                  <div className="font-semibold text-accent inline-flex items-center gap-1">
-                    Launch Analyzer <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </Card>
-            </Link>
-
             {ALL_TOOLS.map((tool) => (
               <Link
                 href={`/tool/${tool.slug}`}
