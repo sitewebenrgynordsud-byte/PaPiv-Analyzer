@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://papiv.com'),
+  metadataBase: new URL('https://www.papiv.com'),
   title: {
     default: 'PaPiv Suite | Free Real-Time Developer & Text Tools',
     template: '%s | PaPiv Suite',
@@ -15,11 +15,11 @@ export const metadata: Metadata = {
     title: 'PaPiv Suite | Free Real-Time Developer & Text Tools',
     description:
       'The ultimate collection of fast, private, and free online tools.',
-    url: 'https://papiv.com',
+    url: 'https://www.papiv.com',
     siteName: 'PaPiv Suite',
     images: [
       {
-        url: 'https://papiv.com/og-image.png', // Assuming an OG image will be at this path
+        url: 'https://www.papiv.com/og-image.png', // Assuming an OG image will be at this path
         width: 1200,
         height: 630,
         alt: 'PaPiv Suite Hero Image',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: 'PaPiv Suite | Free Real-Time Developer & Text Tools',
     description:
       'An open-source suite of free, real-time tools for developers and data professionals.',
-    images: ['https://papiv.com/og-image.png'],
+    images: ['https://www.papiv.com/og-image.png'],
   },
   robots: {
     index: true,

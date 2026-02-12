@@ -1,7 +1,7 @@
 import { type MetadataRoute } from 'next';
 import { ALL_TOOLS } from '@/config/tools';
 
-const URL = 'https://papiv.com';
+const URL = 'https://www.papiv.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const homepage = {
