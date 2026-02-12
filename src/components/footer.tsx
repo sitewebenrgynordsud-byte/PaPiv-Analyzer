@@ -8,7 +8,9 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center gap-2 mb-4 md:mb-0">
             <Logo className="h-6 w-6 text-primary" />
-            <span className="font-headline text-xl font-bold">PaPiv</span>
+            <span className="font-headline text-xl font-bold text-primary">
+              Pa<span className="text-accent">Piv</span>
+            </span>
           </div>
           <nav className="flex flex-wrap justify-center gap-4 sm:gap-6">
             <Link

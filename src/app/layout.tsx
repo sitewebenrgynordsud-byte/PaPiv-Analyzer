@@ -11,6 +11,15 @@ export const metadata: Metadata = {
   },
   description:
     'An open-source suite of free, real-time tools for developers and data professionals. Convert JSON, analyze text, generate slugs, and more, all within your browser for maximum privacy and speed.',
+  manifest: '/site.webmanifest',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     title: 'PaPiv Suite | Free Real-Time Developer & Text Tools',
     description:
