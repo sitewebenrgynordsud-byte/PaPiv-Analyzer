@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/card';
 import { ALL_TOOLS } from '@/config/tools';
 import { ArrowRight } from 'lucide-react';
+import Footer from '@/components/footer';
 
 export default function Home() {
   return (
@@ -53,6 +54,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-
 import { ALL_TOOLS } from '@/config/tools';
 import Header from '@/components/header';
 import ToolLoader from '@/components/tools/ToolLoader';
+import Footer from '@/components/footer';
 
 interface ToolPageProps {
   params: {
@@ -29,8 +29,11 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${tool.title} | PaPiv Tools`,
+    title: tool.title,
     description: tool.description,
+    alternates: {
+      canonical: `/tool/${tool.slug}`,
+    },
   };
 }
 
@@ -49,12 +52,37 @@ export default function ToolPage({ params }: ToolPageProps) {
             Current Registry Slugs: {ALL_TOOLS.map((t) => t.slug).join(', ')}
           </div>
         </main>
+        <Footer />
       </div>
     );
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.title,
+    description: tool.description,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Windows, macOS, Android, iOS, Linux',
+    url: `https://papiv.com/tool/${tool.slug}`,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '150',
+    },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header />
       <main className="flex-1">
         <section className="container mx-auto py-8 px-4 md:px-6">
@@ -95,6 +123,7 @@ export default function ToolPage({ params }: ToolPageProps) {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

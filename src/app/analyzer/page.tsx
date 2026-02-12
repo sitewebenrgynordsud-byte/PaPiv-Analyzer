@@ -1,5 +1,6 @@
 import Analyzer from '@/components/analyzer';
 import Header from '@/components/header';
+import Footer from '@/components/footer';
 
 export default function AnalyzerPage() {
   return (
@@ -8,6 +9,7 @@ export default function AnalyzerPage() {
       <main className="flex-1">
         <Analyzer />
       </main>
+      <Footer />
     </div>
   );
 }
