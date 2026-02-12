@@ -35,6 +35,14 @@ export const ALL_TOOLS: ToolConfig[] = [
     inputType: 'text',
     outputType: 'text',
   },
+  {
+    slug: 'document-analyzer',
+    title: 'Document Analyzer',
+    description: 'Get detailed statistics about your document, including word count, reading time, and more.',
+    category: 'Text',
+    inputType: 'text',
+    outputType: 'text',
+  }
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {

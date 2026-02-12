@@ -17,12 +17,12 @@ export function processText(toolSlug: string, input: string): string {
         return '';
       }
       try {
-        const data = JSON.parse(trimmedInput);
+        let data = JSON.parse(trimmedInput);
         if (!Array.isArray(data)) {
-          return 'Error: Input must be a JSON array of objects.';
+          data = [data];
         }
         if (data.length === 0) {
-          return ''; // An empty array results in an empty CSV.
+          return '';
         }
 
         const firstItem = data[0];
@@ -33,7 +33,7 @@ export function processText(toolSlug: string, input: string): string {
         const headers = Object.keys(firstItem);
         const csvHeader = headers.join(',');
 
-        const csvRows = data.map(obj => {
+        const csvRows = data.map((obj: any) => {
           if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
              return headers.map(() => '').join(',');
           }
@@ -58,10 +58,36 @@ export function processText(toolSlug: string, input: string): string {
         return [csvHeader, ...csvRows].join('\n');
       } catch (error) {
         if (error instanceof SyntaxError) {
-          return 'Error: Invalid JSON format. Please check for missing commas or brackets.';
+          return 'Error: Invalid JSON. Please check your syntax.';
         }
         return `Error: ${error instanceof Error ? error.message : 'An unknown error occurred.'}`;
       }
+    }
+    case 'document-analyzer': {
+        if (!trimmedInput) {
+            const report = [
+                `Word Count: 0`,
+                `Character Count: 0`,
+                `Sentence Count: 0`,
+                `Paragraph Count: 0`,
+                `Reading Time: ~0 minute(s)`
+            ].join('\n');
+            return report;
+        }
+        const wordCount = trimmedInput.split(/\s+/).filter(Boolean).length;
+        const charCount = trimmedInput.length;
+        const sentenceCount = trimmedInput.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+        const paragraphCount = trimmedInput.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+        const readingTime = Math.ceil(wordCount / 200);
+
+        const report = [
+            `Word Count: ${wordCount}`,
+            `Character Count: ${charCount}`,
+            `Sentence Count: ${sentenceCount}`,
+            `Paragraph Count: ${paragraphCount}`,
+            `Reading Time: ~${readingTime} minute(s)`
+        ].join('\n');
+        return report;
     }
     default:
       return `Error: Tool with slug '${toolSlug}' not found.`;
