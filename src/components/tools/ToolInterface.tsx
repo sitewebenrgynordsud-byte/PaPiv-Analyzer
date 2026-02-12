@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Copy, Wand2, Loader2, Trash, Terminal } from 'lucide-react';
+import { Copy, Wand2, Loader2, Trash, Terminal, Check } from 'lucide-react';
 
 import { type ToolConfig } from '@/config/tools';
 import { processText } from '@/lib/processor';
@@ -22,6 +22,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   const [output, setOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isCopied, setIsCopied] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -58,6 +59,10 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
       title: 'Copied to clipboard!',
       description: 'The output has been copied to your clipboard.',
     });
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
   };
   
   const handleClear = () => {
@@ -125,7 +130,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 onClick={handleCopy}
                 aria-label="Copy output"
               >
-                <Copy className="h-4 w-4" />
+                {isCopied ? <Check className="h-4 w-4 text-accent" /> : <Copy className="h-4 w-4" />}
               </Button>
             )}
           </CardHeader>
