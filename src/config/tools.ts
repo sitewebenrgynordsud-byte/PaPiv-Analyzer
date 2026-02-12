@@ -36,13 +36,37 @@ export const ALL_TOOLS: ToolConfig[] = [
     outputType: 'text',
   },
   {
-    slug: 'document-analyzer',
-    title: 'Document Analyzer',
-    description: 'Get detailed statistics about your document, including word count, reading time, and more.',
-    category: 'Text',
+    slug: 'text-to-camelcase',
+    title: 'Camel Case Converter',
+    description: 'Convert any text to camelCase format online.',
+    category: 'Transform',
     inputType: 'text',
     outputType: 'text',
-  }
+  },
+  {
+    slug: 'text-to-snake-case',
+    title: 'Snake Case Converter',
+    description: 'Convert spaces to underscores with snake_case converter.',
+    category: 'Transform',
+    inputType: 'text',
+    outputType: 'text',
+  },
+  {
+    slug: 'text-to-pascalcase',
+    title: 'Pascal Case Converter',
+    description: 'Format your text into PascalCase instantly.',
+    category: 'Transform',
+    inputType: 'text',
+    outputType: 'text',
+  },
+  {
+    slug: 'text-to-slug',
+    title: 'URL Slug Generator',
+    description: 'Transform titles into SEO-friendly URL slugs.',
+    category: 'Transform',
+    inputType: 'text',
+    outputType: 'text',
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
