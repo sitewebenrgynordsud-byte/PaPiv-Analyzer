@@ -11,6 +11,8 @@ import {
   History,
   Clock,
   Link2,
+  Download,
+  ArrowUp,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -77,9 +79,20 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   const [relatedTools, setRelatedTools] = useState<ToolConfig[]>([]);
   const [currentUrl, setCurrentUrl] = useState('');
   const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+
+    const checkScrollTop = () => {
+      if (window.scrollY > 400) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', checkScrollTop);
 
     if (window.location.hash) {
       try {
@@ -132,13 +145,16 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     ).map((slug) => combinedTools.find((t) => t.slug === slug)!);
 
     setRelatedTools(uniqueTools.slice(0, 3));
+    
+    return () => window.removeEventListener('scroll', checkScrollTop);
+
   }, [tool.slug, tool.category, toast]);
 
   useEffect(() => {
     if (!mounted) return;
 
     const handler = setTimeout(() => {
-      if (input.trim() === '') {
+      if (input.trim() === '' && tool.slug !== 'lorem-ipsum-generator') {
         setOutput('');
         setStats(null);
         setError(null);
@@ -161,7 +177,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
           if (tool.slug === 'text-statistics') {
             const parsedStats = JSON.parse(result);
             setStats(parsedStats);
-            setOutput('');
+            setOutput(''); // Clear text output for stats tool
             processedOutput = parsedStats;
           } else {
             setOutput(result);
@@ -233,6 +249,47 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     setTimeout(() => {
       setIsCopied(false);
     }, 2000);
+  };
+  
+  const handleDownload = () => {
+    let contentToDownload = '';
+    let fileExtension = 'txt';
+    let mimeType = 'text/plain';
+
+    if (tool.slug === 'text-statistics') {
+        if (stats) {
+            contentToDownload = `Words: ${stats.words}\nCharacters: ${stats.characters}\nLines: ${stats.lines}\nReading Time: ~${stats.readingTime} min`;
+        }
+    } else if (tool.slug === 'json-to-csv') {
+        contentToDownload = output;
+        fileExtension = 'csv';
+        mimeType = 'text/csv';
+    } else {
+        contentToDownload = output;
+    }
+
+    if (!contentToDownload) {
+        toast({
+            variant: 'destructive',
+            title: 'Nothing to download',
+            description: 'Please generate some output first.',
+        });
+        return;
+    }
+
+    const blob = new Blob([contentToDownload], { type: `${mimeType};charset=utf-8` });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `papiv-${tool.slug}-${Date.now()}.${fileExtension}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    toast({
+        title: 'Download started!',
+    });
   };
 
   const handleShare = async () => {
@@ -343,10 +400,11 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 </Label>
                 <Textarea
                   id="input-textarea"
-                  placeholder={`Paste your ${tool.inputType} here...`}
+                  placeholder={tool.slug === 'lorem-ipsum-generator' ? 'Enter number of paragraphs (e.g., 3)' : `Paste your ${tool.inputType} here...`}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   className="min-h-[300px] resize-y font-mono"
+                  type={tool.slug === 'lorem-ipsum-generator' ? 'number' : 'text'}
                 />
               </div>
             </CardContent>
@@ -394,26 +452,43 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                   </TooltipContent>
                 </Tooltip>
                 {(output || stats) && (
-                   <Tooltip>
-                   <TooltipTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={handleCopy}
-                      aria-label="Copy output"
-                      disabled={isCopied}
-                    >
-                      {isCopied ? (
-                        <Check className="h-4 w-4 text-accent" />
-                      ) : (
-                        <Copy className="h-4 w-4" />
-                      )}
-                    </Button>
-                    </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Copy output</p>
-                  </TooltipContent>
-                </Tooltip>
+                  <>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={handleDownload}
+                          aria-label="Download output"
+                        >
+                          <Download className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Download as file</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={handleCopy}
+                          aria-label="Copy output"
+                          disabled={isCopied}
+                        >
+                          {isCopied ? (
+                            <Check className="h-4 w-4 text-accent" />
+                          ) : (
+                            <Copy className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Copy output</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </>
                 )}
               </div>
             </CardHeader>
@@ -430,7 +505,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
               <div className="min-h-[300px]">
                 {tool.slug === 'text-statistics' ? (
                   <div className="h-full">
-                    {!input.trim() ? (
+                    {!input.trim() && !stats ? (
                       <div className="flex h-full items-center justify-center rounded-md bg-muted text-muted-foreground">
                         <p>Waiting for input...</p>
                       </div>
@@ -560,6 +635,24 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
           )}
         </div>
       </div>
+      {showScrollTop && (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Button
+                    variant="outline"
+                    size="icon"
+                    className="fixed bottom-8 right-8 z-50 rounded-full shadow-lg"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    aria-label="Scroll to top"
+                >
+                    <ArrowUp className="h-5 w-5" />
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Scroll to top</p>
+            </TooltipContent>
+        </Tooltip>
+    )}
     </TooltipProvider>
   );
 }
