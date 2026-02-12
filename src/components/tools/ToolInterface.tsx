@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Copy, Wand2, Loader2, Trash, Terminal, Check } from 'lucide-react';
+import { Copy, Trash, Terminal, Check } from 'lucide-react';
 
 import { type ToolConfig } from '@/config/tools';
 import { processText } from '@/lib/processor';
@@ -20,7 +20,6 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   const [mounted, setMounted] = useState(false);
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
   const { toast } = useToast();
@@ -29,35 +28,34 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     setMounted(true);
   }, []);
 
-  const handleProcess = () => {
-    setIsLoading(true);
-    setError(null);
-    setOutput('');
+  // Real-time processing effect
+  useEffect(() => {
+    if (!mounted) return;
 
-    setTimeout(() => {
-      try {
-        const result = processText(tool.slug, input);
-        if (result.startsWith('Error:')) {
-          setError(result);
-        } else {
-          setOutput(result);
-        }
-      } catch (e) {
-        const errorMessage =
-          e instanceof Error ? e.message : 'An unknown processing error occurred.';
-        setError(`Error: ${errorMessage}`);
-      } finally {
-        setIsLoading(false);
+    try {
+      const result = processText(tool.slug, input);
+      // Check for custom error prefixes from the processor
+      if (result.startsWith('Error:') || result.startsWith('❌') || result.startsWith('⚠️')) {
+        setError(result);
+        setOutput('');
+      } else {
+        setOutput(result);
+        setError(null);
       }
-    }, 500);
-  };
+    } catch (e) {
+      const errorMessage =
+        e instanceof Error ? e.message : 'An unknown processing error occurred.';
+      setError(`Error: ${errorMessage}`);
+      setOutput('');
+    }
+  }, [input, tool.slug, mounted]);
+
 
   const handleCopy = () => {
     if (!output) return;
     navigator.clipboard.writeText(output);
     toast({
       title: 'Copied to clipboard!',
-      description: 'The output has been copied to your clipboard.',
     });
     setIsCopied(true);
     setTimeout(() => {
@@ -67,8 +65,6 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   
   const handleClear = () => {
     setInput('');
-    setOutput('');
-    setError(null);
   };
 
   const isCodeTool = ['json', 'csv', 'markdown'].includes(tool.inputType) || ['json', 'csv', 'html'].includes(tool.outputType);
@@ -89,7 +85,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 </Button>
             )}
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent>
             <div className="grid w-full gap-1.5">
               <Label htmlFor="input-textarea" className="sr-only">
                 Your {tool.inputType} input
@@ -100,22 +96,8 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 className={`min-h-[300px] resize-y ${isCodeTool ? 'font-mono' : ''}`}
-                disabled={isLoading}
               />
             </div>
-            <Button onClick={handleProcess} className="w-full" size="lg" disabled={isLoading || !input}>
-              {isLoading ? (
-                <>
-                  <Loader2 className="animate-spin" />
-                  <span>Processing...</span>
-                </>
-              ) : (
-                <>
-                  <Wand2 />
-                  <span>Process</span>
-                </>
-              )}
-            </Button>
           </CardContent>
         </Card>
         <Card>
@@ -138,8 +120,8 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
             {error && (
                 <Alert variant="destructive">
                   <Terminal className="h-4 w-4" />
-                  <AlertTitle>Processing Error</AlertTitle>
-                  <AlertDescription>{error.replace('Error: ', '')}</AlertDescription>
+                  <AlertTitle>Error</AlertTitle>
+                  <AlertDescription>{error.replace(/^(Error:|❌|⚠️)\s*/, '')}</AlertDescription>
                 </Alert>
             )}
             <div className="grid w-full gap-1.5 relative">
@@ -151,7 +133,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 readOnly
                 value={output}
                 className={`min-h-[300px] resize-y bg-muted ${isCodeTool ? 'font-mono' : ''}`}
-                placeholder="Output will appear here..."
+                placeholder="Result will appear here..."
               />
             </div>
           </CardContent>
