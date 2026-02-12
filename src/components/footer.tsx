@@ -34,6 +34,12 @@ export default function Footer() {
             >
               Terms of Service
             </Link>
+            <a
+              href="mailto:feedback@papiv.com"
+              className="text-sm hover:text-primary transition-colors"
+            >
+              Feedback
+            </a>
           </nav>
         </div>
         <div className="mt-8 text-center text-xs border-t border-border pt-6">

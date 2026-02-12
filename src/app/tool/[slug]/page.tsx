@@ -36,6 +36,19 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://www.papiv.com/tool/${tool.slug}`,
     },
+    openGraph: {
+      title: title,
+      description: tool.description,
+      url: `https://www.papiv.com/tool/${tool.slug}`,
+      images: [
+        {
+          url: 'https://www.papiv.com/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: `${tool.title} on PaPiv Suite`,
+        },
+      ],
+    },
   };
 }
 

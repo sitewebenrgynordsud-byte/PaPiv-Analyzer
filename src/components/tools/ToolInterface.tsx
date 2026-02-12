@@ -38,7 +38,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   const [stats, setStats] = useState<{[key: string]: string | number} | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
-  const [isUrlCopied, setIsUrlCopied] = useState(false);
+  const [isShared, setIsShared] = useState(false);
   const { toast } = useToast();
   const [relatedTools, setRelatedTools] = useState<ToolConfig[]>([]);
   const [currentUrl, setCurrentUrl] = useState('');
@@ -47,10 +47,24 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     setMounted(true);
     setCurrentUrl(window.location.href);
 
-    const otherTools = ALL_TOOLS.filter((t) => t.slug !== tool.slug);
-    const shuffled = otherTools.sort(() => 0.5 - Math.random());
-    setRelatedTools(shuffled.slice(0, 3));
-  }, [tool.slug]);
+    // Smart related tools logic
+    const sameCategoryTools = ALL_TOOLS.filter(
+      (t) => t.category === tool.category && t.slug !== tool.slug
+    );
+    const otherCategoryTools = ALL_TOOLS.filter(
+      (t) => t.category !== tool.category && t.slug !== tool.slug
+    );
+
+    const shuffle = (array: ToolConfig[]) => array.sort(() => 0.5 - Math.random());
+
+    const shuffledSame = shuffle(sameCategoryTools);
+    const shuffledOthers = shuffle(otherCategoryTools);
+
+    const combinedTools = [...shuffledSame, ...shuffledOthers];
+    const uniqueTools = Array.from(new Set(combinedTools.map(t => t.slug))).map(slug => combinedTools.find(t => t.slug === slug)!);
+    
+    setRelatedTools(uniqueTools.slice(0, 3));
+  }, [tool.slug, tool.category]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -117,16 +131,36 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     }, 2000);
   };
 
-  const handleCopyUrl = () => {
-    if (isUrlCopied || !currentUrl) return;
-    navigator.clipboard.writeText(currentUrl);
-    toast({
-      title: 'URL Copied!',
-      description: 'Link to this tool has been copied to your clipboard.',
-    });
-    setIsUrlCopied(true);
+  const handleShare = async () => {
+    if (isShared || !currentUrl) return;
+
+    const shareData = {
+      title: tool.title,
+      text: tool.description,
+      url: currentUrl,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        toast({
+          title: 'Tool shared!',
+        });
+      } else {
+        throw new Error('Web Share API not supported');
+      }
+    } catch (err) {
+      // Fallback to copying URL
+      navigator.clipboard.writeText(currentUrl);
+      toast({
+        title: 'Link Copied!',
+        description: 'Share it with your friends and colleagues.',
+      });
+    }
+
+    setIsShared(true);
     setTimeout(() => {
-      setIsUrlCopied(false);
+      setIsShared(false);
     }, 2000);
   }
   
@@ -178,11 +212,11 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={handleCopyUrl}
-                aria-label="Copy tool URL"
-                disabled={isUrlCopied}
+                onClick={handleShare}
+                aria-label="Share this tool"
+                disabled={isShared}
               >
-                {isUrlCopied ? <Check className="h-4 w-4 text-accent" /> : <Share2 className="h-4 w-4" />}
+                {isShared ? <Check className="h-4 w-4 text-accent" /> : <Share2 className="h-4 w-4" />}
               </Button>
               {(output || stats) && (
                 <Button
