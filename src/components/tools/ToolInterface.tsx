@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import confetti from 'canvas-confetti';
 import { formatDistanceToNow } from 'date-fns';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { ALL_TOOLS, type ToolConfig } from '@/config/tools';
 import { processText } from '@/lib/processor';
@@ -194,6 +195,11 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
             timestamp: Date.now(),
           };
 
+          sendGAEvent('tool_used', {
+            tool_slug: tool.slug,
+            category: tool.category,
+          });
+
           setHistory((prevHistory) => {
             const updatedHistory = [
               newEntry,
@@ -241,6 +247,10 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
       title: 'Copied to clipboard!',
     });
     setIsCopied(true);
+    sendGAEvent('copy_output', {
+      tool_slug: tool.slug,
+      category: tool.category,
+    });
     confetti({
       particleCount: 100,
       spread: 70,

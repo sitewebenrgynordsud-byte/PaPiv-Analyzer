@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { Providers } from './providers';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.papiv.com'),
@@ -77,6 +78,7 @@ export default function RootLayout({
           {children}
           <Toaster />
         </Providers>
+        <GoogleAnalytics gaId="G-S3M38VLJ9S" />
       </body>
     </html>
   );
