@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react';
 import { Copy, Trash, Terminal, Check, Share2 } from 'lucide-react';
 import Link from 'next/link';
+import confetti from 'canvas-confetti';
 
 import { ALL_TOOLS, type ToolConfig } from '@/config/tools';
 import { processText } from '@/lib/processor';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
@@ -18,10 +19,23 @@ interface ToolInterfaceProps {
   tool: ToolConfig;
 }
 
+function StatCard({ title, value }: { title: string; value: string | number }) {
+    return (
+        <Card>
+            <CardHeader className="p-4">
+                <CardDescription>{title}</CardDescription>
+                <CardTitle className="text-2xl md:text-3xl">{value}</CardTitle>
+            </CardHeader>
+        </Card>
+    );
+}
+
+
 export default function ToolInterface({ tool }: ToolInterfaceProps) {
   const [mounted, setMounted] = useState(false);
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [stats, setStats] = useState<{[key: string]: string | number} | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
   const [isUrlCopied, setIsUrlCopied] = useState(false);
@@ -33,13 +47,11 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     setMounted(true);
     setCurrentUrl(window.location.href);
 
-    // Generate related tools
     const otherTools = ALL_TOOLS.filter((t) => t.slug !== tool.slug);
     const shuffled = otherTools.sort(() => 0.5 - Math.random());
     setRelatedTools(shuffled.slice(0, 3));
   }, [tool.slug]);
 
-  // Debounced real-time processing effect
   useEffect(() => {
     if (!mounted) return;
 
@@ -49,15 +61,25 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
         if (result.startsWith('Error:') || result.startsWith('❌') || result.startsWith('⚠️') || result.startsWith('Invalid JSON')) {
           setError(result);
           setOutput('');
+          setStats(null);
+        } else if (tool.slug === 'text-statistics' && input.trim() !== '') {
+          setStats(JSON.parse(result));
+          setOutput('');
+          setError(null);
+        } else if (tool.slug === 'text-statistics' && input.trim() === '') {
+          setStats(null);
+          setOutput('');
+          setError(null);
         } else {
           setOutput(result);
+          setStats(null);
           setError(null);
         }
       } catch (e) {
-        const errorMessage =
-          e instanceof Error ? e.message : 'An unknown processing error occurred.';
-        setError(`Error: ${errorMessage}`);
+        const errorMessage = e instanceof Error ? e.message : 'An unknown processing error occurred.';
+        setError(`Error processing data. ${errorMessage}`);
         setOutput('');
+        setStats(null);
       }
     }, 100);
 
@@ -68,12 +90,27 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
 
 
   const handleCopy = () => {
-    if (!output || isCopied) return;
-    navigator.clipboard.writeText(output);
+    let contentToCopy = '';
+    if (tool.slug === 'text-statistics') {
+      if (stats) {
+        contentToCopy = `Words: ${stats.words}\nCharacters: ${stats.characters}\nLines: ${stats.lines}\nReading Time: ~${stats.readingTime} min`;
+      }
+    } else {
+      contentToCopy = output;
+    }
+    
+    if (!contentToCopy || isCopied) return;
+
+    navigator.clipboard.writeText(contentToCopy);
     toast({
       title: 'Copied to clipboard!',
     });
     setIsCopied(true);
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
     setTimeout(() => {
       setIsCopied(false);
     }, 2000);
@@ -95,6 +132,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   const handleClear = () => {
     setInput('');
     setOutput('');
+    setStats(null);
     setError(null);
   };
 
@@ -145,7 +183,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
               >
                 {isUrlCopied ? <Check className="h-4 w-4 text-accent" /> : <Share2 className="h-4 w-4" />}
               </Button>
-              {output && (
+              {(output || stats) && (
                 <Button
                   variant="ghost"
                   size="icon"
@@ -166,17 +204,33 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                   <AlertDescription>{error.replace(/^(Error:|❌|⚠️)\s*/, '')}</AlertDescription>
                 </Alert>
             )}
-            <div className="grid w-full gap-1.5 relative">
-              <Label htmlFor="output-textarea" className="sr-only">
-                Your {tool.outputType} output
-              </Label>
-              <Textarea
-                id="output-textarea"
-                readOnly
-                value={output}
-                className="min-h-[300px] resize-y bg-muted font-mono whitespace-pre-wrap"
-                placeholder="Waiting for input..."
-              />
+            <div className="min-h-[300px]">
+              {tool.slug === 'text-statistics' ? (
+                <div className="h-full">
+                  {!input.trim() ? (
+                    <div className="flex h-full items-center justify-center rounded-md bg-muted text-muted-foreground">
+                      <p>Waiting for input...</p>
+                    </div>
+                  ) : (
+                    stats && (
+                      <div className="grid grid-cols-2 gap-4">
+                        <StatCard title="Words" value={stats.words} />
+                        <StatCard title="Characters" value={stats.characters} />
+                        <StatCard title="Lines" value={stats.lines} />
+                        <StatCard title="Reading Time" value={`~${stats.readingTime} min`} />
+                      </div>
+                    )
+                  )}
+                </div>
+              ) : (
+                <Textarea
+                  id="output-textarea"
+                  readOnly
+                  value={output}
+                  className="min-h-[300px] resize-y bg-muted font-mono whitespace-pre-wrap"
+                  placeholder="Waiting for input..."
+                />
+              )}
             </div>
           </CardContent>
         </Card>

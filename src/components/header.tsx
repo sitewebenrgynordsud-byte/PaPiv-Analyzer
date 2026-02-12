@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Logo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { ALL_TOOLS } from '@/config/tools';
+import { ThemeToggle } from './theme-toggle';
 
 export default function Header() {
   const pathname = usePathname();
@@ -74,6 +75,7 @@ export default function Header() {
               Back
             </Button>
           )}
+          <ThemeToggle />
         </div>
       </div>
     </header>

@@ -21,8 +21,11 @@ export function processText(toolSlug: string, input: string): string {
         .replace(/ +/g, '-');
 
     case 'text-statistics':
-      const words = text === '' ? 0 : text.split(/\s+/).length;
-      return `📊 Statistics:\n- Words: ${words}\n- Characters: ${input.length}\n- Lines: ${input.split('\n').length}`;
+      const words = text === '' ? 0 : text.split(/\s+/).filter(Boolean).length;
+      const characters = input.length;
+      const lines = input.split('\n').length;
+      const readingTime = Math.ceil(words / 200);
+      return JSON.stringify({ words, characters, lines, readingTime });
 
     case 'json-to-csv':
       try {
