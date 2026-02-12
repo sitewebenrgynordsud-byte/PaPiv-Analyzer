@@ -33,6 +33,7 @@ export default function Home() {
                 href={`/tool/${tool.slug}`}
                 key={tool.slug}
                 className="block"
+                prefetch={false}
               >
                 <Card className="h-full flex flex-col hover:border-accent hover:shadow-lg transition-all duration-300">
                   <CardHeader>

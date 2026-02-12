@@ -14,18 +14,21 @@ export default function Footer() {
             <Link
               href="/about"
               className="text-sm hover:text-primary transition-colors"
+              prefetch={false}
             >
               About
             </Link>
             <Link
               href="/privacy-policy"
               className="text-sm hover:text-primary transition-colors"
+              prefetch={false}
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
               className="text-sm hover:text-primary transition-colors"
+              prefetch={false}
             >
               Terms of Service
             </Link>
