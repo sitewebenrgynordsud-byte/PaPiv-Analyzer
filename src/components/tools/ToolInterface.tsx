@@ -244,7 +244,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                     <Card key={relatedTool.slug} className="h-full flex flex-col hover:border-accent transition-shadow duration-300 shadow-sm hover:shadow-lg">
                         <CardHeader>
                             <CardTitle className="font-headline text-lg">
-                                <Link href={`/tool/${relatedTool.slug}`} prefetch={false} className="hover:underline focus:outline-none focus:ring-2 focus:ring-ring rounded-sm">
+                                <Link href={`/tool/${relatedTool.slug}`} prefetch={false} title={`Try our ${relatedTool.title} tool`} className="hover:underline focus:outline-none focus:ring-2 focus:ring-ring rounded-sm">
                                     {relatedTool.title}
                                 </Link>
                             </CardTitle>
@@ -253,8 +253,8 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                             <p className="text-sm text-muted-foreground">{relatedTool.description}</p>
                         </CardContent>
                         <div className="p-6 pt-0">
-                             <Link href={`/tool/${relatedTool.slug}`} prefetch={false} className="font-semibold text-accent inline-flex items-center gap-1 group">
-                                Try the {relatedTool.title}
+                             <Link href={`/tool/${relatedTool.slug}`} prefetch={false} title={`Try our ${relatedTool.title} tool`} className="font-semibold text-accent inline-flex items-center gap-1 group">
+                                Try our {relatedTool.title}
                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                         </div>

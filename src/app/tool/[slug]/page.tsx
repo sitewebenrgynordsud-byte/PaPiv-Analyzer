@@ -28,8 +28,10 @@ export async function generateMetadata({
     };
   }
 
+  const title = `${tool.title} - Free Online Tool`;
+
   return {
-    title: `${tool.title} - Free Online Tool`,
+    title: title,
     description: tool.description,
     alternates: {
       canonical: `https://www.papiv.com/tool/${tool.slug}`,
@@ -57,10 +59,12 @@ export default function ToolPage({ params }: ToolPageProps) {
     );
   }
 
+  const title = `${tool.title} - Free Online Tool`;
+
   const softwareJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: tool.title,
+    name: title,
     description: tool.description,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Windows, macOS, Android, iOS, Linux',
@@ -122,7 +126,7 @@ export default function ToolPage({ params }: ToolPageProps) {
       <main className="flex-1">
         <section className="container mx-auto py-8 px-4 md:px-6">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold font-headline">{`${tool.title} - Free Online Tool`}</h1>
+            <h1 className="text-4xl font-bold font-headline">{title}</h1>
             <p className="text-lg text-muted-foreground mt-2">
               {tool.description}
             </p>
@@ -136,8 +140,9 @@ export default function ToolPage({ params }: ToolPageProps) {
                 {tool.longDescription.split('\n\n').map((paragraph, index) => {
                     const parts = paragraph.split('\n');
                     const heading = parts[0];
-                    const content = parts.slice(1).join('\n');
-                    if (heading.startsWith('What') || heading.startsWith('How') || heading.startsWith('Why')) {
+                    // Check if the paragraph starts with a heading marker
+                    if (heading.startsWith('What') || heading.startsWith('How') || heading.startsWith('Why') || heading.startsWith('Common')) {
+                       const content = parts.slice(1).join('\n');
                        return (
                          <div key={index}>
                            <h2 className="text-2xl font-bold font-headline mt-6 mb-2 text-foreground">{heading}</h2>
@@ -145,9 +150,24 @@ export default function ToolPage({ params }: ToolPageProps) {
                          </div>
                        )
                     }
+                    // Otherwise, render as a standard paragraph
                     return <p key={index}>{paragraph}</p>
                 })}
             </div>
+            {tool.externalReferences && tool.externalReferences.length > 0 && (
+                <div className="mt-8 pt-6 border-t">
+                    <h3 className="text-xl font-bold font-headline mb-4 text-foreground">Technical References</h3>
+                    <ul className="list-disc list-inside space-y-2 text-foreground/80">
+                        {tool.externalReferences.map((ref, i) => (
+                            <li key={i}>
+                                <a href={ref.href} target="_blank" rel="noopener noreferrer" className="text-accent underline hover:no-underline">
+                                    {ref.text}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
           </div>
         </section>
       </main>

@@ -22,8 +22,8 @@ export default function Home() {
               PaPiv Suite
             </h1>
             <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              A collection of AI-powered and utility tools to streamline your
-              workflow.
+              A collection of free, instant, and privacy-focused developer
+              tools.
             </p>
           </div>
 
@@ -34,6 +34,7 @@ export default function Home() {
                 key={tool.slug}
                 className="block"
                 prefetch={false}
+                title={`Use the ${tool.title} tool`}
               >
                 <Card className="h-full flex flex-col hover:border-accent hover:shadow-lg transition-all duration-300">
                   <CardHeader>
