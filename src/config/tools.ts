@@ -1,4 +1,4 @@
-export type InputType = 'text' | 'json' | 'markdown';
+export type InputType = 'text' | 'json' | 'markdown' | 'number';
 export type OutputType = 'text' | 'html' | 'csv' | 'json';
 
 export interface ToolConfig {
@@ -186,6 +186,81 @@ Creating clean URLs is crucial for both Search Engine Optimization (SEO) and use
     externalReferences: [
         { text: "Moz: SEO Best Practices for URL Structure", href: "https://moz.com/learn/seo/url" },
         { text: "Google Search Central: Keep a simple URL structure", href: "https://developers.google.com/search/docs/crawling-indexing/url-structure" }
+    ],
+  },
+  {
+    slug: 'html-entity-converter',
+    title: 'HTML Entity Encoder/Decoder',
+    description: 'Convert HTML characters to entities and vice-versa safely.',
+    category: 'Dev',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The HTML Entity Encoder/Decoder is a crucial tool for web developers working with content that may contain special characters. It provides a real-time, dual-function utility to convert standard characters into their corresponding HTML entities (encoding) and vice-versa (decoding).
+
+What is the HTML Entity Converter?
+This tool helps prevent security vulnerabilities like Cross-Site Scripting (XSS) by encoding characters such as <, >, &, ", and ' into their safe HTML entity equivalents (e.g., &lt;, &gt;, &amp;). It also allows you to decode entities back into their original characters to display them correctly. The tool automatically detects whether your input text needs encoding or decoding, providing an intelligent and seamless experience.
+
+How to Use It Effectively?
+Simply paste your text or HTML snippet into the input area. If the tool detects HTML entities, it will decode them. If it detects raw special characters, it will encode them. The result appears instantly in the output panel. This is perfect for sanitizing user-generated content before rendering it on a page or for cleaning up encoded text that you need to edit.
+
+Common Use Cases
+Web developers use this daily to handle data from databases or APIs that will be displayed on a webpage. Content managers use it to fix display issues when special characters are not rendering correctly. It's an essential step for ensuring that dynamic data doesn't break your site's layout or introduce security risks.
+
+Why is a Client-Side Tool Essential?
+Security and speed are paramount. Because all processing happens in your browser, your data is never sent to a server, making it a completely private and secure way to handle potentially sensitive information. The instant processing saves you time and streamlines your development workflow.`,
+    externalReferences: [
+      { text: "OWASP: Cross-Site Scripting (XSS)", href: "https://owasp.org/www-community/attacks/xss/" },
+      { text: "MDN Web Docs: HTML Entities", href: "https://developer.mozilla.org/en-US/docs/Glossary/Entity" }
+    ],
+  },
+  {
+    slug: 'base64-converter',
+    title: 'Base64 Text Encoder/Decoder',
+    description: 'Securely encode and decode text to Base64 format online.',
+    category: 'Dev',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The Base64 Text Encoder/Decoder provides a fast and secure way to encode plain text into Base64 and decode Base64 strings back into their original text format. It intelligently auto-detects the input to provide the correct output.
+
+What is the Base64 Converter?
+Base64 is an encoding scheme that represents binary data in an ASCII string format. It's commonly used to transmit data over media that are designed to handle text. This tool provides a simple interface to perform this encoding and decoding without needing command-line tools or writing scripts. It's a fundamental utility for developers working with data transfer, APIs, and file embedding.
+
+How to Use This Converter?
+Paste your text into the input field. If you enter plain text, the tool will encode it into Base64. If you enter a valid Base64 string, the tool will decode it back to plain text. The conversion happens instantly in your browser. This automatic detection makes it incredibly easy to use, whether you're encoding a secret for an API header or decoding a data URI.
+
+Common Use Cases
+Developers use Base64 to embed binary data, like images or fonts, directly into CSS or HTML files (data URIs). It's also used for basic authentication in HTTP headers and for sending attachments in emails. Any time you need to safely transmit data that might otherwise be misinterpreted as control characters, Base64 is a common solution.
+
+Why is Privacy Important for this Tool?
+When you're encoding or decoding potentially sensitive information, such as API keys or authorization tokens, you need to be sure that data isn't being logged or stored on a server. PaPiv's tool is 100% client-side, meaning your data never leaves your computer. This provides the privacy and security needed for professional development work, combined with the instant speed of in-browser processing.`,
+    externalReferences: [
+      { text: "MDN Web Docs: btoa() and atob()", href: "https://developer.mozilla.org/en-US/docs/Web/API/btoa" },
+      { text: "RFC 4648: The Base16, Base32, and Base64 Data Encodings", href: "https://datatracker.ietf.org/doc/html/rfc4648" }
+    ],
+  },
+  {
+    slug: 'lorem-ipsum-generator',
+    title: 'Lorem Ipsum Generator',
+    description: 'Generate professional placeholder text for your designs and layouts.',
+    category: 'Design',
+    inputType: 'number',
+    outputType: 'text',
+    longDescription: `The Lorem Ipsum Generator is a quick and easy tool for creating placeholder text, also known as "dummy text" or "filler text." It's an indispensable resource for designers, developers, and content creators who need to visualize a layout before the final content is ready.
+
+What is Lorem Ipsum?
+Lorem Ipsum is a form of placeholder text that has been used by the printing and typesetting industry since the 1500s. It's derived from a Latin text by Cicero but is deliberately nonsensical, which prevents viewers from being distracted by the content itself. This allows them to focus on the visual elements of a design, such as typography, layout, and spacing.
+
+How to Use the Generator?
+Enter the number of paragraphs you wish to generate into the input field. The tool will instantly create that amount of well-structured Lorem Ipsum text in the output area. You can then copy the text with a single click and paste it into your design mockups, wireframes, or development projects. If you leave the input empty, it will generate a default number of paragraphs.
+
+Common Use Cases
+Web designers use it to fill out website mockups to demonstrate how a page will look with content. UI/UX designers use it in wireframes and prototypes to test layouts and user flows. Developers use it to populate a user interface during development before real data is available from an API. It's a standard part of the design and development process.
+
+Why Use a Generator?
+Manually copying and pasting placeholder text is tedious and repetitive. This generator provides a fast, reliable, and customizable way to get the exact amount of text you need. Like all PaPiv tools, it runs entirely in your browser, making it incredibly fast and completely private. It's a simple utility that saves time and helps create more professional-looking design presentations.`,
+    externalReferences: [
+      { text: "Lipsum.com - The original Lorem Ipsum generator", href: "https://www.lipsum.com/" },
+      { text: "Wikipedia: Lorem Ipsum", href: "https://en.wikipedia.org/wiki/Lorem_ipsum" }
     ],
   },
 ];
