@@ -64,30 +64,18 @@ export function processText(toolSlug: string, input: string): string {
       }
     }
     case 'document-analyzer': {
-        if (!trimmedInput) {
-            const report = [
-                `Word Count: 0`,
-                `Character Count: 0`,
-                `Sentence Count: 0`,
-                `Paragraph Count: 0`,
-                `Reading Time: ~0 minute(s)`
-            ].join('\n');
-            return report;
-        }
-        const wordCount = trimmedInput.split(/\s+/).filter(Boolean).length;
-        const charCount = trimmedInput.length;
-        const sentenceCount = trimmedInput.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
-        const paragraphCount = trimmedInput.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
-        const readingTime = Math.ceil(wordCount / 200);
+      const words = input.trim() === '' ? 0 : input.trim().split(/\s+/).length;
+      const chars = input.length;
+      const sentences = input.split(/[.!?]+/).filter(x => x.trim().length > 0).length;
+      const paragraphs = input.split(/\n\n+/).filter(x => x.trim().length > 0).length;
+      const readTime = Math.ceil(words / 200);
 
-        const report = [
-            `Word Count: ${wordCount}`,
-            `Character Count: ${charCount}`,
-            `Sentence Count: ${sentenceCount}`,
-            `Paragraph Count: ${paragraphCount}`,
-            `Reading Time: ~${readingTime} minute(s)`
-        ].join('\n');
-        return report;
+      return `📊 Document Analysis Report:\n\n` +
+             `• Words: ${words}\n` +
+             `• Characters: ${chars}\n` +
+             `• Sentences: ${sentences}\n` +
+             `• Paragraphs: ${paragraphs}\n` +
+             `• Est. Reading Time: ${readTime} min(s)`;
     }
     default:
       return `Error: Tool with slug '${toolSlug}' not found.`;
