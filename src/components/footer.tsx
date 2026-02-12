@@ -40,6 +40,14 @@ export default function Footer() {
             >
               Feedback
             </a>
+            <a
+              href="https://github.com/FirebaseExtended/studio-prototypers"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm hover:text-primary transition-colors"
+            >
+              GitHub
+            </a>
           </nav>
         </div>
         <div className="mt-8 text-center text-xs border-t border-border pt-6">
