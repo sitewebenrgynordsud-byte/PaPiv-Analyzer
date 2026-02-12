@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 
 interface ToolInterfaceProps {
   tool: ToolConfig;
@@ -28,31 +29,37 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     setMounted(true);
   }, []);
 
-  // Real-time processing effect
+  // Debounced real-time processing effect
   useEffect(() => {
     if (!mounted) return;
 
-    try {
-      const result = processText(tool.slug, input);
-      // Check for custom error prefixes from the processor
-      if (result.startsWith('Error:') || result.startsWith('❌') || result.startsWith('⚠️') || result.startsWith('Invalid JSON')) {
-        setError(result);
+    const handler = setTimeout(() => {
+      try {
+        const result = processText(tool.slug, input);
+        // Check for custom error prefixes from the processor
+        if (result.startsWith('Error:') || result.startsWith('❌') || result.startsWith('⚠️') || result.startsWith('Invalid JSON')) {
+          setError(result);
+          setOutput('');
+        } else {
+          setOutput(result);
+          setError(null);
+        }
+      } catch (e) {
+        const errorMessage =
+          e instanceof Error ? e.message : 'An unknown processing error occurred.';
+        setError(`Error: ${errorMessage}`);
         setOutput('');
-      } else {
-        setOutput(result);
-        setError(null);
       }
-    } catch (e) {
-      const errorMessage =
-        e instanceof Error ? e.message : 'An unknown processing error occurred.';
-      setError(`Error: ${errorMessage}`);
-      setOutput('');
-    }
+    }, 100); // 100ms debounce
+
+    return () => {
+      clearTimeout(handler);
+    };
   }, [input, tool.slug, mounted]);
 
 
   const handleCopy = () => {
-    if (!output) return;
+    if (!output || isCopied) return;
     navigator.clipboard.writeText(output);
     toast({
       title: 'Copied to clipboard!',
@@ -65,6 +72,8 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   
   const handleClear = () => {
     setInput('');
+    setOutput('');
+    setError(null);
   };
 
   if (!mounted) {
@@ -103,16 +112,20 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
             <CardTitle className="capitalize">
               Output: {tool.outputType}
             </CardTitle>
-            {output && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleCopy}
-                aria-label="Copy output"
-              >
-                {isCopied ? <Check className="h-4 w-4 text-accent" /> : <Copy className="h-4 w-4" />}
-              </Button>
-            )}
+            <div className="flex items-center gap-2">
+              <Badge variant="outline">{tool.category}</Badge>
+              {output && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleCopy}
+                  aria-label="Copy output"
+                  disabled={isCopied}
+                >
+                  {isCopied ? <Check className="h-4 w-4 text-accent" /> : <Copy className="h-4 w-4" />}
+                </Button>
+              )}
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             {error && (
@@ -131,7 +144,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 readOnly
                 value={output}
                 className="min-h-[300px] resize-y bg-muted font-mono whitespace-pre-wrap"
-                placeholder="Result will appear here..."
+                placeholder="Waiting for input..."
               />
             </div>
           </CardContent>
