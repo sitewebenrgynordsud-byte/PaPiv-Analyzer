@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Copy, Trash, Terminal, Check } from 'lucide-react';
+import { Copy, Trash, Terminal, Check, Share2 } from 'lucide-react';
+import Link from 'next/link';
 
-import { type ToolConfig } from '@/config/tools';
+import { ALL_TOOLS, type ToolConfig } from '@/config/tools';
 import { processText } from '@/lib/processor';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,11 +24,20 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [isUrlCopied, setIsUrlCopied] = useState(false);
   const { toast } = useToast();
+  const [relatedTools, setRelatedTools] = useState<ToolConfig[]>([]);
+  const [currentUrl, setCurrentUrl] = useState('');
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    setCurrentUrl(window.location.href);
+
+    // Generate related tools
+    const otherTools = ALL_TOOLS.filter((t) => t.slug !== tool.slug);
+    const shuffled = otherTools.sort(() => 0.5 - Math.random());
+    setRelatedTools(shuffled.slice(0, 3));
+  }, [tool.slug]);
 
   // Debounced real-time processing effect
   useEffect(() => {
@@ -36,7 +46,6 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     const handler = setTimeout(() => {
       try {
         const result = processText(tool.slug, input);
-        // Check for custom error prefixes from the processor
         if (result.startsWith('Error:') || result.startsWith('❌') || result.startsWith('⚠️') || result.startsWith('Invalid JSON')) {
           setError(result);
           setOutput('');
@@ -50,7 +59,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
         setError(`Error: ${errorMessage}`);
         setOutput('');
       }
-    }, 100); // 100ms debounce
+    }, 100);
 
     return () => {
       clearTimeout(handler);
@@ -69,6 +78,19 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
       setIsCopied(false);
     }, 2000);
   };
+
+  const handleCopyUrl = () => {
+    if (isUrlCopied || !currentUrl) return;
+    navigator.clipboard.writeText(currentUrl);
+    toast({
+      title: 'URL Copied!',
+      description: 'Link to this tool has been copied to your clipboard.',
+    });
+    setIsUrlCopied(true);
+    setTimeout(() => {
+      setIsUrlCopied(false);
+    }, 2000);
+  }
   
   const handleClear = () => {
     setInput('');
@@ -114,6 +136,15 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
             </CardTitle>
             <div className="flex items-center gap-2">
               <Badge variant="outline">{tool.category}</Badge>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleCopyUrl}
+                aria-label="Copy tool URL"
+                disabled={isUrlCopied}
+              >
+                {isUrlCopied ? <Check className="h-4 w-4 text-accent" /> : <Share2 className="h-4 w-4" />}
+              </Button>
               {output && (
                 <Button
                   variant="ghost"
@@ -150,6 +181,25 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
           </CardContent>
         </Card>
       </div>
+      {relatedTools.length > 0 && (
+        <div className="mt-16">
+            <h2 className="text-2xl font-bold font-headline text-center mb-8">You Might Also Like</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {relatedTools.map(relatedTool => (
+                    <Link href={`/tool/${relatedTool.slug}`} key={relatedTool.slug} className="block">
+                        <Card className="h-full hover:border-accent transition-shadow duration-300 shadow-sm hover:shadow-lg">
+                            <CardHeader>
+                                <CardTitle className="font-headline text-lg">{relatedTool.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-sm text-muted-foreground">{relatedTool.description}</p>
+                            </CardContent>
+                        </Card>
+                    </Link>
+                ))}
+            </div>
+        </div>
+      )}
     </div>
   );
 }

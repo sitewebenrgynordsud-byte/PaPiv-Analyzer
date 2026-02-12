@@ -32,7 +32,7 @@ export async function generateMetadata({
     title: tool.title,
     description: tool.description,
     alternates: {
-      canonical: `/tool/${tool.slug}`,
+      canonical: `https://papiv.com/tool/${tool.slug}`,
     },
   };
 }
@@ -57,7 +57,7 @@ export default function ToolPage({ params }: ToolPageProps) {
     );
   }
 
-  const jsonLd = {
+  const softwareJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: tool.title,
@@ -77,11 +77,46 @@ export default function ToolPage({ params }: ToolPageProps) {
     },
   };
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `How does the ${tool.title} work?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Using the ${tool.title} is simple. Just paste your ${tool.inputType} content into the input area provided. The tool will instantly process your data in real-time, and the converted ${tool.outputType} result will appear in the output box. No clicks needed!`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is this tool free to use?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes, the ${tool.title} is completely free to use. PaPiv is committed to providing a suite of powerful, open-source tools for developers and professionals without any cost or subscriptions.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is my data secure when using this tool?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Absolutely. Your privacy and security are our top priorities. All data processing for the ${tool.title} happens entirely within your browser (client-side). Your information is never sent to or stored on our servers, ensuring it remains 100% private.`,
+        },
+      },
+    ],
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Header />
       <main className="flex-1">
