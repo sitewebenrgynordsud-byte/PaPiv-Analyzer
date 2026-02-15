@@ -112,6 +112,33 @@ export function processText(toolSlug: string, input: string): string {
         }
         return paragraphs.join('\n\n');
 
+    case 'url-encoder-decoder':
+      // Smart detection: if input has %, try to decode. Else, encode.
+      if (input.includes('%')) {
+        try { return decodeURIComponent(input); } catch (e) { return "Error: Invalid URL encoding"; }
+      }
+      return encodeURIComponent(input);
+
+    case 'text-to-binary':
+      return input.split('').map(char => {
+          return char.charCodeAt(0).toString(2).padStart(8, '0');
+      }).join(' ');
+
+    case 'hex-to-rgb':
+      let hex = input.trim().replace('#', '');
+      // Handle shorthand hex like #fff
+      if (hex.length === 3) {
+        hex = hex.split('').map(c => c + c).join('');
+      }
+      if (hex.length !== 6) return "Error: Invalid Hex Code";
+
+      const r = parseInt(hex.substring(0, 2), 16);
+      const g = parseInt(hex.substring(2, 4), 16);
+      const b = parseInt(hex.substring(4, 6), 16);
+
+      if (isNaN(r) || isNaN(g) || isNaN(b)) return "Error: Invalid Hex Characters";
+      return `rgb(${r}, ${g}, ${b})`;
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

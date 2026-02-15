@@ -226,7 +226,7 @@ What is the Base64 Converter?
 Base64 is an encoding scheme that represents binary data in an ASCII string format. It's commonly used to transmit data over media that are designed to handle text. This tool provides a simple interface to perform this encoding and decoding without needing command-line tools or writing scripts. It's a fundamental utility for developers working with data transfer, APIs, and file embedding.
 
 How to Use This Converter?
-Paste your text into the input field. If you enter plain text, the tool will encode it into Base64. If you enter a valid Base64 string, the tool will decode it back to plain text. The conversion happens instantly in your browser. This automatic detection makes it incredibly easy to use, whether you're encoding a secret for an API header or decoding a data URI.
+Paste your text into the input field. If you enter plain text, the tool will encode it into Base64. If you enter a valid Base64 string, the tool will decode it back to plain text. The conversion happens instantly in your browser. This automatic detection makes it incredibly easy to use, whether you're encoding a secret for an API header or decoding a a data URI.
 
 Common Use Cases
 Developers use Base64 to embed binary data, like images or fonts, directly into CSS or HTML files (data URIs). It's also used for basic authentication in HTTP headers and for sending attachments in emails. Any time you need to safely transmit data that might otherwise be misinterpreted as control characters, Base64 is a common solution.
@@ -262,6 +262,63 @@ Manually copying and pasting placeholder text is tedious and repetitive. This ge
       { text: "Lipsum.com - The original Lorem Ipsum generator", href: "https://www.lipsum.com/" },
       { text: "Wikipedia: Lorem Ipsum", href: "https://en.wikipedia.org/wiki/Lorem_ipsum" }
     ],
+  },
+  {
+    slug: 'url-encoder-decoder',
+    title: 'Smart URL Encoder & Decoder',
+    description: 'Convert text to URL-safe format or decode URLs back to normal text.',
+    category: 'Web',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `What is the Smart URL Encoder & Decoder?
+Our Smart URL Encoder & Decoder is a web utility for converting strings into a URL-safe format and vice versa. URL encoding, also known as percent-encoding, ensures that data sent in a URL is correctly transmitted and interpreted. It replaces unsafe ASCII characters (like spaces, &, or +) with a '%' followed by two hexadecimal digits. Our "smart" tool automatically detects whether your input string needs to be encoded or decoded, saving you a step. If it sees a '%' character, it assumes you want to decode; otherwise, it encodes.
+
+How to use the Smart URL Encoder & Decoder effectively?
+Using this tool is designed to be effortless for developers. Paste any string or URL parameter into the input box. For example, if you paste "search?q=a&b", it will be instantly converted to "search%3Fq%3Da%26b". Conversely, pasting the encoded version will decode it back to the original text. This real-time, bidirectional conversion is crucial for debugging query strings, creating dynamic links, or inspecting data sent in API requests. There are no buttons to press, making the workflow incredibly fast and efficient for any web development task.
+
+Why is the Smart URL Encoder & Decoder essential for developers?
+Proper URL encoding is fundamental to web development for data integrity and security. Without it, special characters in a URL can be misinterpreted by browsers or servers, leading to broken links, incorrect data processing, or even security vulnerabilities. Our Smart URL Encoder & Decoder provides a quick, reliable, and privacy-focused way to handle this. Since it runs entirely in your browser, your data is never sent to a server. This is essential for developers who need a fast, secure utility for handling URL data without any risk.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: encodeURIComponent()', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent' }
+    ]
+  },
+  {
+    slug: 'text-to-binary',
+    title: 'Text to Binary Converter',
+    description: 'Translate text characters into 0s and 1s (Binary code) instantly.',
+    category: 'Education',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `What is the Text to Binary Converter?
+The Text to Binary Converter is an educational and practical tool that translates human-readable text into binary code—the fundamental language of computers, represented by 0s and 1s. Each character you type is converted into its corresponding 8-bit ASCII or UTF-8 value, and then that value is represented in binary. For example, the letter "A" becomes "01000001". This tool provides a direct window into how computers store and process textual information at the most basic level, making it invaluable for students and programmers.
+
+How to use the Text to Binary Converter effectively?
+To use the converter, simply type or paste any text into the input field. The tool will instantly provide a real-time translation into binary code in the output area, with each 8-bit binary number separated by a space for readability. You can use this to learn how different characters are represented, to create encoded messages, or to understand data representation in computer science. The immediate feedback helps solidify the connection between abstract characters and their concrete binary counterparts, which is a core concept in computing.
+
+Why is the Text to Binary Converter essential for learning?
+Understanding binary is a cornerstone of computer literacy. It demystifies how computers handle everything from simple text to complex software. Our Text to Binary Converter makes this concept tangible and interactive. It's an excellent resource for computer science students, aspiring programmers, or anyone curious about the inner workings of digital technology. By seeing the direct translation, users can grasp the standardized nature of character encoding (like ASCII) and appreciate the binary system's foundational role. As a client-side tool, it's fast, private, and accessible to anyone, anywhere.`,
+    externalReferences: [
+      { text: 'Wikipedia: Binary Code', href: 'https://en.wikipedia.org/wiki/Binary_code' }
+    ]
+  },
+  {
+    slug: 'hex-to-rgb',
+    title: 'Hex to RGB Color Converter',
+    description: 'Convert Hexadecimal color codes (#FF0000) to RGB values (rgb(255, 0, 0)).',
+    category: 'Design',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `What is the Hex to RGB Color Converter?
+The Hex to RGB Color Converter is an essential utility for web developers and designers. It translates hexadecimal color codes (e.g., #FF5733) into the corresponding RGB format (e.g., rgb(255, 87, 51)). Hex and RGB are two of the most common ways to define colors in web design and CSS. This tool seamlessly bridges the gap between them, supporting both 3-digit (#F0C) and 6-digit (#FF00CC) hex codes. It provides a quick and error-free way to manage color values across different platforms and tools.
+
+How to use the Hex to RGB Color Converter effectively?
+Using the converter is simple: just paste your hex code into the input field (with or without the "#"). The corresponding RGB value will appear instantly in the output field. This is perfect for when a design tool provides a hex code, but your CSS or JavaScript framework requires an RGB value, perhaps for use with an 'rgba()' function to control opacity. The real-time conversion removes any guesswork and ensures you get the exact color you need without manual calculations, streamlining your design and development workflow.
+
+Why is the Hex to RGB Color Converter essential for designers?
+Color consistency is key to professional web design. While many modern tools support both Hex and RGB, there are still many instances where conversion is necessary. The Hex to RGB Color Converter ensures you can work with any color format you're given, maintaining brand consistency across a website or application. It’s a fundamental tool for front-end developers, UI designers, and digital artists who need to speak the language of web colors fluently. Since this tool runs entirely client-side, it's incredibly fast and guarantees that your color palettes and design information remain private.`,
+    externalReferences: [
+      { text: 'W3Schools: CSS Colors', href: 'https://www.w3schools.com/css/css_colors.asp' }
+    ]
   },
 ];
 
