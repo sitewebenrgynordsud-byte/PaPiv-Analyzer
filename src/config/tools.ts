@@ -320,6 +320,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'W3Schools: CSS Colors', href: 'https://www.w3schools.com/css/css_colors.asp' }
     ]
   },
+  {
+    slug: 'reverse-text',
+    title: 'Reverse Text Generator',
+    description: 'Flip your text backwards instantly. Great for social media fun.',
+    category: 'Text',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The Reverse Text Generator is a simple and fun utility that flips any given text backward. It's a great way to create quirky social media posts, encode simple messages for puzzles, or just see how words and sentences look in mirror image. While not a form of strong cryptography, reversing text is a basic type of transposition cipher and can be a fun first step into understanding how ciphers work. The effect is similar to mirror writing, a script style famously used by Leonardo da Vinci. Use it to create funny usernames, surprise your friends, or add a twist to your online content. This tool processes everything instantly in your browser, ensuring your text remains private.`,
+    externalReferences: [
+      { text: 'Wikipedia: Mirror Writing', href: 'https://en.wikipedia.org/wiki/Mirror_writing' }
+    ]
+  },
+  {
+    slug: 'random-password-generator',
+    title: 'Strong Random Password Generator',
+    description: 'Generate secure, random passwords instantly to protect your accounts.',
+    category: 'Security',
+    inputType: 'number',
+    outputType: 'text',
+    longDescription: `The Strong Random Password Generator is a critical security tool for creating robust, unpredictable passwords to protect your online accounts. In an age of constant cyber threats, using weak or reused passwords is a significant risk. This tool generates passwords using a large character set including letters, numbers, and symbols, significantly increasing the password's entropy and making it resistant to brute-force attacks. The longer and more random the password, the harder it is to crack. Adhering to modern security standards, like those from NIST, means focusing on length and randomness over complex, hard-to-remember rules. Use this generator to create secure passwords for all your sensitive accounts. Because it runs client-side, the generated passwords are never sent over the internet.`,
+    externalReferences: [
+      { text: 'NIST Password Guidelines', href: 'https://www.nist.gov/itl/applied-cybersecurity/privacy-engineering/guidance-and-responsibilities/templates/password-guidelines' }
+    ]
+  },
+  {
+    slug: 'uuid-generator',
+    title: 'UUID v4 Generator',
+    description: 'Generate unique identifiers (UUIDs) for your database or software projects.',
+    category: 'Dev',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The UUID v4 Generator creates universally unique identifiers, which are 128-bit numbers used to uniquely identify information in computer systems. Version 4 UUIDs are generated using random numbers, making them ideal for use as primary keys in databases, unique transaction IDs, or for any scenario where you need a unique identifier without relying on a central authority to issue it. The probability of a collision (two generated UUIDs being the same) is astronomically low, making them a reliable choice for distributed systems. This tool uses the browser's built-in \`crypto\` API for generating cryptographically strong random UUIDs, ensuring the highest level of randomness and uniqueness for your software projects.`,
+    externalReferences: [
+      { text: 'IETF RFC 4122', href: 'https://www.ietf.org/rfc/rfc4122.txt' }
+    ]
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {

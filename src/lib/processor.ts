@@ -1,5 +1,5 @@
 export function processText(toolSlug: string, input: string): string {
-  if (!input && toolSlug !== 'lorem-ipsum-generator') return '';
+  if (!input && toolSlug !== 'lorem-ipsum-generator' && toolSlug !== 'random-password-generator' && toolSlug !== 'uuid-generator') return '';
   const text = input.trim();
   const slug = toolSlug.toLowerCase();
 
@@ -70,14 +70,13 @@ export function processText(toolSlug: string, input: string): string {
     case 'base64-converter':
         try {
             // Attempt to decode. If it throws, it's not valid Base64, so we encode.
-            return atob(text);
-        } catch (e) {
-            // It's not Base64, so let's encode it.
-            try {
-                return btoa(text);
-            } catch (e2) {
-                return "Invalid input for Base64 conversion";
+            // A simple check to see if it's likely Base64.
+            if (/^[A-Za-z0-9+/=]+$/.test(text) && text.length % 4 === 0) {
+                return atob(text);
             }
+            return btoa(text);
+        } catch (e) {
+            return "Invalid input for Base64 conversion";
         }
 
     case 'lorem-ipsum-generator':
@@ -138,6 +137,37 @@ export function processText(toolSlug: string, input: string): string {
 
       if (isNaN(r) || isNaN(g) || isNaN(b)) return "Error: Invalid Hex Characters";
       return `rgb(${r}, ${g}, ${b})`;
+
+    case 'reverse-text':
+      return input.split('').reverse().join('');
+
+    case 'random-password-generator':
+      const length = parseInt(input) || 16; // Default to 16 chars
+      const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+      let password = "";
+      if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+        const values = new Uint32Array(length);
+        crypto.getRandomValues(values);
+        for (let i = 0; i < length; i++) {
+          password += charset[values[i] % charset.length];
+        }
+      } else {
+        // Fallback for older browsers
+        for (let i = 0, n = charset.length; i < length; ++i) {
+          password += charset.charAt(Math.floor(Math.random() * n));
+        }
+      }
+      return password;
+
+    case 'uuid-generator':
+      // Simple UUID v4 implementation using crypto or Math fallback
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+         return crypto.randomUUID();
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
 
     default:
       return `Error: Tool with slug '${slug}' not found.`;
