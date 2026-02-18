@@ -392,6 +392,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Wikipedia: SQL Syntax', href: 'https://en.wikipedia.org/wiki/SQL_syntax' }
     ],
   },
+  {
+    slug: 'jwt-decoder',
+    title: 'JWT Token Decoder',
+    description: 'Decode JSON Web Tokens (JWT) instantly to view the header and payload.',
+    category: 'Security',
+    inputType: 'text',
+    outputType: 'json',
+    longDescription: `The JWT Token Decoder is a vital utility for developers working with modern authentication systems. It allows you to paste a JSON Web Token (JWT) and instantly see the decoded header and payload. This is essential for debugging authentication flows, verifying the contents of an ID token from an OAuth provider, or inspecting the claims (like user roles and permissions) embedded within a token. The tool does not validate the token's signature, as that requires a secret key; its purpose is to inspect the public parts of the token safely. It's a quick and secure way to look inside a JWT without sending sensitive tokens to a third-party server, as all decoding happens client-side.`,
+    externalReferences: [
+      { text: 'jwt.io - Introduction to JSON Web Tokens', href: 'https://jwt.io/introduction' }
+    ]
+  },
+  {
+    slug: 'rgb-to-hex',
+    title: 'RGB to Hex Color Converter',
+    description: 'Convert RGB values like rgb(255, 0, 0) to Hexadecimal codes (#FF0000).',
+    category: 'Design',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The RGB to Hex Color Converter is a simple but essential tool for designers and front-end developers. It translates RGB color values (e.g., "rgb(255, 87, 51)") into their hexadecimal equivalent (e.g., "#FF5733"). While RGB is often more intuitive for picking colors, Hex is more compact and widely used in CSS and design systems. This converter bridges the gap, allowing you to easily switch between the two formats to maintain color consistency in your projects. Whether you're pulling a color from a design mockup or converting a color for a specific library, this tool ensures you get the exact hex code you need instantly.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: <color>', href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value' }
+    ]
+  },
+  {
+    slug: 'unix-timestamp-converter',
+    title: 'Unix Timestamp to Date',
+    description: 'Convert Unix Epoch timestamps to human-readable dates and UTC time.',
+    category: 'Dev',
+    inputType: 'number',
+    outputType: 'text',
+    longDescription: `The Unix Timestamp Converter is a crucial developer utility for making sense of time-based data. A Unix timestamp (or Epoch time) represents a point in time as the number of seconds that have elapsed since January 1, 1970 (UTC). This format is widely used in server logs, databases, and APIs because it's a simple, universal number. This tool converts that number into a human-readable date and time, showing both UTC and your local time zone. It's invaluable for debugging server logs, checking when an API key expires, or understanding the timestamps in a database record. The tool handles both seconds and millisecond-precision timestamps automatically.`,
+    externalReferences: [
+      { text: 'Wikipedia: Unix Time', href: 'https://en.wikipedia.org/wiki/Unix_time' }
+    ]
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {

@@ -192,6 +192,35 @@ export function processText(toolSlug: string, input: string): string {
         .replace(/\s+/g, ' ')   // Collapse whitespace
         .trim();
 
+    case 'jwt-decoder':
+      try {
+        const parts = input.split('.');
+        if (parts.length !== 3) return "Error: Invalid JWT format (must have 3 parts).";
+        // Decode the payload (2nd part)
+        const payload = atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'));
+        const header = atob(parts[0].replace(/-/g, '+').replace(/_/g, '/'));
+        return JSON.stringify({ header: JSON.parse(header), payload: JSON.parse(payload) }, null, 2);
+      } catch (e) {
+        return "Error: Could not decode JWT. Check if it's valid Base64Url.";
+      }
+
+    case 'rgb-to-hex':
+      // Extract numbers from string like "rgb(255, 0, 0)" or "255, 0, 0"
+      const rgb = input.match(/\d+/g);
+      if (!rgb || rgb.length < 3) return "Error: Invalid RGB format. Use '255, 0, 0'";
+      const toHex = (c: string) => {
+        const hex = parseInt(c).toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+      };
+      return "#" + toHex(rgb[0]) + toHex(rgb[1]) + toHex(rgb[2]);
+
+    case 'unix-timestamp-converter':
+      const timestamp = parseInt(input.trim());
+      if (isNaN(timestamp)) return "Error: Invalid timestamp.";
+      // Check if it's seconds (10 digits) or ms (13 digits), usually seconds for Unix
+      const date = new Date(timestamp * (timestamp < 10000000000 ? 1000 : 1));
+      return `📅 UTC: ${date.toUTCString()}\n🕒 Local: ${date.toString()}\nISO: ${date.toISOString()}`;
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }
