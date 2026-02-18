@@ -356,6 +356,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'IETF RFC 4122', href: 'https://www.ietf.org/rfc/rfc4122.txt' }
     ]
   },
+  {
+    slug: 'json-minifier',
+    title: 'JSON Minifier & Compressor',
+    description: 'Compress your JSON data by removing whitespace to reduce file size.',
+    category: 'Dev',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The JSON Minifier & Compressor is an essential tool for web developers looking to optimize their data transfer. It reduces the size of JSON files by removing all unnecessary whitespace, such as spaces, tabs, and newlines. This process, known as minification, results in a smaller file size, which leads to faster API response times and reduced bandwidth consumption. Smaller payloads are critical for mobile applications and users with slower internet connections. By compressing your JSON, you can significantly improve the performance of your web services. This tool validates the JSON before minifying, ensuring that the output is both compact and syntactically correct, ready for use in a production environment.`,
+    externalReferences: [
+      { text: 'JSON.org', href: 'https://www.json.org/json-en.html' }
+    ],
+  },
+  {
+    slug: 'css-minifier',
+    title: 'CSS Minifier Online',
+    description: 'Minify CSS code instantly to improve website loading speed.',
+    category: 'Dev',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The CSS Minifier Online tool is a crucial utility for front-end developers focused on web performance. It compresses your CSS code by stripping out all non-essential characters, including comments, whitespace, and newlines, without affecting how the code is processed by the browser. Minifying CSS files leads to smaller file sizes, which in turn results in faster page load times. This is a key factor in improving user experience and boosting your site's Core Web Vitals scores, which can positively impact your SEO rankings. A faster website is a better website, and minifying your stylesheets is a simple yet highly effective optimization technique.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: Minification', href: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Minification' }
+    ],
+  },
+  {
+    slug: 'sql-minifier',
+    title: 'SQL Query Minifier',
+    description: 'Compress SQL queries into a single line for cleaner code embedding.',
+    category: 'Data',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The SQL Query Minifier is a handy tool for database administrators and developers who need to compress their SQL statements. It works by removing comments and collapsing all whitespace into single spaces, effectively converting a long, formatted query into a single, compact line. This is particularly useful when embedding SQL queries directly into application code (e.g., in a string variable), as it makes the code cleaner and less cluttered. It can also help in preparing queries for logging or transmission where newlines might cause issues. While it doesn't optimize the query's execution plan, it significantly improves the readability of the surrounding application code.`,
+    externalReferences: [
+      { text: 'Wikipedia: SQL Syntax', href: 'https://en.wikipedia.org/wiki/SQL_syntax' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {

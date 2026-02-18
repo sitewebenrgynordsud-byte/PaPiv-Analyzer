@@ -169,6 +169,29 @@ export function processText(toolSlug: string, input: string): string {
         return v.toString(16);
       });
 
+    case 'json-minifier':
+      try {
+        // Parse to validate, then stringify without spacing
+        return JSON.stringify(JSON.parse(input));
+      } catch (e) {
+        return "Error: Invalid JSON format. Please check your syntax.";
+      }
+
+    case 'css-minifier':
+      // Basic regex to remove comments and whitespace
+      return input
+        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
+        .replace(/\s+/g, ' ')             // Collapse whitespace
+        .replace(/\s*([{:;,])\s*/g, '$1') // Remove space around separators
+        .trim();
+
+    case 'sql-minifier':
+      // Basic regex to remove newlines and multiple spaces
+      return input
+        .replace(/--.*$/gm, '') // Remove inline comments
+        .replace(/\s+/g, ' ')   // Collapse whitespace
+        .trim();
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }
