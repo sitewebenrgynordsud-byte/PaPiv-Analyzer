@@ -238,13 +238,14 @@ export function processText(toolSlug: string, input: string): string {
       return Array.from(uniqueLines).join('\n');
     }
 
-    case 'sort-lines':
+    case 'sort-lines': {
       // Basic alphabetical sort
       return input
         .split(/\r?\n/)
         .filter(line => line.trim() !== '')
         .sort((a, b) => a.localeCompare(b))
         .join('\n');
+    }
 
     case 'email-extractor': {
       // Regex to find emails
@@ -253,6 +254,33 @@ export function processText(toolSlug: string, input: string): string {
       if (!emails) return "No emails found in the text.";
       // Return unique emails only, one per line
       return Array.from(new Set(emails)).join('\n');
+    }
+
+    case 'html-tags-remover':
+      // Regex to replace any HTML tag with empty string
+      return input.replace(/<[^>]*>?/gm, '');
+
+    case 'list-randomizer': {
+      // Fisher-Yates Shuffle Algorithm
+      const arr = input.split(/\r?\n/).filter(line => line.trim() !== '');
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr.join('\n');
+    }
+
+    case 'morse-code-translator': {
+      const morseMap: Record<string, string> = {
+        'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+        'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+        'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+        'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+        'Y': '-.--', 'Z': '--..', '1': '.----', '2': '..---', '3': '...--',
+        '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..',
+        '9': '----.', '0': '-----', ' ': ' / '
+      };
+      return input.toUpperCase().split('').map(char => morseMap[char] || char).join(' ');
     }
 
     default:

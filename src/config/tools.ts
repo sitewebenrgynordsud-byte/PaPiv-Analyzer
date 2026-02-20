@@ -464,6 +464,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Regular Expressions Info: Email Validation', href: 'https://www.regular-expressions.info/email.html' },
     ],
   },
+  {
+    slug: 'html-tags-remover',
+    title: 'Strip HTML Tags',
+    description: 'Remove all HTML tags from a text block, leaving only the plain text content.',
+    category: 'Web',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: "The HTML Tags Remover, also known as a stripper, is a powerful utility for cleaning up web content. It meticulously removes all HTML and XML tags from a block of text, leaving you with only the plain, unformatted content. This is incredibly useful for content managers who need to migrate articles from one CMS to another, for SEO analysts who want to analyze the pure text of a page without the noise of markup, or for developers who need to extract data from a web page. By stripping away the tags, you can prepare text for natural language processing, count words accurately, or simply reformat it for a different medium. This tool provides a quick, reliable, and client-side method to get clean text from complex HTML documents.",
+    externalReferences: [
+      { text: 'MDN Web Docs: Introduction to HTML', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML' }
+    ],
+  },
+  {
+    slug: 'list-randomizer',
+    title: 'Random List Shuffler',
+    description: 'Randomize the order of lines in your list instantly. Perfect for raffles or sampling.',
+    category: 'Data',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: "The Random List Shuffler is a simple yet powerful tool for randomizing the order of any list of items. It uses a version of the well-regarded Fisher-Yates shuffle algorithm, a provably unbiased method for generating a random permutation of a finite sequence. This ensures that every possible ordering is equally likely. This tool is perfect for teachers creating random groups, organizers running a raffle or giveaway, or researchers needing to select a random sample from a dataset. Just paste your list (with one item per line), and the tool will instantly give you a shuffled version. Because it runs entirely in your browser, you can be sure the randomization process is both instantaneous and secure.",
+    externalReferences: [
+      { text: 'Wikipedia: Fisher–Yates shuffle', href: 'https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle' }
+    ],
+  },
+  {
+    slug: 'morse-code-translator',
+    title: 'Text to Morse Code',
+    description: 'Translate normal text into Morse Code dots and dashes (e.g., ... --- ...).',
+    category: 'Education',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: "The Text to Morse Code translator converts standard text into the historic system of dots and dashes developed by Samuel Morse in the 1830s. Morse code revolutionized long-distance communication by encoding the alphabet into a binary-like signal that could be transmitted over telegraph wires. Each character is represented by a unique sequence of short signals (dots) and long signals (dashes). Our tool provides an instant translation, making it a fun way to learn this important piece of telecommunication history, create puzzles, or send encoded messages. It's a fantastic educational utility that demonstrates the foundational principles of encoding information for transmission, a concept that is still at the heart of all modern digital communication.",
+    externalReferences: [
+      { text: 'Wikipedia: Samuel Morse', href: 'https://en.wikipedia.org/wiki/Samuel_Morse' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
