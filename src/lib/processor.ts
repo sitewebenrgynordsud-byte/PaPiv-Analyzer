@@ -220,6 +220,28 @@ export function processText(toolSlug: string, input: string): string {
       // Check if it's seconds (10 digits) or ms (13 digits), usually seconds for Unix
       const date = new Date(timestamp * (timestamp < 10000000000 ? 1000 : 1));
       return `📅 UTC: ${date.toUTCString()}\n🕒 Local: ${date.toString()}\nISO: ${date.toISOString()}`;
+    
+    case 'remove-duplicate-lines':
+      // Use Set for O(n) performance to remove duplicates
+      const lines = input.split(/\r?\n/);
+      const uniqueLines = new Set(lines.map(l => l.trim()).filter(l => l.length > 0));
+      return Array.from(uniqueLines).join('\n');
+
+    case 'sort-lines':
+      // Basic alphabetical sort
+      return input
+        .split(/\r?\n/)
+        .filter(line => line.trim() !== '')
+        .sort((a, b) => a.localeCompare(b))
+        .join('\n');
+
+    case 'email-extractor':
+      // Regex to find emails
+      const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+      const emails = input.match(emailRegex);
+      if (!emails) return "No emails found in the text.";
+      // Return unique emails only, one per line
+      return Array.from(new Set(emails)).join('\n');
 
     default:
       return `Error: Tool with slug '${slug}' not found.`;

@@ -428,6 +428,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Wikipedia: Unix Time', href: 'https://en.wikipedia.org/wiki/Unix_time' }
     ]
   },
+  {
+    slug: 'remove-duplicate-lines',
+    title: 'Remove Duplicate Lines',
+    description: 'Instantly remove repeated lines from your text or data lists.',
+    category: 'Data',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'The Remove Duplicate Lines tool is a powerful utility for data cleaning and list management. It instantly processes any text input and removes all repeated lines, providing you with a clean, unique list. This is essential for SEO specialists organizing keyword lists, marketers cleaning up email subscriber lists before a campaign, or developers deduplicating log files. By ensuring every line is unique, you can prevent errors, improve data quality, and make your datasets more manageable. The tool is designed for performance, using efficient algorithms to handle large lists with ease, all within the privacy of your browser.',
+    externalReferences: [
+      { text: 'Data Cleansing on Wikipedia', href: 'https://en.wikipedia.org/wiki/Data_cleansing' },
+    ],
+  },
+  {
+    slug: 'sort-lines',
+    title: 'Sort Lines Alphabetically',
+    description: 'Organize your text lists instantly from A to Z (or Z to A).',
+    category: 'Data',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'The Sort Lines Alphabetically tool provides a quick and easy way to organize text-based lists. Whether you have a list of names, URLs, or any other data, this utility will sort them in ascending (A-Z) alphabetical order instantly. This is invaluable for developers working with configuration files, writers organizing notes, or anyone needing to bring order to unstructured text. The tool uses a locale-aware comparison, ensuring that sorting is accurate across different languages and character sets. It\'s a fundamental building block for any data organization task, running securely in your browser.',
+    externalReferences: [
+      { text: 'MDN Web Docs: Array.prototype.sort()', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort' },
+    ],
+  },
+  {
+    slug: 'email-extractor',
+    title: 'Email Address Extractor',
+    description: 'Extract all email addresses from a large block of text instantly.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'The Email Address Extractor is a must-have tool for sales and marketing professionals. It automatically scans a large block of text—such as a document, web page source, or log file—and extracts all valid email addresses it finds. This is incredibly useful for lead generation, compiling contact lists from unstructured sources, or recovering emails from a corrupted file. The tool uses a robust regular expression to accurately identify email patterns while ignoring other text. It also ensures that the final list contains only unique email addresses, saving you the extra step of deduplication. All processing is done in your browser for maximum privacy.',
+    externalReferences: [
+      { text: 'Regular Expressions Info: Email Validation', href: 'https://www.regular-expressions.info/email.html' },
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
