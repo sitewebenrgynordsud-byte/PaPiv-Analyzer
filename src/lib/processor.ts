@@ -20,14 +20,15 @@ export function processText(toolSlug: string, input: string): string {
         .replace(/[^\w ]+/g, '')
         .replace(/ +/g, '-');
 
-    case 'text-statistics':
+    case 'text-statistics': {
       const words = text === '' ? 0 : text.split(/\s+/).filter(Boolean).length;
       const characters = input.length;
       const lines = input.split('\n').length;
       const readingTime = Math.ceil(words / 200);
       return JSON.stringify({ words, characters, lines, readingTime });
+    }
 
-    case 'json-to-csv':
+    case 'json-to-csv': {
       try {
         const json = JSON.parse(text);
         const array = Array.isArray(json) ? json : [json];
@@ -40,11 +41,12 @@ export function processText(toolSlug: string, input: string): string {
         }
         return [keys.join(','), ...array.map(row => keys.map(k => JSON.stringify(row[k] ?? '')).join(','))].join('\n');
       } catch (e) { return "Invalid JSON"; }
+    }
 
     case 'text-to-lowercase':
         return input.toLowerCase();
 
-    case 'html-entity-converter':
+    case 'html-entity-converter': {
       // Auto-detect: if it contains entities, decode. Otherwise, encode.
       if (/&[a-zA-Z0-9#]+;/.test(text)) {
         // Decode
@@ -66,8 +68,9 @@ export function processText(toolSlug: string, input: string): string {
           };
           return input.replace(/[&<>"']/g, (m) => map[m]);
       }
+    }
 
-    case 'base64-converter':
+    case 'base64-converter': {
         try {
             // Attempt to decode. If it throws, it's not valid Base64, so we encode.
             // A simple check to see if it's likely Base64.
@@ -78,8 +81,9 @@ export function processText(toolSlug: string, input: string): string {
         } catch (e) {
             return "Invalid input for Base64 conversion";
         }
+      }
 
-    case 'lorem-ipsum-generator':
+    case 'lorem-ipsum-generator': {
         const sentences = [
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -110,6 +114,7 @@ export function processText(toolSlug: string, input: string): string {
             paragraphs.push(paragraphSentences.trim());
         }
         return paragraphs.join('\n\n');
+    }
 
     case 'url-encoder-decoder':
       // Smart detection: if input has %, try to decode. Else, encode.
@@ -123,7 +128,7 @@ export function processText(toolSlug: string, input: string): string {
           return char.charCodeAt(0).toString(2).padStart(8, '0');
       }).join(' ');
 
-    case 'hex-to-rgb':
+    case 'hex-to-rgb': {
       let hex = input.trim().replace('#', '');
       // Handle shorthand hex like #fff
       if (hex.length === 3) {
@@ -137,11 +142,12 @@ export function processText(toolSlug: string, input: string): string {
 
       if (isNaN(r) || isNaN(g) || isNaN(b)) return "Error: Invalid Hex Characters";
       return `rgb(${r}, ${g}, ${b})`;
+    }
 
     case 'reverse-text':
       return input.split('').reverse().join('');
 
-    case 'random-password-generator':
+    case 'random-password-generator': {
       const length = parseInt(input) || 16; // Default to 16 chars
       const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
       let password = "";
@@ -158,6 +164,7 @@ export function processText(toolSlug: string, input: string): string {
         }
       }
       return password;
+    }
 
     case 'uuid-generator':
       // Simple UUID v4 implementation using crypto or Math fallback
@@ -192,7 +199,7 @@ export function processText(toolSlug: string, input: string): string {
         .replace(/\s+/g, ' ')   // Collapse whitespace
         .trim();
 
-    case 'jwt-decoder':
+    case 'jwt-decoder': {
       try {
         const parts = input.split('.');
         if (parts.length !== 3) return "Error: Invalid JWT format (must have 3 parts).";
@@ -203,8 +210,9 @@ export function processText(toolSlug: string, input: string): string {
       } catch (e) {
         return "Error: Could not decode JWT. Check if it's valid Base64Url.";
       }
+    }
 
-    case 'rgb-to-hex':
+    case 'rgb-to-hex': {
       // Extract numbers from string like "rgb(255, 0, 0)" or "255, 0, 0"
       const rgb = input.match(/\d+/g);
       if (!rgb || rgb.length < 3) return "Error: Invalid RGB format. Use '255, 0, 0'";
@@ -213,19 +221,22 @@ export function processText(toolSlug: string, input: string): string {
         return hex.length == 1 ? "0" + hex : hex;
       };
       return "#" + toHex(rgb[0]) + toHex(rgb[1]) + toHex(rgb[2]);
+    }
 
-    case 'unix-timestamp-converter':
+    case 'unix-timestamp-converter': {
       const timestamp = parseInt(input.trim());
       if (isNaN(timestamp)) return "Error: Invalid timestamp.";
       // Check if it's seconds (10 digits) or ms (13 digits), usually seconds for Unix
       const date = new Date(timestamp * (timestamp < 10000000000 ? 1000 : 1));
       return `📅 UTC: ${date.toUTCString()}\n🕒 Local: ${date.toString()}\nISO: ${date.toISOString()}`;
+    }
     
-    case 'remove-duplicate-lines':
+    case 'remove-duplicate-lines': {
       // Use Set for O(n) performance to remove duplicates
       const lines = input.split(/\r?\n/);
       const uniqueLines = new Set(lines.map(l => l.trim()).filter(l => l.length > 0));
       return Array.from(uniqueLines).join('\n');
+    }
 
     case 'sort-lines':
       // Basic alphabetical sort
@@ -235,13 +246,14 @@ export function processText(toolSlug: string, input: string): string {
         .sort((a, b) => a.localeCompare(b))
         .join('\n');
 
-    case 'email-extractor':
+    case 'email-extractor': {
       // Regex to find emails
       const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
       const emails = input.match(emailRegex);
       if (!emails) return "No emails found in the text.";
       // Return unique emails only, one per line
       return Array.from(new Set(emails)).join('\n');
+    }
 
     default:
       return `Error: Tool with slug '${slug}' not found.`;
