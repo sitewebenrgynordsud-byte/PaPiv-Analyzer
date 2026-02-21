@@ -240,11 +240,11 @@ export function processText(toolSlug: string, input: string): string {
 
     case 'sort-lines': {
       // Basic alphabetical sort
-      return input
+      const lines = input
         .split(/\r?\n/)
         .filter(line => line.trim() !== '')
-        .sort((a, b) => a.localeCompare(b))
-        .join('\n');
+        .sort((a, b) => a.localeCompare(b));
+      return lines.join('\n');
     }
 
     case 'email-extractor': {
@@ -281,6 +281,48 @@ export function processText(toolSlug: string, input: string): string {
         '9': '----.', '0': '-----', ' ': ' / '
       };
       return input.toUpperCase().split('').map(char => morseMap[char] || char).join(' ');
+    }
+
+    case 'text-to-hex': {
+        return input.split('').map(char => {
+            return char.charCodeAt(0).toString(16).padStart(2, '0');
+        }).join(' ').toUpperCase();
+    }
+
+    case 'credit-card-validator': {
+        const sanitized = input.replace(/\D/g, '');
+        if (!sanitized) return 'Please enter a valid numeric string.';
+        let sum = 0;
+        let shouldDouble = false;
+        for (let i = sanitized.length - 1; i >= 0; i--) {
+            let digit = parseInt(sanitized.charAt(i), 10);
+            if (shouldDouble) {
+            if ((digit *= 2) > 9) digit -= 9;
+            }
+            sum += digit;
+            shouldDouble = !shouldDouble;
+        }
+        const isValid = (sum % 10 === 0);
+        return isValid ? '✅ Valid Card Number (Luhn Check Passed)' : '❌ Invalid Card Number';
+    }
+
+    case 'url-parser': {
+        try {
+            const urlObj = new URL(input.trim());
+            let params: Record<string, string> = {};
+            urlObj.searchParams.forEach((value, key) => { params[key] = value; });
+            
+            return JSON.stringify({
+                Protocol: urlObj.protocol,
+                Host: urlObj.host,
+                Pathname: urlObj.pathname,
+                Search: urlObj.search,
+                Hash: urlObj.hash,
+                QueryParams: params
+            }, null, 2);
+        } catch (e) {
+            return "❌ Error: Invalid URL format. Please include http:// or https://";
+        }
     }
 
     default:

@@ -500,6 +500,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Wikipedia: Samuel Morse', href: 'https://en.wikipedia.org/wiki/Samuel_Morse' }
     ],
   },
+  {
+    slug: 'text-to-hex',
+    title: 'Text to Hex Converter',
+    description: 'Convert text characters into Hexadecimal format instantly.',
+    category: 'Dev',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The Text to Hex Converter is a developer utility for converting plain text into its hexadecimal representation. Each character in the input string is converted into its corresponding ASCII/UTF-8 value, which is then displayed as a two-digit hexadecimal number. This is useful for low-level programming, data analysis, or debugging, where you need to see the exact byte representation of a string. Hexadecimal is often preferred over binary because it is more compact and easier to read. Our tool makes this conversion immediate and error-free, providing a clear view of your data's underlying structure.`,
+    externalReferences: [
+      { text: 'Wikipedia: Hexadecimal', href: 'https://en.wikipedia.org/wiki/Hexadecimal' }
+    ],
+  },
+  {
+    slug: 'credit-card-validator',
+    title: 'Credit Card Validator (Luhn Check)',
+    description: 'Validate credit card numbers safely using the Luhn algorithm. 100% Client-side, no data is saved.',
+    category: 'Security',
+    inputType: 'number',
+    outputType: 'text',
+    longDescription: `The Credit Card Validator uses the Luhn algorithm (also known as the "modulus 10" or "mod 10" algorithm) to perform a checksum validation on a credit card number. It's a simple error-detection formula used to validate a variety of identification numbers. This tool is NOT a payment gateway; it does not check if a card is active or has funds. It only checks if the number is mathematically plausible. This is extremely useful for developers testing e-commerce checkout forms or validating user input to prevent simple typos. Crucially, this validation is performed 100% client-side in your browser, meaning the card number you enter is never saved, stored, or transmitted.`,
+    externalReferences: [
+      { text: 'Wikipedia: Luhn algorithm', href: 'https://en.wikipedia.org/wiki/Luhn_algorithm' }
+    ],
+  },
+  {
+    slug: 'url-parser',
+    title: 'Advanced URL Parser',
+    description: 'Extract the protocol, host, path, and query parameters from any URL.',
+    category: 'Web',
+    inputType: 'text',
+    outputType: 'json',
+    longDescription: `The Advanced URL Parser is a powerful tool for developers, marketers, and SEO analysts. It deconstructs any given URL into its constituent parts: protocol, hostname, path, and query parameters. This is incredibly useful for debugging broken links, analyzing tracking parameters in marketing campaigns (like UTM codes), or understanding the structure of a competitor's website. By breaking down the URL into a structured JSON format, the tool makes it easy to see exactly what data is being passed in the query string. This is essential for testing API endpoints, troubleshooting web applications, or simply gaining a clearer understanding of how a specific URL works.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: URL API', href: 'https://developer.mozilla.org/en-US/docs/Web/API/URL' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
