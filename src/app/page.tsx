@@ -8,7 +8,7 @@ import {
   CardContent,
 } from '@/components/ui/card';
 import { ALL_TOOLS } from '@/config/tools';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import Footer from '@/components/footer';
 
 export default function Home() {
@@ -53,6 +53,51 @@ export default function Home() {
                 </Card>
               </Link>
             ))}
+          </div>
+        </section>
+
+        <section className="container mx-auto py-12 px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold font-headline tracking-tight">
+              Premium Resources
+            </h2>
+            <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Level up your development with professional AI toolkits.
+            </p>
+          </div>
+          <div className="max-w-2xl mx-auto">
+            <a
+              href="https://proworkflowlab.gumroad.com/l/ai-dev-team"
+              target="_blank"
+              rel="sponsored noopener noreferrer"
+              className="block group"
+            >
+              <Card className="relative overflow-hidden transition-all duration-300 bg-card hover:shadow-2xl border-2 border-transparent hover:border-yellow-400/50">
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-yellow-400/0 to-yellow-400/10 opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="p-6 relative">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-yellow-400/20 p-3 rounded-lg">
+                      <Sparkles className="w-6 h-6 text-yellow-400" />
+                    </div>
+                    <div>
+                      <CardTitle className="font-headline text-2xl text-foreground">
+                        The AI Dev-Team
+                      </CardTitle>
+                      <CardDescription className="text-base">
+                        Get 4 Senior AI Agents to autonomously write, debug, and
+                        manage your code.
+                      </CardDescription>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex justify-end">
+                    <div className="font-bold text-lg text-yellow-500 group-hover:text-yellow-400 inline-flex items-center gap-2">
+                      Learn More
+                      <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </a>
           </div>
         </section>
       </main>

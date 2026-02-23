@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { Providers } from './providers';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import PromoBanner from '@/components/layout/PromoBanner';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.papiv.com'),
@@ -75,6 +76,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <Providers>
+          <PromoBanner />
           {children}
           <Toaster />
         </Providers>
