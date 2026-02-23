@@ -232,14 +232,12 @@ export function processText(toolSlug: string, input: string): string {
     }
     
     case 'remove-duplicate-lines': {
-      // Use Set for O(n) performance to remove duplicates
       const lines = input.split(/\r?\n/);
       const uniqueLines = new Set(lines.map(l => l.trim()).filter(l => l.length > 0));
       return Array.from(uniqueLines).join('\n');
     }
 
     case 'sort-lines': {
-      // Basic alphabetical sort
       const lines = input
         .split(/\r?\n/)
         .filter(line => line.trim() !== '')
@@ -248,11 +246,9 @@ export function processText(toolSlug: string, input: string): string {
     }
 
     case 'email-extractor': {
-      // Regex to find emails
       const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
       const emails = input.match(emailRegex);
       if (!emails) return "No emails found in the text.";
-      // Return unique emails only, one per line
       return Array.from(new Set(emails)).join('\n');
     }
 
@@ -323,6 +319,30 @@ export function processText(toolSlug: string, input: string): string {
         } catch (e) {
             return "❌ Error: Invalid URL format. Please include http:// or https://";
         }
+    }
+
+    case 'title-case-converter': {
+      if (!input) return '';
+      return input.toLowerCase().split(' ').map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }).join(' ');
+    }
+
+    case 'remove-extra-spaces': {
+      if (!input) return '';
+      // Replace multiple spaces/tabs with a single space, and remove empty blank lines
+      return input.replace(/[ \t]+/g, ' ').replace(/\n\s*\n/g, '\n').trim();
+    }
+
+    case 'json-formatter': {
+      if (!input) return '';
+      try {
+        const parsedData = JSON.parse(input);
+        // Format with 2 spaces indentation
+        return JSON.stringify(parsedData, null, 2);
+      } catch (error) {
+        return "❌ Error: Invalid JSON format. Please check for missing brackets or quotes.";
+      }
     }
 
     default:

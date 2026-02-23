@@ -536,6 +536,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'MDN Web Docs: URL API', href: 'https://developer.mozilla.org/en-US/docs/Web/API/URL' }
     ],
   },
+  {
+    slug: 'title-case-converter',
+    title: 'Title Case Converter',
+    description: 'Capitalize the first letter of every word instantly. Perfect for blog titles and essays.',
+    category: 'Text',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Title case is essential for creating professional and readable headlines for blogs, articles, and essays. Following a consistent capitalization style, such as AP Style or Chicago Manual of Style, enhances the perceived quality of your content and improves user experience. Search engines may also favor well-formatted titles, as they appear more trustworthy and clickable in search results. This Title Case Converter tool automates the process, ensuring every word is correctly capitalized according to standard rules, saving writers and editors valuable time while helping them maintain a high standard of presentation for their digital content. It's a simple yet powerful utility for anyone serious about content creation.`,
+    externalReferences: [
+      { text: 'APA Style: Title Case Capitalization', href: 'https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case' },
+    ],
+  },
+  {
+    slug: 'remove-extra-spaces',
+    title: 'Remove Extra Spaces & Whitespace',
+    description: 'Clean up messy text by removing double spaces, tabs, and empty lines.',
+    category: 'Text',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Raw text copied from PDFs, emails, or other sources often contains inconsistent and messy whitespace. This can include multiple spaces between words, unwanted tabs, and extra line breaks that disrupt formatting. The Remove Extra Spaces tool is a powerful data-cleaning utility that normalizes your text in a single step. It collapses multiple spaces and tabs into a single space and removes empty lines, creating clean, predictable content. This is crucial for content managers preparing text for a CMS, developers cleaning user input, or data analysts standardizing datasets. Clean text ensures consistent rendering, improves readability, and prevents formatting errors in downstream applications.`,
+    externalReferences: [
+        { text: 'Wikipedia: Data Cleansing', href: 'https://en.wikipedia.org/wiki/Data_cleansing' },
+    ],
+  },
+  {
+    slug: 'json-formatter',
+    title: 'JSON Formatter & Beautifier',
+    description: 'Format and beautify ugly, unreadable JSON code into a clean, indented structure.',
+    category: 'Dev',
+    inputType: 'json',
+    outputType: 'json',
+    longDescription: `JSON (JavaScript Object Notation) is the standard for data exchange on the web, but API responses or configuration files are often "minified"—compressed into a single line to save space. This makes them nearly impossible for a human to read and debug. The JSON Formatter & Beautifier solves this problem by parsing the minified JSON and reformatting it into a clean, indented, and hierarchical structure. This "pretty printing" is essential for developers to visually inspect the data, identify syntax errors like missing brackets or quotes, and understand the relationship between different data points. It is a fundamental debugging tool for anyone working with web APIs.`,
+    externalReferences: [
+        { text: 'MDN Web Docs: JSON', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON' },
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
