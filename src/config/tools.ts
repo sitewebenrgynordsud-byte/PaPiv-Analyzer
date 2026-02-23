@@ -572,6 +572,42 @@ Color consistency is key to professional web design. While many modern tools sup
         { text: 'MDN Web Docs: JSON', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON' },
     ],
   },
+  {
+    slug: 'extract-urls',
+    title: 'Extract URLs from Text',
+    description: 'Instantly find and extract all http and https web links from any messy text document.',
+    category: 'Data',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The Extract URLs from Text tool is a powerful utility for data scraping and analysis. It scans any block of text and pulls out all http and https links, presenting them in a clean, deduplicated list. This is invaluable for SEO specialists performing backlink audits, marketers gathering resource links from articles, or developers needing to extract all linked assets from a document. The tool uses a reliable regular expression to ensure it captures valid URLs without grabbing surrounding punctuation. By running entirely in your browser, it offers a secure and incredibly fast way to parse large documents for web links without sending any data to an external server.`,
+    externalReferences: [
+      { text: 'Stack Overflow: What is a good regular expression to match a URL?', href: 'https://stackoverflow.com/questions/1500260/what-is-a-good-regular-expression-to-match-a-url' }
+    ],
+  },
+  {
+    slug: 'remove-empty-lines',
+    title: 'Remove Empty Lines',
+    description: 'Clean up your text by removing all blank lines and extra line breaks instantly.',
+    category: 'Text',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The Remove Empty Lines tool is a simple but essential text-cleaning utility. It instantly removes all blank lines from a document, which is particularly useful when dealing with content copied from PDFs, websites, or other sources that add inconsistent line breaks. By eliminating extra vertical whitespace, you can create a more compact and readable text file. This is crucial for developers cleaning up configuration files, writers reformatting manuscripts, or anyone needing to standardize a document's line spacing. This tool ensures your text is clean and consistently formatted, ready for its next use, all while operating securely within your browser.`,
+    externalReferences: [
+      { text: 'Wikipedia: Newline', href: 'https://en.wikipedia.org/wiki/Newline' }
+    ],
+  },
+  {
+    slug: 'rot13-cipher',
+    title: 'ROT13 Encoder & Decoder',
+    description: 'Encrypt or decrypt your text using the classic ROT13 substitution cipher.',
+    category: 'Security',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `ROT13 ("rotate by 13 places") is a simple letter substitution cipher that replaces a letter with the letter 13 places after it in the alphabet. Applying ROT13 to a piece of text a second time restores the original text; this is its own inverse. It's a classic example of a Caesar cipher. Made famous on early internet forums like Usenet in the 1980s, ROT13 was used to hide spoilers, punchlines, or potentially offensive material from a casual glance. It offers no real cryptographic security and should not be used for anything sensitive. Our tool provides a quick and fun way to both encode and decode ROT13 messages, offering a glimpse into early internet culture and basic cryptography.`,
+    externalReferences: [
+      { text: 'Wikipedia: ROT13', href: 'https://en.wikipedia.org/wiki/ROT13' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {

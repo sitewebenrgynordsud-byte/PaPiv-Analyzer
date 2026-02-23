@@ -116,12 +116,13 @@ export function processText(toolSlug: string, input: string): string {
         return paragraphs.join('\n\n');
     }
 
-    case 'url-encoder-decoder':
+    case 'url-encoder-decoder': {
       // Smart detection: if input has %, try to decode. Else, encode.
       if (input.includes('%')) {
         try { return decodeURIComponent(input); } catch (e) { return "Error: Invalid URL encoding"; }
       }
       return encodeURIComponent(input);
+    }
 
     case 'text-to-binary':
       return input.split('').map(char => {
@@ -166,7 +167,7 @@ export function processText(toolSlug: string, input: string): string {
       return password;
     }
 
-    case 'uuid-generator':
+    case 'uuid-generator': {
       // Simple UUID v4 implementation using crypto or Math fallback
       if (typeof crypto !== 'undefined' && crypto.randomUUID) {
          return crypto.randomUUID();
@@ -175,6 +176,7 @@ export function processText(toolSlug: string, input: string): string {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
       });
+    }
 
     case 'json-minifier':
       try {
@@ -343,6 +345,32 @@ export function processText(toolSlug: string, input: string): string {
       } catch (error) {
         return "❌ Error: Invalid JSON format. Please check for missing brackets or quotes.";
       }
+    }
+
+    case 'extract-urls': {
+      if (!input) return '';
+      // Regex to find http/https links safely
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const urls = input.match(urlRegex);
+      if (!urls) return "❌ No URLs found in the provided text.";
+      // Return unique URLs, one per line
+      return Array.from(new Set(urls)).join('\n');
+    }
+
+    case 'remove-empty-lines': {
+      if (!input) return '';
+      // Split by newline, filter out empty/whitespace-only lines, and rejoin
+      return input.split(/\r?\n/).filter(line => line.trim() !== '').join('\n');
+    }
+
+    case 'rot13-cipher': {
+      if (!input) return '';
+      // Replace only alphabetical characters, shifting by 13
+      return input.replace(/[a-zA-Z]/g, function(c) {
+        return String.fromCharCode(
+          (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26
+        );
+      });
     }
 
     default:
