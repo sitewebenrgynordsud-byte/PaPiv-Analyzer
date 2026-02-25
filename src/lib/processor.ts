@@ -395,6 +395,42 @@ export function processText(toolSlug: string, input: string): string {
       return asciiNumbers.map(num => String.fromCharCode(parseInt(num, 10))).join('');
     }
 
+    case 'extract-hashtags': {
+      if (!input) return '';
+      // Support unicode for multiple languages (e.g., Arabic hashtags)
+      const hashtags = input.match(/#[\p{L}\d_]+/gu);
+      if (!hashtags) return "❌ No hashtags found in the text.";
+      // Return unique hashtags
+      return Array.from(new Set(hashtags)).join('\n');
+    }
+
+    case 'slug-to-text': {
+      if (!input) return '';
+      // Replace hyphens and underscores with spaces, then capitalize each word
+      const unslugged = input.replace(/[-_]/g, ' ');
+      return unslugged.replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    case 'word-frequency-counter': {
+      if (!input) return '';
+      const wordsArray = input.toLowerCase().match(/\b[\p{L}\d_]+\b/gu);
+      if (!wordsArray) return "❌ No words found to analyze.";
+      
+      const wordCounts: Record<string, number> = {};
+      wordsArray.forEach(word => {
+        // Exclude extremely common stop words if desired, or count everything
+        if(word.length > 2) { // Only count words longer than 2 letters
+          wordCounts[word] = (wordCounts[word] || 0) + 1;
+        }
+      });
+      
+      // Sort by frequency (highest first)
+      const sortedWords = Object.entries(wordCounts).sort((a, b) => b[1] - a[1]);
+      
+      return `📊 Keyword Density Report (Words > 2 chars):\n\n` + 
+             sortedWords.map(([word, count]) => `${count}x : ${word}`).join('\n');
+    }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

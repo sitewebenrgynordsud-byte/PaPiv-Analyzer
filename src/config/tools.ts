@@ -644,6 +644,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Wikipedia: ASCII', href: 'https://en.wikipedia.org/wiki/ASCII' }
     ],
   },
+  {
+    slug: 'extract-hashtags',
+    title: 'Hashtag Extractor',
+    description: 'Instantly find and extract all #hashtags from any messy text or social media caption.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The Hashtag Extractor is an essential tool for social media managers and marketers. It instantly scans any text, such as an Instagram or Twitter caption, and pulls out all hashtags into a clean, deduplicated list. This is invaluable for analyzing competitors' strategies, compiling lists of relevant tags for a campaign, or understanding which topics are trending in your niche. By organizing hashtags, you can refine your content strategy, increase visibility, and engage more effectively with your target audience. Our tool supports Unicode, allowing it to correctly identify hashtags in multiple languages, making it a globally effective marketing utility.`,
+    externalReferences: [
+      { text: 'HubSpot: How to Use Hashtags', href: 'https://blog.hubspot.com/marketing/how-to-use-hashtags-ht' }
+    ],
+  },
+  {
+    slug: 'slug-to-text',
+    title: 'URL Slug to Text Converter',
+    description: 'Convert URL slugs (like "my-post-title") back into readable, capitalized text.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The URL Slug to Text Converter is a handy utility for SEO professionals, content managers, and web developers. It reverse-engineers a URL-friendly slug (e.g., 'how-to-bake-a-cake') back into a human-readable, capitalized title (e.g., 'How To Bake A Cake'). This is perfect for automatically generating breadcrumb navigation text, creating page titles from the URL path, or quickly understanding the topic of a link without visiting the page. It cleans up URL segments by replacing hyphens and underscores with spaces, then applies title case capitalization for a professional and readable result, saving valuable time in content management workflows.`,
+    externalReferences: [
+      { text: 'Google Search Central: URL Structure', href: 'https://developers.google.com/search/docs/crawling-indexing/url-structure' }
+    ],
+  },
+  {
+    slug: 'word-frequency-counter',
+    title: 'Word Frequency & Keyword Density',
+    description: 'Analyze your text to see which words are used the most. Essential for SEO optimization.',
+    category: 'Analysis',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The Word Frequency & Keyword Density tool is a powerful analyzer for SEO specialists and writers. It dissects your text to reveal which words and phrases appear most often, providing a clear keyword density report. This analysis is critical for on-page SEO, helping you ensure your content is focused on the right keywords without 'keyword stuffing'—a practice search engines penalize. By understanding the lexical patterns of your text, you can refine your writing to better match user search intent, improve topical relevance, and ultimately enhance your search engine rankings. This tool provides the data needed to make informed content strategy decisions, all while operating securely in your browser.`,
+    externalReferences: [
+      { text: 'Moz: Keyword Density', href: 'https://moz.com/learn/seo/keyword-density' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
