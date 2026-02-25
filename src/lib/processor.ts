@@ -373,6 +373,28 @@ export function processText(toolSlug: string, input: string): string {
       });
     }
 
+    case 'list-to-comma-separator': {
+      if (!input) return '';
+      // Split by newline, remove empty lines, and join with comma and space
+      const items = input.split(/\r?\n/).map(line => line.trim()).filter(line => line !== '');
+      return items.join(', ');
+    }
+
+    case 'string-escaper': {
+      if (!input) return '';
+      // Use JSON.stringify to safely escape the string, then remove the surrounding quotes it adds
+      const escaped = JSON.stringify(input);
+      return escaped.substring(1, escaped.length - 1);
+    }
+
+    case 'ascii-to-text': {
+      if (!input) return '';
+      // Match all numbers, convert them to characters
+      const asciiNumbers = input.match(/\d+/g);
+      if (!asciiNumbers) return "❌ Error: No valid ASCII numbers found in the input.";
+      return asciiNumbers.map(num => String.fromCharCode(parseInt(num, 10))).join('');
+    }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

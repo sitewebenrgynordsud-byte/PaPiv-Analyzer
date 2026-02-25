@@ -608,6 +608,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Wikipedia: ROT13', href: 'https://en.wikipedia.org/wiki/ROT13' }
     ],
   },
+  {
+    slug: 'list-to-comma-separator',
+    title: 'List to Comma Separated String',
+    description: 'Convert a vertical column of text into a single comma-separated line instantly.',
+    category: 'Data',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The 'List to Comma Separated String' tool is a massive time-saver for data professionals. It instantly converts vertical columns of text, like those copied from Excel or a text file, into a single, clean, comma-separated line. This is incredibly useful for developers who need to format a list of IDs for a SQL 'IN' clause, or for marketers compiling keywords into a single tag string. It eliminates the tedious manual work of adding commas and removing line breaks, preventing syntax errors and improving workflow efficiency. By handling data formatting in a single click, it's an essential utility for anyone working with list-based data for databases, programming, or content management systems.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: Array.prototype.join()', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join' }
+    ],
+  },
+  {
+    slug: 'string-escaper',
+    title: 'Text String Escaper',
+    description: 'Safely escape quotes, backslashes, and newlines in your text for JSON or code strings.',
+    category: 'Dev',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Safely embedding user-generated or external text into a code string is a common challenge for developers. The Text String Escaper solves this by correctly handling special characters like quotes, backslashes, and newlines that can break your code. It uses the robust logic of \`JSON.stringify\` to ensure that any string can be safely placed within a JavaScript variable or a JSON payload without causing syntax errors. This is critical for preventing security issues like injection attacks and for ensuring data integrity when building dynamic applications. It's a must-have tool for any developer working with APIs, dynamic content, or generating code on the fly.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: JSON.stringify()', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify' }
+    ],
+  },
+  {
+    slug: 'ascii-to-text',
+    title: 'ASCII to Text Decoder',
+    description: 'Convert ASCII decimal numbers back into readable text format.',
+    category: 'Education',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The ASCII to Text Decoder translates a sequence of ASCII decimal numbers back into human-readable characters. ASCII, the American Standard Code for Information Interchange, is a character encoding standard that assigns a unique number to every letter, digit, and symbol. This tool allows you to convert a series of these numbers back into readable text. It's an excellent resource for students learning about computer fundamentals, developers debugging low-level data protocols, or puzzle enthusiasts decoding messages. By seeing how a sequence of numbers becomes a coherent sentence, users can gain a deeper appreciation for the foundational principles of computing and data representation.`,
+    externalReferences: [
+      { text: 'Wikipedia: ASCII', href: 'https://en.wikipedia.org/wiki/ASCII' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
