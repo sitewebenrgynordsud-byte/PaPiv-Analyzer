@@ -431,6 +431,48 @@ export function processText(toolSlug: string, input: string): string {
              sortedWords.map(([word, count]) => `${count}x : ${word}`).join('\n');
     }
 
+    case 'csv-to-json': {
+      if (!input) return '';
+      try {
+        const lines = input.split(/\r?\n/).filter(line => line.trim() !== '');
+        if (lines.length < 2) return "❌ Error: CSV must have at least a header row and one data row.";
+        const headers = lines[0].split(',').map(h => h.trim());
+        const result = lines.slice(1).map(line => {
+          const obj: Record<string, string> = {};
+          const currentline = line.split(',');
+          headers.forEach((header, i) => {
+            obj[header] = currentline[i] ? currentline[i].trim() : '';
+          });
+          return obj;
+        });
+        return JSON.stringify(result, null, 2);
+      } catch (e) {
+        return "❌ Error: Invalid CSV format.";
+      }
+    }
+
+    case 'binary-to-text': {
+      if (!input) return '';
+      try {
+        // Match groups of 8 binary digits
+        const binaries = input.match(/[01]{8}/g);
+        if (!binaries) return "❌ Error: Please enter valid 8-bit binary strings separated by spaces.";
+        return binaries.map(bin => String.fromCharCode(parseInt(bin, 2))).join('');
+      } catch (e) {
+        return "❌ Error: Could not decode binary string.";
+      }
+    }
+
+    case 'extract-ip-addresses': {
+      if (!input) return '';
+      // Regex for standard IPv4 addresses
+      const ipv4Regex = /\b(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/g;
+      const ips = input.match(ipv4Regex);
+      if (!ips) return "❌ No IPv4 addresses found in the text.";
+      // Return unique IPs
+      return Array.from(new Set(ips)).join('\n');
+    }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

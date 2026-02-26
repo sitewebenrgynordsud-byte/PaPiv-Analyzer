@@ -680,6 +680,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Moz: Keyword Density', href: 'https://moz.com/learn/seo/keyword-density' }
     ],
   },
+  {
+    slug: 'csv-to-json',
+    title: 'CSV to JSON Converter',
+    description: 'Instantly convert Comma-Separated Values (CSV) data into clean, formatted JSON arrays.',
+    category: 'Data',
+    inputType: 'text',
+    outputType: 'json',
+    longDescription: `Data migration between systems often requires converting formats, and moving from a spreadsheet (like Excel) to a web application is a common task. The CSV to JSON Converter is an essential tool for this job. It takes your Comma-Separated Value (CSV) data, which can be easily exported from Excel or Google Sheets, and transforms it into a structured JSON array. This API-ready format is perfect for developers who need to import data into their applications or databases. Our tool is built for speed and privacy, performing all conversions instantly in your browser. This means your sensitive business data is never uploaded to a server, ensuring 100% security and efficiency.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: Working with JSON', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON' }
+    ],
+  },
+  {
+    slug: 'binary-to-text',
+    title: 'Binary to Text Translator',
+    description: 'Decode binary code (0s and 1s) back into readable English text instantly.',
+    category: 'Education',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Binary code is the fundamental language of computers, representing all data as a series of 0s and 1s. The Binary to Text Translator demystifies this process by decoding binary strings back into human-readable text. This tool is invaluable for computer science students learning about data representation and character encoding schemes like ASCII. By pasting a sequence of 8-bit binary numbers, you can instantly see the corresponding letters, numbers, or symbols they represent. It's a hands-on way to understand how low-level machine code translates into the text we see every day, reinforcing core concepts of computer science in a practical and interactive way.`,
+    externalReferences: [
+      { text: 'Wikipedia: ASCII', href: 'https://en.wikipedia.org/wiki/ASCII' }
+    ],
+  },
+  {
+    slug: 'extract-ip-addresses',
+    title: 'IP Address Extractor',
+    description: 'Extract all IPv4 addresses from messy server logs, texts, or code snippets.',
+    category: 'Security',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `For network administrators and cybersecurity professionals, parsing server logs for malicious activity is a daily task. The IP Address Extractor is a powerful utility designed to simplify this process. It scans large blocks of unstructured text—like access logs, security reports, or raw data dumps—and pulls out all valid IPv4 addresses. The tool uses a precise regular expression to identify the distinct \`x.x.x.x\` pattern, filtering out noise and presenting a clean, unique list of IPs. This is essential for identifying sources of attacks, analyzing traffic patterns, or compiling blocklists. By automating the extraction process, this tool saves valuable time and helps security analysts focus on what matters most: securing their networks.`,
+    externalReferences: [
+      { text: 'Wikipedia: IPv4', href: 'https://en.wikipedia.org/wiki/IPv4' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
