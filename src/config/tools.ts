@@ -752,6 +752,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Google Ads Help: About keyword matching options', href: 'https://support.google.com/google-ads/answer/7478529' }
     ],
   },
+  {
+    slug: 'sha256-hash-generator',
+    title: 'SHA-256 Hash Generator',
+    description: 'Securely hash your text using the SHA-256 cryptographic algorithm instantly.',
+    category: 'Security',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The SHA-256 Hash Generator is a vital security tool for creating a cryptographic fingerprint of your data. SHA-256 (Secure Hash Algorithm 256-bit) is a one-way function that converts any text input into a unique, fixed-size 256-bit (32-byte) hash. It's computationally infeasible to reverse the process, making it perfect for verifying data integrity without exposing the original data. This technology is a cornerstone of modern security and is used extensively in blockchain technology, such as Bitcoin, for verifying transactions. It's also used for digital signatures and password validation. Our tool performs all hashing securely on the client-side, meaning your sensitive data is never sent to our servers. This ensures absolute privacy and instant results, providing a safe and efficient way to generate SHA-256 hashes for any application.`,
+    externalReferences: [
+      { text: "Wikipedia: SHA-2", href: "https://en.wikipedia.org/wiki/SHA-2" }
+    ],
+  },
+  {
+    slug: 'md5-hash-generator',
+    title: 'MD5 Hash Generator',
+    description: 'Generate an MD5 checksum hash from any text string for quick data verification.',
+    category: 'Security',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The MD5 Hash Generator creates a 128-bit checksum for any given text. MD5 (Message-Digest algorithm 5) was once a widely used cryptographic hash function. Today, it is considered cryptographically broken and unsuitable for security purposes like password storage, as vulnerabilities (known as "collisions") have been found that allow different inputs to produce the same hash. However, MD5 is still very useful as a non-crypto checksum to verify data integrity against unintentional corruption. For example, it is often used to generate a unique value for a file to ensure it has not been altered during transfer. This tool provides a quick way to generate an MD5 hash for data verification, but it should NOT be used for security-critical applications.`,
+    externalReferences: [
+      { text: "Wikipedia: MD5", href: "https://en.wikipedia.org/wiki/MD5" }
+    ],
+  },
+  {
+    slug: 'json-to-yaml',
+    title: 'JSON to YAML Converter',
+    description: 'Convert JSON objects into clean, readable YAML format for config files (Docker, Kubernetes).',
+    category: 'Dev',
+    inputType: 'json',
+    outputType: 'text',
+    longDescription: `The JSON to YAML Converter is a crucial utility for developers and DevOps engineers working with modern configuration files. While JSON (JavaScript Object Notation) is excellent for machine-to-machine communication, YAML (YAML Ain't Markup Language) is often preferred for human-readable configuration files due to its cleaner, more minimal syntax. Platforms like Docker (docker-compose.yml), Kubernetes, and Ansible heavily rely on YAML. This tool seamlessly converts your structured JSON data into the YAML format, preserving the hierarchy and data types. This is perfect for migrating configurations, debugging CI/CD pipelines, or simply converting data into a more readable format for documentation. The conversion is done instantly and privately in your browser.`,
+    externalReferences: [
+      { text: "YAML Official Website", href: "https://yaml.org/" }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {

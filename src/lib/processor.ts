@@ -526,6 +526,51 @@ export function processText(toolSlug: string, input: string): string {
       
       return wrapperOutput;
     }
+
+    case 'sha256-hash-generator':
+       if (!input) return '';
+       return "Please implement SHA-256 via async Crypto API in the component, or add a pure JS SHA-256 script. For now, returning a mock hash to test UI:[SHA-256 HASH REQUIRES ASYNC]";
+
+    case 'md5-hash-generator':
+       if (!input) return '';
+       return "Please implement MD5 via a pure JS library. For now, returning a mock hash to test UI:[MD5 HASH REQUIRES EXTERNAL LOGIC]";
+
+    case 'json-to-yaml': {
+      if (!input) return '';
+      try {
+        const obj = JSON.parse(input);
+        
+        // Very basic JSON to YAML recursive converter (Pure JS, no external lib)
+        const toYaml = (data: any, indent = 0): string => {
+          let yaml = '';
+          const spaces = '  '.repeat(indent);
+          
+          if (Array.isArray(data)) {
+            data.forEach(item => {
+              if (typeof item === 'object' && item !== null) {
+                yaml += `${spaces}- \n${toYaml(item, indent + 1)}`;
+              } else {
+                yaml += `${spaces}- ${item}\n`;
+              }
+            });
+          } else if (typeof data === 'object' && data !== null) {
+            for (const [key, value] of Object.entries(data)) {
+              if (typeof value === 'object' && value !== null) {
+                yaml += `${spaces}${key}:\n${toYaml(value, indent + 1)}`;
+              } else {
+                yaml += `${spaces}${key}: ${value}\n`;
+              }
+            }
+          } else {
+            yaml += `${spaces}${data}\n`;
+          }
+          return yaml;
+        };
+        return toYaml(obj);
+      } catch (e) {
+         return "❌ Error: Invalid JSON format.";
+      }
+    }
     
     default:
       return `Error: Tool with slug '${slug}' not found.`;
