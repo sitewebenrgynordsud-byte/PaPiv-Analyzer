@@ -473,6 +473,60 @@ export function processText(toolSlug: string, input: string): string {
       return Array.from(new Set(ips)).join('\n');
     }
 
+    case 'markdown-to-html': {
+      if (!input) return '';
+      let html = input
+        // Headers
+        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+        // Bold & Italic
+        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+        // Links
+        .replace(/\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>")
+        // Paragraphs (basic newline to <p>)
+        .replace(/^\s*(\n)?(.+)/gim, function(m) {
+          return /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p>'+m.trim()+'</p>';
+        });
+      return html;
+    }
+
+    case 'html-to-markdown': {
+      if (!input) return '';
+      let md = input
+        // Headers
+        .replace(/<h[1-6]>(.*?)<\/h[1-6]>/gim, '# $1\n')
+        // Bold & Italic
+        .replace(/<(strong|b)>(.*?)<\/(strong|b)>/gim, '**$2**')
+        .replace(/<(em|i)>(.*?)<\/(em|i)>/gim, '*$2*')
+        // Links
+        .replace(/<a href="(.*?)">(.*?)<\/a>/gim, '[$2]($1)')
+        // Paragraphs and breaks
+        .replace(/<p>(.*?)<\/p>/gim, '$1\n\n')
+        .replace(/<br\s*[\/]?>/gim, '\n')
+        // Remove remaining tags
+        .replace(/<[^>]*>?/gm, '');
+      return md.trim();
+    }
+
+    case 'keyword-match-type-wrapper': {
+      if (!input) return '';
+      const kwLines = input.split(/\r?\n/).map(k => k.trim()).filter(k => k !== '');
+      if (kwLines.length === 0) return '';
+      
+      let wrapperOutput = "=== Broad Match ===\n";
+      wrapperOutput += kwLines.join('\n') + "\n\n";
+      
+      wrapperOutput += "=== Phrase Match ===\n";
+      wrapperOutput += kwLines.map(k => `"${k}"`).join('\n') + "\n\n";
+      
+      wrapperOutput += "=== Exact Match ===\n";
+      wrapperOutput += kwLines.map(k => `[${k}]`).join('\n');
+      
+      return wrapperOutput;
+    }
+    
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

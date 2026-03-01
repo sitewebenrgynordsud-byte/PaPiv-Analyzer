@@ -716,6 +716,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Wikipedia: IPv4', href: 'https://en.wikipedia.org/wiki/IPv4' }
     ],
   },
+  {
+    slug: 'markdown-to-html',
+    title: 'Markdown to HTML Converter',
+    description: 'Instantly convert Markdown text into clean, valid HTML code.',
+    category: 'Web',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Markdown, a lightweight markup language created by John Gruber, allows people to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid HTML. This converter is essential for web writers and developers. It translates simple syntax for headers, bold, italics, and links into clean HTML, perfect for blog posts, documentation, and especially for creating well-formatted README files on platforms like GitHub. Instead of wrestling with cumbersome HTML tags, you can focus on your content. The tool provides a seamless bridge from your plain text draft to a fully-rendered web page, making it an indispensable part of any modern web publishing workflow, especially for those using content management systems like WordPress or static site generators.`,
+    externalReferences: [
+      { text: 'The Markdown Guide', href: 'https://www.markdownguide.org/' }
+    ],
+  },
+  {
+    slug: 'html-to-markdown',
+    title: 'HTML to Markdown Converter',
+    description: 'Convert raw HTML code back into clean, readable Markdown format.',
+    category: 'Web',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `This converter is a powerful tool for reverse-engineering web content, allowing you to reclaim your articles and posts from complex HTML. It takes raw HTML source code and translates it back into clean, simple, and readable Markdown. This is invaluable for content creators migrating from a traditional WYSIWYG editor (like WordPress) to a modern, Markdown-first platform like a static site generator (e.g., Jekyll, Hugo) or a headless CMS. By stripping away extraneous tags and converting structural elements like headers and links into their Markdown equivalents, the tool simplifies your content. This makes it easier to edit, store in version control systems like Git, and ensures your content is portable and future-proof. It's the perfect utility for tidying up and taking control of your digital library.`,
+    externalReferences: [
+      { text: 'Turndown - An HTML to Markdown converter library', href: 'https://github.com/mixmark-io/turndown' }
+    ],
+  },
+  {
+    slug: 'keyword-match-type-wrapper',
+    title: 'Google Ads Keyword Wrapper',
+    description: 'Wrap your SEO keywords into Broad, Phrase, and Exact match types for Google Ads instantly.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Maximize your advertising budget with this essential tool for PPC marketers. The Google Ads Keyword Wrapper takes your keyword list and instantly formats it for the three core match types: Broad, Phrase ("keyword"), and Exact ([keyword]). Using the right match type is critical for controlling ad spend and achieving a high Return On Ad Spend (ROAS). Broad match gives you reach, while Phrase and Exact matches provide precision, ensuring your ads show to the most relevant audience. Manually formatting keywords is tedious and error-prone, especially for large campaigns. This tool automates the process, letting you build highly-structured ad groups in seconds. It's an indispensable utility for anyone running Google Ads campaigns who wants to save time and improve performance.`,
+    externalReferences: [
+      { text: 'Google Ads Help: About keyword matching options', href: 'https://support.google.com/google-ads/answer/7478529' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
