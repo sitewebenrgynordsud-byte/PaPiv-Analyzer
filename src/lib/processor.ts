@@ -1,5 +1,5 @@
 export function processText(toolSlug: string, input: string): string {
-  if (!input && toolSlug !== 'lorem-ipsum-generator' && toolSlug !== 'random-password-generator' && toolSlug !== 'uuid-generator') return '';
+  if (!input && toolSlug !== 'lorem-ipsum-generator' && toolSlug !== 'random-password-generator' && toolSlug !== 'uuid-generator' && toolSlug !== 'robots-txt-generator') return '';
   const text = input.trim();
   const slug = toolSlug.toLowerCase();
 
@@ -572,6 +572,25 @@ export function processText(toolSlug: string, input: string): string {
       }
     }
     
+    case 'meta-tag-generator': {
+      if (!input) return '';
+      const title = input.length > 60 ? input.substring(0, 57) + '...' : input;
+      const desc = input.length > 160 ? input.substring(0, 157) + '...' : input;
+      return `<title>${title}</title>\n<meta name="description" content="${desc}">`;
+    }
+
+    case 'canonical-url-generator': {
+      if (!input) return '';
+      // Ensure it starts with http
+      const url = input.startsWith('http') ? input : 'https://' + input;
+      return `<link rel="canonical" href="${url}" />`;
+    }
+
+    case 'robots-txt-generator': {
+      const sitemap = input.startsWith('http') ? input : 'https://' + input + '/sitemap.xml';
+      return `User-agent: *\nDisallow: /admin\nSitemap: ${sitemap}`;
+    }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

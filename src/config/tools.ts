@@ -555,7 +555,7 @@ Color consistency is key to professional web design. While many modern tools sup
     category: 'Text',
     inputType: 'text',
     outputType: 'text',
-    longDescription: `Raw text copied from PDFs, emails, or other sources often contains inconsistent and messy whitespace. This can include multiple spaces between words, unwanted tabs, and extra line breaks that disrupt formatting. The Remove Extra Spaces tool is a powerful data-cleaning utility that normalizes your text in a single step. It collapses multiple spaces and tabs into a single space and removes empty lines, creating clean, predictable content. This is crucial for content managers preparing text for a CMS, developers cleaning user input, or data analysts standardizing datasets. Clean text ensures consistent rendering, improves readability, and prevents formatting errors in downstream applications.`,
+    longDescription: `Raw text copied from PDFs, emails, or other sources often contains inconsistent and messy whitespace. This can include multiple spaces between words, unwanted tabs, and extra line breaks that disrupt formatting. The Remove Extra Spaces tool is a powerful data-cleaning utility that normalizes your text in a single step. It collapses multiple spaces and tabs into a single space and removes empty blank lines, creating clean, predictable content. This is crucial for content managers preparing text for a CMS, developers cleaning user input, or data analysts standardizing datasets. Clean text ensures consistent rendering, improves readability, and prevents formatting errors in downstream applications.`,
     externalReferences: [
         { text: 'Wikipedia: Data Cleansing', href: 'https://en.wikipedia.org/wiki/Data_cleansing' },
     ],
@@ -786,6 +786,45 @@ Color consistency is key to professional web design. While many modern tools sup
     longDescription: `The JSON to YAML Converter is a crucial utility for developers and DevOps engineers working with modern configuration files. While JSON (JavaScript Object Notation) is excellent for machine-to-machine communication, YAML (YAML Ain't Markup Language) is often preferred for human-readable configuration files due to its cleaner, more minimal syntax. Platforms like Docker (docker-compose.yml), Kubernetes, and Ansible heavily rely on YAML. This tool seamlessly converts your structured JSON data into the YAML format, preserving the hierarchy and data types. This is perfect for migrating configurations, debugging CI/CD pipelines, or simply converting data into a more readable format for documentation. The conversion is done instantly and privately in your browser.`,
     externalReferences: [
       { text: "YAML Official Website", href: "https://yaml.org/" }
+    ],
+  },
+  {
+    slug: 'meta-tag-generator',
+    title: 'Meta Title & Description Generator',
+    description: 'Generate SEO-friendly Meta Titles (max 60 chars) and Descriptions (max 160 chars) instantly.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Optimizing your meta title and description is one of the most powerful levers for improving Click-Through Rate (CTR) from Google search results. These tags generate the blue link and the descriptive text snippet that users see on the search engine results page (SERP). A compelling title (under 60 characters) and a persuasive description (under 160 characters) can dramatically increase the likelihood that a user clicks on your link instead of a competitor's. This generator helps you craft the perfect SERP appearance, ensuring your titles and descriptions are within the optimal length to avoid being truncated. By focusing on your target keywords and a strong call-to-action in your meta tags, you can significantly boost your organic traffic without changing your content. This tool is essential for any SEO specialist or content creator looking to maximize their visibility on Google.`,
+    externalReferences: [
+      { text: "Google Search Central: Control your snippets in search results", href: "https://developers.google.com/search/docs/appearance/snippet" },
+      { text: "Moz: Title Tag", href: "https://moz.com/learn/seo/title-tag" }
+    ],
+  },
+  {
+    slug: 'canonical-url-generator',
+    title: 'Canonical URL Generator',
+    description: 'Generate the correct canonical link tag to prevent duplicate content issues.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Duplicate content is one of the most critical issues that can harm a website's SEO performance. When search engines like Google find multiple URLs with the same or very similar content, they don't know which version to rank. This can lead to splitting 'link equity' (ranking power) between the duplicate pages, or worse, Google may see it as an attempt to manipulate search results, potentially leading to penalties. The canonical link tag (\`rel="canonical"\`) is the definitive solution. It tells search engines which URL is the master version that you want to be indexed. This tool generates the correct HTML tag, ensuring that all ranking signals point to a single, authoritative page. It's an indispensable safety tool for e-commerce sites with product variations, blogs with syndicated content, or any site with query parameters that generate different URLs for the same page.`,
+    externalReferences: [
+      { text: "Google Search Central: Consolidate duplicate URLs", href: "https://developers.google.com/search/docs/advanced/crawling/consolidate-duplicate-urls" },
+      { text: "Ahrefs: Canonical Tags: A Simple Guide for Beginners", href: "https://ahrefs.com/blog/canonical-tags/" }
+    ],
+  },
+  {
+    slug: 'robots-txt-generator',
+    title: 'Robots.txt Generator',
+    description: 'Generate a clean robots.txt file to instruct search engine crawlers where to go.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The \`robots.txt\` file is the first thing a search engine crawler (like Googlebot) looks for when it visits your website. It acts as a gatekeeper, providing instructions on which parts of your site should or should not be accessed. A well-configured \`robots.txt\` file is essential for managing your site's 'crawl budget'—the number of pages Google will crawl on a given day. By using the 'Disallow' directive, you can prevent crawlers from wasting time on non-public areas like admin pages, internal search results, or temporary files. This focuses their attention on your most important content. This generator also helps you add a reference to your \`sitemap.xml\`, which gives crawlers a complete map of all the pages you want them to index. It is a fundamental tool for guiding search engines and ensuring efficient indexing of your website.`,
+    externalReferences: [
+      { text: "Google Search Central: Introduction to robots.txt", href: "https://developers.google.com/search/docs/crawling-indexing/robots/intro" },
+      { text: "RobotsTxt.org: The Web Robots Pages", href: "http://www.robotstxt.org/robotstxt.html" }
     ],
   },
 ];
