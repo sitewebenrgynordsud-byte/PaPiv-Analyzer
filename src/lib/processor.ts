@@ -254,9 +254,10 @@ export function processText(toolSlug: string, input: string): string {
       return Array.from(new Set(emails)).join('\n');
     }
 
-    case 'html-tags-remover':
+    case 'html-tags-remover': {
       // Regex to replace any HTML tag with empty string
       return input.replace(/<[^>]*>?/gm, '');
+    }
 
     case 'list-randomizer': {
       // Fisher-Yates Shuffle Algorithm
@@ -589,6 +590,27 @@ export function processText(toolSlug: string, input: string): string {
     case 'robots-txt-generator': {
       const sitemap = input.startsWith('http') ? input : 'https://' + input + '/sitemap.xml';
       return `User-agent: *\nDisallow: /admin\nSitemap: ${sitemap}`;
+    }
+
+    case 'og-meta-generator': {
+      if (!input) return '';
+      return `<meta property="og:title" content="${input}" />\n<meta property="og:type" content="website" />\n<meta property="og:url" content="https://www.yourdomain.com/" />\n<meta property="og:image" content="https://www.yourdomain.com/image.jpg" />`;
+    }
+
+    case 'twitter-card-generator': {
+      if (!input) return '';
+      return `<meta name="twitter:card" content="summary_large_image" />\n<meta name="twitter:title" content="${input}" />\n<meta name="twitter:description" content="Click to learn more!" />`;
+    }
+
+    case 'json-ld-generator': {
+      if (!input) return '';
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": input,
+        "description": "Content description for " + input
+      };
+      return JSON.stringify(schema, null, 2);
     }
 
     default:

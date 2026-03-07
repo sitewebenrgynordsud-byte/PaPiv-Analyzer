@@ -827,6 +827,43 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: "RobotsTxt.org: The Web Robots Pages", href: "http://www.robotstxt.org/robotstxt.html" }
     ],
   },
+  {
+    slug: 'og-meta-generator',
+    title: 'Open Graph Meta Tag Generator',
+    description: 'Generate OG meta tags for social sharing (Facebook, LinkedIn, Discord) to improve CTR.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `The Open Graph protocol enables any web page to become a rich object in a social graph. It is used by social media platforms like Facebook, LinkedIn, and even messaging apps like Discord to display rich previews when a link is shared. These previews, controlled by \`og:title\`, \`og:description\`, and \`og:image\` tags, are critical for attracting user attention and driving clicks. A well-crafted Open Graph preview acts as a free advertisement, increasing your content's visibility and click-through rate (CTR) from social channels. Without proper OG tags, platforms may guess at the content, often resulting in unappealing or incorrect previews. This generator ensures your links always look their best, maximizing their potential for social media traffic and engagement.`,
+    externalReferences: [
+      { text: "The Open Graph protocol", href: "https://ogp.me/" }
+    ],
+  },
+  {
+    slug: 'twitter-card-generator',
+    title: 'Twitter Card Meta Generator',
+    description: 'Create Twitter Card meta tags to display rich media previews on X (Twitter).',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Twitter Cards allow you to attach rich photos, videos, and media experiences to Tweets that drive traffic to your website. Similar to Open Graph, these meta tags give you control over how your content appears when shared on X (formerly Twitter). By specifying tags like \`twitter:card\`, \`twitter:title\`, and \`twitter:image\`, you can move beyond a simple text link to a visually engaging card that captures user attention. There are different card types, such as \`summary_large_image\` for showcasing a prominent image or \`player\` for embedding video. Using the correct Twitter Card markup is essential for increasing user engagement, driving clicks, and making your content stand out in a crowded timeline. This generator simplifies the process of creating these vital tags for your marketing strategy.`,
+    externalReferences: [
+      { text: "Twitter Developer Platform: Cards", href: "https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards" }
+    ],
+  },
+  {
+    slug: 'json-ld-generator',
+    title: 'JSON-LD Schema Markup Generator',
+    description: 'Generate structured data (JSON-LD) to help Google understand your content and show Rich Snippets.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `JSON-LD is a method of implementing structured data on your website to help search engines like Google understand your content in greater detail. By using vocabulary from Schema.org, you can explicitly define entities on your page—such as an Article, Person, or Product. This structured data is what powers "Rich Snippets" in Google search results, those eye-catching additions like star ratings, FAQs, and event times. Earning Rich Snippets can dramatically improve your visibility and click-through rate (CTR), giving you a significant advantage over competitors. While not a direct ranking factor, the increased CTR from Rich Snippets can indirectly boost your rankings. This generator helps you create the basic JSON-LD script for your pages, making your content eligible for these powerful search enhancements.`,
+    externalReferences: [
+      { text: "Schema.org", href: "https://schema.org/" },
+      { text: "Google Search Central: Understand how structured data works", href: "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data" }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
