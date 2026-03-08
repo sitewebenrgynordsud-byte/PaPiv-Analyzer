@@ -864,6 +864,42 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: "Google Search Central: Understand how structured data works", href: "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data" }
     ],
   },
+  {
+    slug: 'csv-to-html-table',
+    title: 'CSV to HTML Table Converter',
+    description: 'Instantly convert CSV data into a clean, responsive HTML table code.',
+    category: 'Web',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Displaying data from spreadsheets on a website can be challenging. This CSV to HTML Table converter bridges that gap perfectly. It allows you to take data from any CSV file, easily exported from Excel or Google Sheets, and instantly convert it into a well-structured, semantic HTML table. This is perfect for bloggers wanting to embed comparison charts, businesses displaying pricing tiers, or analysts sharing data in a web-friendly format. The generated code uses proper <thead> and <tbody> tags for accessibility and SEO, as recommended by MDN. Instead of manually coding each row and cell, you can generate a clean, responsive table in seconds, saving time and reducing errors. It’s an essential tool for anyone needing to present tabular data clearly and professionally on the web.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: HTML Tables', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table' }
+    ],
+  },
+  {
+    slug: 'urls-to-xml-sitemap',
+    title: 'URL List to XML Sitemap Generator',
+    description: 'Convert a simple list of URLs into a valid XML sitemap ready for Google Search Console.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `An XML Sitemap is one of the most critical files on your website for SEO. It acts as a roadmap, telling search engines like Google exactly which pages are on your site and which ones are important. This is crucial for ensuring all your content gets discovered and indexed, especially on large websites or new blogs where internal linking might not be perfect. Our URL List to XML Sitemap Generator simplifies this vital task. Just paste a list of your website's URLs, and the tool will instantly create a perfectly formatted XML sitemap that adheres to the official protocol from Sitemaps.org. You can then submit this file directly to Google Search Console to accelerate the indexing process and improve your site's overall SEO visibility. It’s a must-have tool for any serious webmaster.`,
+    externalReferences: [
+      { text: 'Sitemaps.org - Official Protocol', href: 'https://www.sitemaps.org/protocol.html' }
+    ],
+  },
+  {
+    slug: 'url-cleaner-tracking-stripper',
+    title: 'URL Cleaner & Tracking Stripper',
+    description: 'Remove messy tracking parameters (UTM, fbclid, gclid) from URLs to get clean, shareable links.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Have you ever copied a link to share with a friend, only to find it's a mile long and filled with gibberish? Those are tracking parameters, like UTM codes, 'fbclid' from Facebook, and 'gclid' from Google Ads. While essential for marketers, they make URLs look messy and can raise privacy concerns. Our URL Cleaner & Tracking Stripper solves this. It intelligently removes these common tracking parameters from any URL, giving you a clean, short, and "canonical" link that's perfect for sharing on social media, in emails, or in documents. This improves the aesthetic of your shared content and respects user privacy by not passing unnecessary tracking data. It's an essential tool for anyone who values clean, simple, and private link sharing in their daily workflow.`,
+    externalReferences: [
+      { text: 'Wikipedia: UTM parameters', href: 'https://en.wikipedia.org/wiki/UTM_parameters' }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {

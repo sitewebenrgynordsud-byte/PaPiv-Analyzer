@@ -613,6 +613,50 @@ export function processText(toolSlug: string, input: string): string {
       return JSON.stringify(schema, null, 2);
     }
 
+    case 'csv-to-html-table': {
+      if (!input) return '';
+      const lines = input.split(/\r?\n/).filter(l => l.trim() !== '');
+      if (lines.length === 0) return '❌ Error: No valid data found.';
+      let html = '<table border="1">\n  <thead>\n    <tr>\n';
+      const headers = lines[0].split(',');
+      headers.forEach(h => html += `      <th>${h.trim()}</th>\n`);
+      html += '    </tr>\n  </thead>\n  <tbody>\n';
+      for(let i = 1; i < lines.length; i++) {
+        html += '    <tr>\n';
+        const cols = lines[i].split(',');
+        cols.forEach(c => html += `      <td>${c.trim()}</td>\n`);
+        html += '    </tr>\n';
+      }
+      html += '  </tbody>\n</table>';
+      return html;
+    }
+
+    case 'urls-to-xml-sitemap': {
+      if (!input) return '';
+      const urls = input.split(/\r?\n/).map(u => u.trim()).filter(u => u !== '' && u.startsWith('http'));
+      if (urls.length === 0) return '❌ Error: Please provide a list of valid URLs starting with http:// or https://';
+      let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+      xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+      urls.forEach(u => {
+        xml += `  <url>\n    <loc>${u}</loc>\n  </url>\n`;
+      });
+      xml += '</urlset>';
+      return xml;
+    }
+
+    case 'url-cleaner-tracking-stripper': {
+      if (!input) return '';
+      try {
+        const urlObj = new URL(input.trim());
+        // Common tracking parameters to strip
+        const trackers =['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'fbclid', 'gclid', '_ga', 'mc_cid', 'igshid', 'ref'];
+        trackers.forEach(param => urlObj.searchParams.delete(param));
+        return urlObj.toString();
+      } catch(e) {
+        return "❌ Error: Please enter a valid URL starting with http:// or https://";
+      }
+    }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }
