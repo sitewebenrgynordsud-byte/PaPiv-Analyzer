@@ -900,6 +900,74 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: 'Wikipedia: UTM parameters', href: 'https://en.wikipedia.org/wiki/UTM_parameters' }
     ],
   },
+  {
+    slug: 'binary-text-translator',
+    title: 'Text to Binary Translator',
+    description: 'Translate text characters into 0s and 1s (Binary code) instantly, or decode binary back to text.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: "Binary code is the foundation of all computing, representing data using only 0s and 1s. This free online Text to Binary Translator allows developers, students, and engineers to instantly encode plain text into binary format or decode binary strings back into readable English text. Optimizing data conversion workflows is essential for computer science education and low-level programming debugging.",
+    externalReferences: []
+  },
+  {
+    slug: 'markdown-to-html-converter',
+    title: 'Markdown to HTML Converter',
+    description: 'Convert Markdown text into clean, valid HTML code instantly.',
+    category: 'Web',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Markdown is a lightweight markup language with plain-text formatting syntax. Writers and web developers use Markdown to quickly format text without writing complex HTML tags. Our free Markdown to HTML Converter instantly transforms your MD files into clean, semantic HTML5 code, ready to be embedded into your CMS, blog, or website, ensuring optimal web accessibility and standard compliance.',
+    externalReferences: []
+  },
+  {
+    slug: 'extract-urls-from-text',
+    title: 'Extract URLs from Text',
+    description: 'Instantly find and extract all http/https web links from any messy text document.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Extracting URLs from bulk text, messy code snippets, or raw data dumps can be incredibly tedious. Our free URL Extractor tool scans your input text and isolates all valid web addresses (HTTP/HTTPS), presenting them in a clean, copyable list. This is an essential utility for SEO professionals doing link audits, marketers scraping resources, and developers cleaning up datasets.',
+    externalReferences: []
+  },
+  {
+    slug: 'htaccess-redirect-generator',
+    title: '.htaccess 301 Redirect Generator',
+    description: 'Instantly generate bulk Apache .htaccess 301 redirects for SEO site migrations.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Handling URL migrations correctly is critical for maintaining SEO rankings. A 301 redirect tells search engines like Google that a page has permanently moved. Our free .htaccess 301 Redirect Generator allows webmasters and SEO professionals to input old and new URLs in bulk and instantly generate valid Apache mod_rewrite code. This ensures zero loss in link equity and prevents 404 errors during website redesigns or domain changes.',
+    externalReferences: [
+      { text: "Apache Docs: mod_rewrite", href: "https://httpd.apache.org/docs/current/mod/mod_rewrite.html" },
+      { text: "Moz: Redirection", href: "https://moz.com/learn/seo/redirection" }
+    ],
+  },
+  {
+    slug: 'keyword-typo-generator',
+    title: 'Keyword Typo & Misspelling Generator',
+    description: 'Generate common spelling mistakes of your target keywords for PPC and SEO campaigns.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Users frequently misspell words when searching on Google. By targeting these misspelled queries in Google Ads (PPC) or finding typo-domains, digital marketers can capture high-intent, low-cost traffic. Our free Keyword Typo Generator automatically creates common permutations—including skipped letters, double letters, and swapped characters—helping you build comprehensive broad-match modifier lists for your advertising campaigns.',
+    externalReferences: [
+      { text: "PPC Hero: Capitalizing On Typos", href: "https://www.ppchero.com/capitalizing-on-typos-in-ppc/" }
+    ],
+  },
+  {
+    slug: 'svg-to-data-uri',
+    title: 'SVG to CSS Data URI Converter',
+    description: 'Convert raw SVG code into URL-encoded CSS background images or Base64 format to improve site speed.',
+    category: 'Web',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Optimizing web performance and Core Web Vitals is crucial for modern SEO. Loading SVGs as external files requires additional HTTP requests. By converting raw SVG code into a Data URI or Base64 string, frontend developers can inline vectors directly into CSS background-image properties. This free tool instantly encodes SVG data safely, reducing latency and boosting page load speeds.',
+    externalReferences: [
+      { text: "MDN: Data URIs", href: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs" },
+      { text: "CSS Tricks: Probably Don't Base64 SVG", href: "https://css-tricks.com/probably-dont-base64-svg/" }
+    ],
+  },
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
