@@ -348,16 +348,6 @@ export function processText(toolSlug: string, input: string): string {
       }
     }
 
-    case 'extract-urls': {
-      if (!input) return '';
-      // Regex to find http/https links safely
-      const urlRegex = /(https?:\/\/[^\s]+)/g;
-      const urls = input.match(urlRegex);
-      if (!urls) return "❌ No URLs found in the provided text.";
-      // Return unique URLs, one per line
-      return Array.from(new Set(urls)).join('\n');
-    }
-
     case 'remove-empty-lines': {
       if (!input) return '';
       // Split by newline, filter out empty/whitespace-only lines, and rejoin
@@ -746,6 +736,83 @@ export function processText(toolSlug: string, input: string): string {
       outputURI += `data:image/svg+xml;base64,${base64Svg}`;
       
       return outputURI;
+
+    case 'csv-to-sql-insert-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your CSV data here.\nExample:\nid,name,age\n1,John,25\n2,Jane,30';
+      try {
+        const lines = input.trim().split(/\r?\n/).filter(line => line.trim() !== '');
+        if (lines.length < 2) return '❌ Error: CSV must contain at least a header row and one data row.';
+        const headers = lines[0].split(',').map(h => h.trim());
+        const tableName = 'my_table';
+        let sqlOutput = `-- Auto-generated SQL Insert Statements\n`;
+        for (let i = 1; i < lines.length; i++) {
+          const values = lines[i].split(',').map(v => {
+            const val = v.trim();
+            return isNaN(Number(val)) || val === '' ? `'${val.replace(/'/g, "''")}'` : val;
+          });
+          sqlOutput += `INSERT INTO ${tableName} (${headers.join(', ')}) VALUES (${values.join(', ')});\n`;
+        }
+        return sqlOutput + '\n-- Note: You can change "my_table" to your actual database table name.';
+      } catch (e) {
+        return '❌ Error: Failed to parse CSV.';
+      }
+
+    case 'json-to-php-array-converter':
+      if (!input || input.trim() === '') return '💡 Hint: Paste valid JSON data here.';
+      try {
+        const parsedJson = JSON.parse(input.trim());
+        const formatPHP = (obj: any, indent: number = 1): string => {
+          const spaces = '    '.repeat(indent);
+          const endSpaces = '    '.repeat(indent - 1);
+          if (Array.isArray(obj)) {
+            if (obj.length === 0) return '[]';
+            let out = '[\n';
+            obj.forEach((val, index) => {
+              out += spaces + formatPHP(val, indent + 1) + (index < obj.length - 1 ? ',' : '') + '\n';
+            });
+            return out + endSpaces + ']';
+          } else if (obj !== null && typeof obj === 'object') {
+            const keys = Object.keys(obj);
+            if (keys.length === 0) return '[]';
+            let out = '[\n';
+            keys.forEach((key, index) => {
+              out += spaces + `'${key}' => ` + formatPHP(obj[key], indent + 1) + (index < keys.length - 1 ? ',' : '') + '\n';
+            });
+            return out + endSpaces + ']';
+          } else if (typeof obj === 'string') {
+            return `'${obj.replace(/'/g, "\\'")}'`;
+          } else if (obj === null) { return 'null'; } else { return String(obj); }
+        };
+        return `<?php\n\n$array = ${formatPHP(parsedJson)};\n\n?>`;
+      } catch (e) {
+        return '❌ Error: Invalid JSON format.';
+      }
+
+    case 'vtt-to-srt-converter':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your WebVTT text here.';
+      try {
+        let srt = input.trim();
+        if (!srt.toUpperCase().startsWith('WEBVTT')) return '❌ Error: Input must start with WEBVTT.';
+        srt = srt.replace(/^WEBVTT.*(\r?\n)*/i, '');
+        srt = srt.replace(/^Kind:.*(\r?\n)*/im, '');
+        srt = srt.replace(/^Language:.*(\r?\n)*/im, '');
+        srt = srt.replace(/(\d{2}:\d{2}:\d{2})\.(\d{3})/g, '$1,$2');
+        srt = srt.replace(/(^|\s)(\d{2}:\d{2},\d{3})/gm, '$100:$2');
+        const blocks = srt.split(/\n\s*\n/).filter(b => b.trim() !== '');
+        let finalSrt = '';
+        blocks.forEach((block, index) => {
+          let lines = block.split('\n');
+          if (!/^\d+$/.test(lines[0].trim())) {
+             finalSrt += `${index + 1}\n${block}\n\n`;
+          } else {
+             lines[0] = `${index + 1}`;
+             finalSrt += `${lines.join('\n')}\n\n`;
+          }
+        });
+        return finalSrt.trim();
+      } catch (e) {
+        return '❌ Error: Failed to convert VTT.';
+      }
 
     default:
       return `Error: Tool with slug '${slug}' not found.`;

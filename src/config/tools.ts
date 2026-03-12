@@ -573,18 +573,6 @@ Color consistency is key to professional web design. While many modern tools sup
     ],
   },
   {
-    slug: 'extract-urls',
-    title: 'Extract URLs from Text',
-    description: 'Instantly find and extract all http and https web links from any messy text document.',
-    category: 'Data',
-    inputType: 'text',
-    outputType: 'text',
-    longDescription: `The Extract URLs from Text tool is a powerful utility for data scraping and analysis. It scans any block of text and pulls out all http and https links, presenting them in a clean, deduplicated list. This is invaluable for SEO specialists performing backlink audits, marketers gathering resource links from articles, or developers needing to extract all linked assets from a document. The tool uses a reliable regular expression to ensure it captures valid URLs without grabbing surrounding punctuation. By running entirely in your browser, it offers a secure and incredibly fast way to parse large documents for web links without sending any data to an external server.`,
-    externalReferences: [
-      { text: 'Stack Overflow: What is a good regular expression to match a URL?', href: 'https://stackoverflow.com/questions/1500260/what-is-a-good-regular-expression-to-match-a-url' }
-    ],
-  },
-  {
     slug: 'remove-empty-lines',
     title: 'Remove Empty Lines',
     description: 'Clean up your text by removing all blank lines and extra line breaks instantly.',
@@ -948,6 +936,36 @@ Color consistency is key to professional web design. While many modern tools sup
       { text: "CSS Tricks: Probably Don't Base64 SVG", href: "https://css-tricks.com/probably-dont-base64-svg/" }
     ],
   },
+  {
+    slug: 'csv-to-sql-insert-generator',
+    title: 'CSV to SQL Insert Statement Generator',
+    description: 'Instantly convert CSV data into valid SQL INSERT statements for your database.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Database administrators and backend developers often need to migrate data from spreadsheets to relational databases. Our free CSV to SQL Insert Generator instantly parses comma-separated values and transforms them into valid SQL INSERT statements. This tool saves hours of manual coding, prevents syntax errors, and streamlines database seeding for MySQL, PostgreSQL, and SQLite environments.',
+    externalReferences: []
+  },
+  {
+    slug: 'json-to-php-array-converter',
+    title: 'JSON to PHP Array Converter',
+    description: 'Convert JSON objects into valid PHP associative array syntax instantly.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Working with APIs in PHP requires converting JSON payloads into readable arrays. Our JSON to PHP Array Converter takes standard JSON data and instantly formats it into valid PHP associative array syntax (using the modern bracket notation). This free online developer utility is perfect for backend engineers looking to hardcode config files, mock API responses, or debug data structures without running a local server.',
+    externalReferences: []
+  },
+  {
+    slug: 'vtt-to-srt-converter',
+    title: 'VTT to SRT Subtitle Converter',
+    description: 'Convert WebVTT (.vtt) subtitle text into standard SubRip (.srt) format online.',
+    category: 'Video/SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Video SEO is critical for modern content strategies. While many web players require WebVTT (.vtt) files, offline editors and older platforms strictly use SubRip (.srt). Our free VTT to SRT Converter strips out WebVTT metadata and seamlessly converts timestamp formatting (changing dots to commas) to produce perfectly formatted SRT files. Essential for video editors, YouTubers, and content marketers optimizing closed captions.',
+    externalReferences: []
+  }
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
