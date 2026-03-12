@@ -911,26 +911,6 @@ Color consistency is key to professional web design. While many modern tools sup
     externalReferences: []
   },
   {
-    slug: 'markdown-to-html-converter',
-    title: 'Markdown to HTML Converter',
-    description: 'Convert Markdown text into clean, valid HTML code instantly.',
-    category: 'Web',
-    inputType: 'text',
-    outputType: 'text',
-    longDescription: 'Markdown is a lightweight markup language with plain-text formatting syntax. Writers and web developers use Markdown to quickly format text without writing complex HTML tags. Our free Markdown to HTML Converter instantly transforms your MD files into clean, semantic HTML5 code, ready to be embedded into your CMS, blog, or website, ensuring optimal web accessibility and standard compliance.',
-    externalReferences: []
-  },
-  {
-    slug: 'extract-urls-from-text',
-    title: 'Extract URLs from Text',
-    description: 'Instantly find and extract all http/https web links from any messy text document.',
-    category: 'SEO',
-    inputType: 'text',
-    outputType: 'text',
-    longDescription: 'Extracting URLs from bulk text, messy code snippets, or raw data dumps can be incredibly tedious. Our free URL Extractor tool scans your input text and isolates all valid web addresses (HTTP/HTTPS), presenting them in a clean, copyable list. This is an essential utility for SEO professionals doing link audits, marketers scraping resources, and developers cleaning up datasets.',
-    externalReferences: []
-  },
-  {
     slug: 'htaccess-redirect-generator',
     title: '.htaccess 301 Redirect Generator',
     description: 'Instantly generate bulk Apache .htaccess 301 redirects for SEO site migrations.',

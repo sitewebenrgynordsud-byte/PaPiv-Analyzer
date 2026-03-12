@@ -674,29 +674,6 @@ export function processText(toolSlug: string, input: string): string {
           return '00000000'.slice(bin.length) + bin;
         }).join(' ');
       }
-
-    case 'markdown-to-html-converter':
-      if (!input) return '';
-      let htmlOutput = input
-        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-        .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-        .replace(/\*(.*)\*/gim, '<em>$1</em>')
-        .replace(/\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>")
-        .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
-        .replace(/\n$/gim, '<br />');
-      return htmlOutput.trim() === '' ? '❌ Error: Could not parse Markdown.' : htmlOutput;
-
-    case 'extract-urls-from-text':
-      if (!input) return '';
-      const urlRegex = /(https?:\/\/[^\s]+)/g;
-      const extractedUrls = input.match(urlRegex);
-      if (!extractedUrls || extractedUrls.length === 0) {
-        return '❌ No URLs found in the provided text.';
-      }
-      // Return unique URLs separated by a new line
-      return [...new Set(extractedUrls)].join('\n');
     
     case 'htaccess-redirect-generator':
       if (!input || input.trim() === '') {
