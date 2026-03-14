@@ -965,6 +965,42 @@ Color consistency is key to professional web design. While many modern tools sup
     outputType: 'text',
     longDescription: 'Video SEO is critical for modern content strategies. While many web players require WebVTT (.vtt) files, offline editors and older platforms strictly use SubRip (.srt). Our free VTT to SRT Converter strips out WebVTT metadata and seamlessly converts timestamp formatting (changing dots to commas) to produce perfectly formatted SRT files. Essential for video editors, YouTubers, and content marketers optimizing closed captions.',
     externalReferences: []
+  },
+  {
+    slug: 'xml-sitemap-url-extractor',
+    title: 'XML Sitemap URL Extractor',
+    description: 'Instantly extract a clean list of URLs from any raw XML sitemap code.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `SEO professionals frequently need to audit competitor websites or analyze large domain structures. Parsing raw XML sitemap files manually is tedious. Our free XML Sitemap URL Extractor scans raw sitemap code and instantly isolates all <loc> tags, providing a clean, copy-paste ready list of URLs. This tool is essential for technical SEO audits, bulk URL testing, and preparing data for crawling tools like Screaming Frog.`,
+    externalReferences: [
+      { text: 'Sitemaps.org Protocol', href: 'https://www.sitemaps.org/protocol.html' }
+    ]
+  },
+  {
+    slug: 'html-table-to-csv',
+    title: 'HTML Table to CSV Converter',
+    description: 'Convert raw HTML table code into clean, spreadsheet-ready CSV format.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `Extracting data from web pages often leaves you with messy HTML tables that cannot be easily imported into Excel or Google Sheets. Our HTML Table to CSV Converter parses raw HTML <table> markup, strips out unnecessary tags, and formats the data into clean Comma-Separated Values (CSV). Perfect for data analysts, web scrapers, and developers needing to migrate frontend tabular data into backend databases.`,
+    externalReferences: [
+      { text: 'MDN Web Docs: <table> element', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table' }
+    ]
+  },
+  {
+    slug: 'hreflang-tags-generator',
+    title: 'Hreflang Tags Generator',
+    description: 'Generate valid international SEO hreflang link tags for multi-language websites.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: `For international SEO, implementing accurate hreflang tags is crucial to tell Google which language and regional version of a page to show to users. Syntax errors in these tags can lead to indexing issues. Our free Hreflang Tags Generator allows webmasters to input their URLs alongside language codes (e.g., en, es, x-default) to instantly generate perfectly formatted HTML <link> tags ready to be pasted into the <head> section of your website.`,
+    externalReferences: [
+      { text: 'Google Search Central: Tell Google about localized versions of your page', href: 'https://developers.google.com/search/docs/specialty/international/localized-versions' }
+    ]
   }
 ];
 

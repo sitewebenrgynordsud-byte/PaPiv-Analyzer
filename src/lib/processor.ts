@@ -814,6 +814,66 @@ export function processText(toolSlug: string, input: string): string {
         return '❌ Error: Failed to convert VTT.';
       }
 
+    case 'xml-sitemap-url-extractor':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your raw XML Sitemap code here.';
+      try {
+        const locRegex = /<loc>(.*?)<\/loc>/g;
+        let urls = [];
+        let match;
+        while ((match = locRegex.exec(input)) !== null) {
+          urls.push(match[1].trim());
+        }
+        if (urls.length === 0) return '❌ Error: No <loc> tags found in the provided XML.';
+        return [...new Set(urls)].join('\n');
+      } catch (e) {
+        return '❌ Error: Failed to parse XML.';
+      }
+
+    case 'html-table-to-csv':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your HTML <table> code here.';
+      try {
+        const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+        const colRegex = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi;
+        let csvOutput = [];
+        let rowMatch;
+        while ((rowMatch = rowRegex.exec(input)) !== null) {
+          let rowHtml = rowMatch[1];
+          let cols = [];
+          let colMatch;
+          while ((colMatch = colRegex.exec(rowHtml)) !== null) {
+             let cellText = colMatch[1].replace(/<[^>]+>/g, '').trim();
+             if (cellText.includes(',') || cellText.includes('"')) {
+                 cellText = `"${cellText.replace(/"/g, '""')}"`;
+             }
+             cols.push(cellText);
+          }
+          if (cols.length > 0) csvOutput.push(cols.join(','));
+        }
+        if (csvOutput.length === 0) return '❌ Error: No valid <tr> and <td> tags found.';
+        return csvOutput.join('\n');
+      } catch (e) {
+         return '❌ Error: Failed to parse HTML table.';
+      }
+
+    case 'hreflang-tags-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Paste URLs and language codes separated by comma.\nExample:\nhttps://site.com/en, en\nhttps://site.com/es, es\nhttps://site.com/, x-default';
+      try {
+        const lines = input.split(/\r?\n/).filter(l => l.trim() !== '');
+        let hrefOutput = '<!-- Place these tags inside the <head> section of your HTML -->\n\n';
+        let validCount = 0;
+        lines.forEach(line => {
+           const parts = line.split(',').map(p => p.trim());
+           if (parts.length >= 2) {
+               hrefOutput += `<link rel="alternate" hreflang="${parts[1]}" href="${parts[0]}" />\n`;
+               validCount++;
+           }
+        });
+        if (validCount === 0) return '❌ Error: Please use the correct format: URL, language_code';
+        return hrefOutput;
+      } catch (e) {
+        return '❌ Error: Failed to generate tags.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }
