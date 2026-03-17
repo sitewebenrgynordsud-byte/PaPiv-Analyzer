@@ -1001,6 +1001,36 @@ Color consistency is key to professional web design. While many modern tools sup
     externalReferences: [
       { text: 'Google Search Central: Tell Google about localized versions of your page', href: 'https://developers.google.com/search/docs/specialty/international/localized-versions' }
     ]
+  },
+  {
+    slug: 'faq-schema-generator',
+    title: 'FAQ Page Schema (JSON-LD) Generator',
+    description: 'Instantly generate valid FAQ structured data to get rich snippets in Google Search results.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Securing a Rich Snippet in Google Search can exponentially increase your organic click-through rate (CTR). Our free FAQ Schema Generator converts standard questions and answers into perfectly formatted JSON-LD structured data. SEO professionals and content creators can simply paste their Q&A pairs, and our tool outputs the exact script required by search engines to display your FAQs directly on the search engine results page (SERP).',
+    externalReferences: []
+  },
+  {
+    slug: 'utm-campaign-builder',
+    title: 'UTM Campaign URL Builder',
+    description: 'Create custom tracking URLs with UTM parameters for Google Analytics and marketing campaigns.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Accurate tracking is the backbone of any successful digital marketing campaign. Our free UTM Campaign URL Builder allows performance marketers, social media managers, and SEOs to easily append tracking parameters (utm_source, utm_medium, utm_campaign) to their destination links. This ensures that every click from Facebook Ads, email newsletters, or affiliate links is perfectly attributed inside Google Analytics 4 (GA4).',
+    externalReferences: []
+  },
+  {
+    slug: 'google-disavow-generator',
+    title: 'Google Disavow File Generator',
+    description: 'Format spammy domains and URLs into a valid .txt file ready for the Google Disavow Tool.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Toxic backlinks and negative SEO attacks can severely harm your website rankings. To recover from algorithmic penalties, webmasters must submit a perfectly formatted Disavow file to Google Search Console. Our free Google Disavow File Generator takes your messy list of spammy URLs and domains, automatically formats them with the required "domain:" prefix, removes duplicates, and generates a safe, ready-to-upload text file.',
+    externalReferences: []
   }
 ];
 
