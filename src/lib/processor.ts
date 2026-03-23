@@ -959,6 +959,82 @@ export function processText(toolSlug: string, input: string): string {
         return '❌ Error: Failed to format disavow list.';
       }
 
+    case 'local-business-schema-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Enter your details separated by a pipe symbol ( | ).\nFormat: Business Name | Phone | Street Address | Website URL\nExample: Joe Pizza | +1-555-0198 | 123 Main St, NY | https://joepizza.com';
+      try {
+        const parts = input.split('|').map(p => p.trim());
+        if (parts.length < 3) return '❌ Error: Please provide at least Name, Phone, and Address separated by |.';
+        
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": parts[0],
+          "telephone": parts[1],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": parts[2]
+          },
+          "url": parts[3] || ""
+        };
+        
+        return `<!-- Paste this code inside your <head> or before </body> -->\n<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>`;
+      } catch (e) {
+        return '❌ Error: Failed to generate Local Business Schema.';
+      }
+
+    case 'keyword-combiner-multiplier':
+      if (!input || input.trim() === '') return '💡 Hint: Enter comma-separated words on 2 or 3 lines.\nExample:\nLine 1: buy, cheap, best\nLine 2: shoes, boots, sneakers\nLine 3: online, near me';
+      try {
+        const lines = input.split(/\r?\n/).filter(l => l.trim() !== '');
+        if (lines.length < 2) return '❌ Error: Please provide at least 2 lines of comma-separated words.';
+        
+        // Parse each line into an array of clean words
+        const lists = lines.map(line => line.split(',').map(word => word.trim()).filter(word => word !== ''));
+        
+        // Combine arrays (Cartesian product)
+        const combine = (arrs: string[][]) => arrs.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat() as any)));
+        
+        const result = combine(lists).map((arr: any) => (Array.isArray(arr) ? arr.join(' ') : arr)).join('\n');
+        
+        return `✅ Generated Keywords:\n\n${result}`;
+      } catch (e) {
+        return '❌ Error: Failed to combine keywords.';
+      }
+
+    case 'youtube-chapters-formatter':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your messy notes with timestamps.\nExample:\nIntro is at 0:00\nGameplay starts at 01:45\nFinal boss at 12:30';
+      try {
+        const lines = input.split(/\r?\n/).filter(l => l.trim() !== '');
+        let chapters: string[] = [];
+        let hasZero = false;
+        
+        lines.forEach(line => {
+          // Extract timestamp like 0:00, 00:00, or 00:00:00
+          const match = line.match(/(\d{1,2}:\d{2}(?::\d{2})?)/);
+          if (match) {
+            let time = match[1];
+            if (time === '00:00' || time === '0:00') hasZero = true;
+            
+            // Clean the text by removing the timestamp and any leading dashes/colons
+            let text = line.replace(time, '').trim().replace(/^[-:]\s*/, '').trim();
+            if (!text) text = "Chapter"; // Fallback if no text
+            
+            chapters.push(`${time} ${text}`);
+          }
+        });
+        
+        if (chapters.length === 0) return '❌ Error: No valid timestamps found (e.g., 01:23).';
+        
+        // YouTube requires the first chapter to be exactly 00:00
+        if (!hasZero) {
+          chapters.unshift('00:00 Intro');
+        }
+        
+        return `✅ Copy to YouTube Description:\n\n${chapters.join('\n')}`;
+      } catch (e) {
+        return '❌ Error: Failed to format chapters.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

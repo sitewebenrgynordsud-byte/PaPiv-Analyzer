@@ -895,7 +895,7 @@ Color consistency is key to professional web design. While many modern tools sup
     category: 'Developer',
     inputType: 'text',
     outputType: 'text',
-    longDescription: "Binary code is the foundation of all computing, representing data using only 0s and 1s. This free online Text to Binary Translator allows developers, students, and engineers to instantly encode plain text into binary format or decode binary strings back into readable English text. Optimizing data conversion workflows is essential for computer science education and low-level programming debugging.",
+    longDescription: 'Binary code is the foundation of all computing, representing data using only 0s and 1s. This free online Text to Binary Translator allows developers, students, and engineers to instantly encode plain text into binary format or decode binary strings back into readable English text. Optimizing data conversion workflows is essential for computer science education and low-level programming debugging.',
     externalReferences: []
   },
   {
@@ -973,7 +973,7 @@ Color consistency is key to professional web design. While many modern tools sup
     category: 'SEO',
     inputType: 'text',
     outputType: 'text',
-    longDescription: `SEO professionals frequently need to audit competitor websites or analyze large domain structures. Parsing raw XML sitemap files manually is tedious. Our free XML Sitemap URL Extractor scans raw sitemap code and instantly isolates all <loc> tags, providing a clean, copy-paste ready list of URLs. This tool is essential for technical SEO audits, bulk URL testing, and preparing data for crawling tools like Screaming Frog.`,
+    longDescription: 'SEO professionals frequently need to audit competitor websites or analyze large domain structures. Parsing raw XML sitemap files manually is tedious. Our free XML Sitemap URL Extractor scans raw sitemap code and instantly isolates all <loc> tags, providing a clean, copy-paste ready list of URLs. This tool is essential for technical SEO audits, bulk URL testing, and preparing data for crawling tools like Screaming Frog.',
     externalReferences: [
       { text: 'Sitemaps.org Protocol', href: 'https://www.sitemaps.org/protocol.html' }
     ]
@@ -1029,7 +1029,37 @@ Color consistency is key to professional web design. While many modern tools sup
     category: 'SEO',
     inputType: 'text',
     outputType: 'text',
-    longDescription: 'Toxic backlinks and negative SEO attacks can severely harm your website rankings. To recover from algorithmic penalties, webmasters must submit a perfectly formatted Disavow file to Google Search Console. Our free Google Disavow File Generator takes your messy list of spammy URLs and domains, automatically formats them with the required "domain:" prefix, removes duplicates, and generates a safe, ready-to-upload text file.',
+    longDescription: `Toxic backlinks and negative SEO attacks can severely harm your website rankings. To recover from algorithmic penalties, webmasters must submit a perfectly formatted Disavow file to Google Search Console. Our free Google Disavow File Generator takes your messy list of spammy URLs and domains, automatically formats them with the required "domain:" prefix, removes duplicates, and generates a safe, ready-to-upload text file.`,
+    externalReferences: []
+  },
+  {
+    slug: 'local-business-schema-generator',
+    title: 'Local Business Schema Generator',
+    description: 'Instantly generate Local Business JSON-LD structured data for Google Maps and local SEO.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Ranking in the Google Local Pack requires accurate structured data. Our free Local Business Schema Generator allows SEO professionals and local business owners to input their company details (Name, Address, Phone, Website) and instantly generate perfectly formatted JSON-LD code. Paste this script into your websites HTML <head> to improve local search visibility, enhance Google Maps integration, and boost local organic traffic.',
+    externalReferences: []
+  },
+  {
+    slug: 'keyword-combiner-multiplier',
+    title: 'Keyword Combiner & Multiplier',
+    description: 'Merge multiple lists of words to instantly generate hundreds of long-tail keywords for SEO and PPC.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Building comprehensive keyword lists for Google Ads (PPC) and long-tail SEO campaigns can take hours. Our free Keyword Combiner and Multiplier tool automates this process. Simply input your prefixes (e.g., "buy, cheap"), core terms, and suffixes on separate lines. The tool uses a Cartesian product algorithm to instantly merge them into every possible combination, ensuring you never miss a profitable search query.',
+    externalReferences: []
+  },
+  {
+    slug: 'youtube-chapters-formatter',
+    title: 'YouTube Chapters & Timestamp Formatter',
+    description: 'Clean and format messy video timestamps into perfect YouTube Video Chapters for SEO.',
+    category: 'Video/SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'YouTube Chapters (Timestamps) are heavily utilized by Google Search to display "Key Moments" rich snippets in video results. However, formatting them manually can be tedious, and if the first timestamp does not start exactly at 00:00, YouTube will reject the chapters. Our free YouTube Timestamp Formatter cleans messy notes, extracts the timecodes, enforces the 00:00 rule, and outputs a perfectly structured list ready for your video description.',
     externalReferences: []
   }
 ];
