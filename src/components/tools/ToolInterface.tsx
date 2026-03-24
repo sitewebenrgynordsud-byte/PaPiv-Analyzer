@@ -95,7 +95,21 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
 
     window.addEventListener('scroll', checkScrollTop);
 
-    if (window.location.hash) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const textParam = urlParams.get('text');
+
+    if (textParam) {
+      try {
+        const decodedText = decodeURIComponent(textParam);
+        setInput(decodedText);
+        toast({ title: 'Content loaded from URL!' });
+      } catch (e) {
+        console.error('Failed to parse URL parameter:', e);
+        toast({ variant: 'destructive', title: 'Error loading from URL', description: 'The provided URL content seems to be corrupted.' });
+      } finally {
+        router.replace(window.location.pathname, { scroll: false });
+      }
+    } else if (window.location.hash) {
       try {
         const hash = window.location.hash.substring(1);
         const decoded = atob(decodeURIComponent(hash));
@@ -107,11 +121,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
       } catch (e) {
         console.error('Failed to parse shared link data:', e);
       } finally {
-        window.history.replaceState(
-          null,
-          '',
-          window.location.pathname + window.location.search
-        );
+        router.replace(window.location.pathname, { scroll: false });
       }
     }
 
@@ -149,7 +159,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     
     return () => window.removeEventListener('scroll', checkScrollTop);
 
-  }, [tool.slug, tool.category, toast]);
+  }, [tool.slug, tool.category, toast, router]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -160,6 +170,15 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     setStats(null);
 
     const handler = setTimeout(() => {
+      const currentPath = window.location.pathname;
+      if (input.length > 0 && input.length < 2000) {
+        const params = new URLSearchParams();
+        params.set('text', input);
+        router.replace(`${currentPath}?${params.toString()}`, { scroll: false });
+      } else if (window.location.search) {
+        router.replace(currentPath, { scroll: false });
+      }
+
       if (input.trim() === '' && tool.slug !== 'lorem-ipsum-generator' && tool.slug !== 'random-password-generator' && tool.slug !== 'uuid-generator' && tool.slug !== 'robots-txt-generator') {
         return;
       }
@@ -225,7 +244,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
     return () => {
       clearTimeout(handler);
     };
-  }, [input, tool.slug, mounted]);
+  }, [input, tool.slug, mounted, router]);
 
   const handleCopy = () => {
     let contentToCopy = '';
