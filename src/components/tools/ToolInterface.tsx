@@ -154,11 +154,13 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   useEffect(() => {
     if (!mounted) return;
 
+    // Immediately clear previous output and error states to reset to neutral.
+    setError(null);
+    setOutput('');
+    setStats(null);
+
     const handler = setTimeout(() => {
-      if (input.trim() === '' && tool.slug !== 'lorem-ipsum-generator') {
-        setOutput('');
-        setStats(null);
-        setError(null);
+      if (input.trim() === '' && tool.slug !== 'lorem-ipsum-generator' && tool.slug !== 'random-password-generator' && tool.slug !== 'uuid-generator' && tool.slug !== 'robots-txt-generator') {
         return;
       }
 
@@ -171,59 +173,54 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
           result.startsWith('Invalid JSON')
         ) {
           setError(result);
-          setOutput('');
-          setStats(null);
         } else {
           let processedOutput: string | object;
           if (tool.slug === 'text-statistics') {
             const parsedStats = JSON.parse(result);
             setStats(parsedStats);
-            setOutput(''); // Clear text output for stats tool
             processedOutput = parsedStats;
           } else {
             setOutput(result);
-            setStats(null);
             processedOutput = result;
           }
-          setError(null);
 
-          const newEntry: HistoryItem = {
-            id: new Date().toISOString() + Math.random(),
-            toolSlug: tool.slug,
-            input,
-            output: processedOutput,
-            timestamp: Date.now(),
-          };
+          if (input.trim() !== '') {
+            const newEntry: HistoryItem = {
+              id: new Date().toISOString() + Math.random(),
+              toolSlug: tool.slug,
+              input,
+              output: processedOutput,
+              timestamp: Date.now(),
+            };
 
-          sendGAEvent('tool_used', {
-            tool_slug: tool.slug,
-            category: tool.category,
-          });
+            sendGAEvent('tool_used', {
+              tool_slug: tool.slug,
+              category: tool.category,
+            });
 
-          setHistory((prevHistory) => {
-            const updatedHistory = [
-              newEntry,
-              ...prevHistory.filter((item) => item.input !== input),
-            ].slice(0, 5);
-            try {
-              localStorage.setItem(
-                'papiv-history',
-                JSON.stringify(updatedHistory)
-              );
-            } catch (e) {
-              console.error('Failed to save history to localStorage', e);
-            }
-            return updatedHistory;
-          });
+            setHistory((prevHistory) => {
+              const updatedHistory = [
+                newEntry,
+                ...prevHistory.filter((item) => item.input !== input),
+              ].slice(0, 5);
+              try {
+                localStorage.setItem(
+                  'papiv-history',
+                  JSON.stringify(updatedHistory)
+                );
+              } catch (e) {
+                console.error('Failed to save history to localStorage', e);
+              }
+              return updatedHistory;
+            });
+          }
         }
       } catch (e) {
         const errorMessage =
           e instanceof Error ? e.message : 'An unknown processing error occurred.';
         setError(`Error processing data. ${errorMessage}`);
-        setOutput('');
-        setStats(null);
       }
-    }, 150);
+    }, 800);
 
     return () => {
       clearTimeout(handler);
@@ -414,7 +411,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   className="min-h-[300px] resize-y font-mono"
-                  type={tool.slug === 'lorem-ipsum-generator' ? 'number' : 'text'}
+                  autoFocus
                 />
               </div>
             </CardContent>
@@ -515,7 +512,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
               <div className="min-h-[300px]">
                 {tool.slug === 'text-statistics' ? (
                   <div className="h-full">
-                    {!input.trim() && !stats ? (
+                    {!stats && !error ? (
                       <div className="flex h-full items-center justify-center rounded-md bg-muted text-muted-foreground">
                         <p>Waiting for input...</p>
                       </div>
@@ -542,7 +539,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                     readOnly
                     value={output}
                     className="min-h-[300px] resize-y bg-muted font-mono whitespace-pre-wrap"
-                    placeholder="Waiting for input..."
+                    placeholder={!error ? "Waiting for input..." : ""}
                   />
                 )}
               </div>
