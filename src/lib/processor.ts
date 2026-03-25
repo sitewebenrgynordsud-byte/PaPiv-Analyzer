@@ -1035,6 +1035,62 @@ export function processText(toolSlug: string, input: string): string {
         return '❌ Error: Failed to format chapters.';
       }
 
+    case 'bulk-root-domain-extractor':
+      if (!input || input.trim() === '') return '💡 Hint: Paste a list of URLs (one per line).\nExample:\nhttps://www.blog.site.com/page1\nhttp://site.com/contact\nhttps://another-site.net/?id=5';
+      try {
+        const lines = input.split(/\r?\n/).filter(l => l.trim() !== '');
+        const domains = new Set<string>();
+        lines.forEach(line => {
+          try {
+            let urlString = line.trim();
+            if (!urlString.startsWith('http')) urlString = 'https://' + urlString;
+            let host = new URL(urlString).hostname;
+            host = host.replace(/^www\./i, '');
+            domains.add(host);
+          } catch(err) { /* ignore invalid URLs */ }
+        });
+        if (domains.size === 0) return '❌ Error: No valid URLs found to extract domains from.';
+        return Array.from(domains).sort().join('\n');
+      } catch (e) {
+        return '❌ Error: Failed to extract domains.';
+      }
+
+    case 'seo-stop-words-remover':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your article, paragraph, or keyword list here.';
+      try {
+        const stopWords = ['a','about','above','after','again','against','all','am','an','and','any','are','aren\'t','as','at','be','because','been','before','being','below','between','both','but','by','can\'t','cannot','could','couldn\'t','did','didn\'t','do','does','doesn\'t','doing','don\'t','down','during','each','few','for','from','further','had','hadn\'t','has','hasn\'t','have','haven\'t','having','he','he\'d','he\'ll','he\'s','her','here','here\'s','hers','herself','him','himself','his','how','how\'s','i','i\'d','i\'ll','i\'m','i\'ve','if','in','into','is','isn\'t','it','it\'s','its','itself','let\'s','me','more','most','mustn\'t','my','myself','no','nor','not','of','off','on','once','only','or','other','ought','our','ours','ourselves','out','over','own','same','shan\'t','she','she\'d','she\'ll','she\'s','should','shouldn\'t','so','some','such','than','that','that\'s','the','their','theirs','them','themselves','then','there','there\'s','these','they','they\'d','they\'ll','they\'re','they\'ve','this','those','through','to','too','under','until','up','very','was','wasn\'t','we','we\'d','we\'ll','we\'re','we\'ve','were','weren\'t','what','what\'s','when','when\'s','where','where\'s','which','while','who','who\'s','whom','why','why\'s','with','won\'t','would','wouldn\'t','you','you\'d','you\'ll','you\'re','you\'ve','your','yours','yourself','yourselves'];
+        const regex = new RegExp('\\b(' + stopWords.join('|') + ')\\b', 'gi');
+        let cleaned = input.replace(regex, '');
+        // Clean up extra spaces and line breaks left behind
+        cleaned = cleaned.replace(/[ \t]{2,}/g, ' ').replace(/\n\s*\n/g, '\n\n').trim();
+        return cleaned || '❌ No keywords left. The text was entirely stop words.';
+      } catch (e) {
+        return '❌ Error: Failed to process text.';
+      }
+
+    case 'bbcode-to-html-converter':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your BBCode here.\nExample: [b]Bold[/b] and [url=https://site.com]Link[/url]';
+      try {
+        let html = input
+          .replace(/\[b\](.*?)\[\/b\]/gi, '<strong>$1</strong>')
+          .replace(/\[i\](.*?)\[\/i\]/gi, '<em>$1</em>')
+          .replace(/\[u\](.*?)\[\/u\]/gi, '<u>$1</u>')
+          .replace(/\[s\](.*?)\[\/s\]/gi, '<del>$1</del>')
+          .replace(/\[url=(.*?)\](.*?)\[\/url\]/gi, '<a href="$1" target="_blank" rel="noopener">$2</a>')
+          .replace(/\[url\](.*?)\[\/url\]/gi, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+          .replace(/\[img\](.*?)\[\/img\]/gi, '<img src="$1" alt="Forum Image" loading="lazy" />')
+          .replace(/\[code\]([\s\S]*?)\[\/code\]/gi, '<code>$1</code>')
+          .replace(/\[quote\]([\s\S]*?)\[\/quote\]/gi, '<blockquote>$1</blockquote>')
+          .replace(/\[color=(.*?)\](.*?)\[\/color\]/gi, '<span style="color:$1;">$2</span>')
+          .replace(/\[size=(.*?)\](.*?)\[\/size\]/gi, '<span style="font-size:$1;">$2</span>');
+        
+        // Convert newlines to <br> for HTML rendering
+        html = html.replace(/\r?\n/g, '<br />\n');
+        return html;
+      } catch (e) {
+        return '❌ Error: Failed to convert BBCode.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

@@ -1061,6 +1061,36 @@ Color consistency is key to professional web design. While many modern tools sup
     outputType: 'text',
     longDescription: 'YouTube Chapters (Timestamps) are heavily utilized by Google Search to display "Key Moments" rich snippets in video results. However, formatting them manually can be tedious, and if the first timestamp does not start exactly at 00:00, YouTube will reject the chapters. Our free YouTube Timestamp Formatter cleans messy notes, extracts the timecodes, enforces the 00:00 rule, and outputs a perfectly structured list ready for your video description.',
     externalReferences: []
+  },
+  {
+    slug: 'bulk-root-domain-extractor',
+    title: 'Bulk Root Domain Extractor',
+    description: 'Extract clean, unique root domains from a massive list of messy URLs instantly.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Backlink auditing and competitor analysis often involve exporting thousands of messy, raw URLs from tools like Ahrefs, Semrush, or Majestic. Processing these manually is impossible. Our free Bulk Root Domain Extractor parses complex URLs, strips out http, https, www, subdirectories, and query parameters, and outputs a clean, deduplicated list of root domains. Essential for SEO professionals preparing Google Disavow files or outreach target lists.',
+    externalReferences: []
+  },
+  {
+    slug: 'seo-stop-words-remover',
+    title: 'SEO Stop Words Remover',
+    description: 'Clean your text by removing common English stop words to optimize keyword density and NLP.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'In Natural Language Processing (NLP) and Search Engine Optimization, "stop words" are common words (like "the", "is", "at", "which") that search engines often filter out when evaluating a pages core topic. Our free SEO Stop Words Remover scans your content, instantly strips away these filler words, and leaves only the semantic keywords behind. Perfect for analyzing keyword prominence, preparing content for topic modeling, or generating optimized URL slugs.',
+    externalReferences: []
+  },
+  {
+    slug: 'bbcode-to-html-converter',
+    title: 'BBCode to HTML Converter',
+    description: 'Instantly convert forum BBCode syntax into standard, web-ready HTML5 code.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Bulletin Board Code (BBCode) is a lightweight markup language used by millions of forums and message boards worldwide to format posts securely. However, migrating forum content to modern CMS platforms like WordPress requires standard HTML. Our free BBCode to HTML Converter instantly translates tags like [b], [url], and [img] into their semantic HTML equivalents (<strong>, <a>, <img>), saving developers and content marketers hours of manual syntax rewriting.',
+    externalReferences: []
   }
 ];
 
