@@ -1091,6 +1091,36 @@ Color consistency is key to professional web design. While many modern tools sup
     outputType: 'text',
     longDescription: 'Bulletin Board Code (BBCode) is a lightweight markup language used by millions of forums and message boards worldwide to format posts securely. However, migrating forum content to modern CMS platforms like WordPress requires standard HTML. Our free BBCode to HTML Converter instantly translates tags like [b], [url], and [img] into their semantic HTML equivalents (<strong>, <a>, <img>), saving developers and content marketers hours of manual syntax rewriting.',
     externalReferences: []
+  },
+  {
+    slug: 'html-minifier',
+    title: 'HTML Minifier & Compressor',
+    description: 'Minify HTML code instantly by removing whitespace and comments to improve website loading speed.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Website loading speed is a critical ranking factor for Google Core Web Vitals. Raw HTML files often contain unnecessary whitespace, line breaks, and developer comments that bloat the file size. Our free HTML Minifier securely compresses your HTML markup directly in the browser. By reducing your DOM payload, you can significantly improve page speed, reduce bandwidth costs, and boost your overall technical SEO performance.',
+    externalReferences: []
+  },
+  {
+    slug: 'breadcrumb-schema-generator',
+    title: 'Breadcrumb Schema (JSON-LD) Generator',
+    description: 'Generate valid JSON-LD Breadcrumb structured data for better Google Search navigation snippets.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Breadcrumb navigation helps both users and search engines understand the hierarchy and structure of your website. By implementing BreadcrumbList schema markup, Google can display clean, clickable category paths in the search results (SERPs) instead of a raw URL. Our free Breadcrumb Schema Generator allows SEOs to input their page hierarchy and instantly generates the exact JSON-LD script required by Google Search Central guidelines.',
+    externalReferences: []
+  },
+  {
+    slug: 'csv-to-markdown-table',
+    title: 'CSV to Markdown Table Converter',
+    description: 'Instantly convert CSV data into clean, formatted Markdown tables for GitHub, Reddit, and technical blogs.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Writing Markdown tables manually is a frustrating and error-prone process. Whether you are writing a README file for GitHub, publishing a technical article on Dev.to, or posting on Reddit, you need properly aligned Markdown syntax. Our free CSV to Markdown Table Converter instantly parses comma-separated values (CSV) and transforms them into perfectly formatted, pipe-separated Markdown tables, saving developers and technical writers hours of formatting time.',
+    externalReferences: []
   }
 ];
 

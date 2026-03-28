@@ -1091,6 +1091,84 @@ export function processText(toolSlug: string, input: string): string {
         return '❌ Error: Failed to convert BBCode.';
       }
 
+    case 'html-minifier':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your raw HTML code here.';
+      try {
+        let minified = input
+          .replace(/<!--[\s\S]*?-->/g, '') // Remove HTML comments
+          .replace(/\n/g, ' ')             // Replace newlines with spaces
+          .replace(/\s{2,}/g, ' ')         // Collapse multiple spaces into one
+          .replace(/>\s+</g, '><')         // Remove spaces between tags
+          .trim();
+        
+        const originalSize = new Blob([input]).size;
+        const newSize = new Blob([minified]).size;
+        const saved = ((originalSize - newSize) / originalSize * 100).toFixed(2);
+        
+        return `<!-- Minified! Space saved: ${saved}% -->\n${minified}`;
+      } catch (e) {
+        return '❌ Error: Failed to minify HTML.';
+      }
+
+    case 'breadcrumb-schema-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Paste Path Name and URL separated by a comma (one per line).\nExample:\nHome, https://site.com\nShoes, https://site.com/shoes\nSneakers, https://site.com/shoes/sneakers';
+      try {
+        const lines = input.split(/\r?\n/).filter(l => l.trim() !== '');
+        if (lines.length === 0) return '';
+        
+        const listItems = lines.map((line, index) => {
+          const parts = line.split(',');
+          const name = parts[0] ? parts[0].trim() : `Level ${index + 1}`;
+          const url = parts[1] ? parts[1].trim() : '';
+          
+          let itemObj: any = {
+            "@type": "ListItem",
+            "position": index + 1,
+            "name": name
+          };
+          if (url) itemObj["item"] = url;
+          return itemObj;
+        });
+
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": listItems
+        };
+
+        return `<!-- Paste this code inside your <head> or before </body> -->\n<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>`;
+      } catch (e) {
+        return '❌ Error: Failed to generate Breadcrumb Schema.';
+      }
+
+    case 'csv-to-markdown-table':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your CSV data here.\nExample:\nid,name,role\n1,Alice,Admin\n2,Bob,User';
+      try {
+        const lines = input.split(/\r?\n/).filter(l => l.trim() !== '');
+        if (lines.length === 0) return '';
+        
+        // Function to safely split CSV handling quotes (basic implementation)
+        const parseCSVLine = (text: string) => {
+          return text.split(',').map(cell => cell.trim().replace(/^"|"$/g, ''));
+        };
+
+        const headers = parseCSVLine(lines[0]);
+        let md = `| ${headers.join(' | ')} |\n`;
+        md += `| ${headers.map(() => '---').join(' | ')} |\n`;
+        
+        for (let i = 1; i < lines.length; i++) {
+          const row = parseCSVLine(lines[i]);
+          // Pad row array if it's shorter than headers
+          while (row.length < headers.length) row.push('');
+          // Slice row array if it's longer than headers
+          md += `| ${row.slice(0, headers.length).join(' | ')} |\n`;
+        }
+        
+        return md;
+      } catch (e) {
+        return '❌ Error: Failed to format CSV to Markdown.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }
