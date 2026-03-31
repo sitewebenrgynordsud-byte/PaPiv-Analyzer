@@ -1121,6 +1121,36 @@ Color consistency is key to professional web design. While many modern tools sup
     outputType: 'text',
     longDescription: 'Writing Markdown tables manually is a frustrating and error-prone process. Whether you are writing a README file for GitHub, publishing a technical article on Dev.to, or posting on Reddit, you need properly aligned Markdown syntax. Our free CSV to Markdown Table Converter instantly parses comma-separated values (CSV) and transforms them into perfectly formatted, pipe-separated Markdown tables, saving developers and technical writers hours of formatting time.',
     externalReferences: []
+  },
+  {
+    slug: 'json-to-typescript-interfaces',
+    title: 'JSON to TypeScript Interfaces',
+    description: 'Instantly generate valid TypeScript interfaces and types from any JSON API response.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Frontend developers and software engineers working with React, Angular, or Vue frequently consume REST APIs. Manually typing out interfaces for complex JSON payloads is tedious and prone to errors. Our free JSON to TypeScript interface generator instantly parses deep JSON objects and outputs perfectly formatted, strictly-typed TypeScript interfaces. This essential developer tool speeds up your workflow, ensures type safety, and prevents runtime bugs in modern web applications.',
+    externalReferences: []
+  },
+  {
+    slug: 'html-to-jsx-converter',
+    title: 'HTML to JSX Converter',
+    description: 'Convert raw HTML code into React JSX syntax instantly by fixing classes, attributes, and tags.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Migrating legacy HTML templates into modern React.js or Next.js applications requires converting standard HTML into JSX syntax. Browsers forgive unclosed tags, but React compilers will throw fatal errors. Our free HTML to JSX Converter automatically translates "class" to "className", "for" to "htmlFor", self-closes void elements like <img>, <br>, and <input>, and properly formats inline styles. Save hours of manual syntax correction with this essential React developer tool.',
+    externalReferences: []
+  },
+  {
+    slug: 'ads-txt-generator',
+    title: 'Ads.txt & App-Ads.txt Generator',
+    description: 'Generate a valid IAB ads.txt or app-ads.txt file to secure your ad inventory and AdSense revenue.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Authorized Digital Sellers (ads.txt) is an IAB initiative that helps publishers protect their ad inventory from domain spoofing and ad fraud. Google AdSense and other premium ad networks require a valid ads.txt file at the root of your domain to monetize traffic. Our free Ads.txt Generator allows publishers, SEOs, and webmasters to easily compile their advertising network domains, publisher IDs, and account types (DIRECT or RESELLER) into a compliant, ready-to-upload text file.',
+    externalReferences: []
   }
 ];
 
