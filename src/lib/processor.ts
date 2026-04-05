@@ -1278,6 +1278,91 @@ export function processText(toolSlug: string, input: string): string {
         return '❌ Error: Failed to generate ads.txt.';
       }
 
+    case 'xml-formatter-beautifier':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your raw or minified XML code here.';
+      try {
+        let formatted = '';
+        // Remove spaces between tags, then split tags into an array
+        const reg = /(>)\s*(<)(\/*)/g;
+        const xml = input.replace(reg, '$1\r\n$2$3');
+        let pad = 0;
+        
+        xml.split('\r\n').forEach((node) => {
+          let indent = 0;
+          if (node.match( /.+<\/\w[^>]*>$/ )) {
+            indent = 0; // Node has opening and closing tags on the same line
+          } else if (node.match( /^<\/\w/ )) {
+            if (pad !== 0) pad -= 1; // Closing tag, decrease indentation
+          } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
+            indent = 1; // Opening tag, increase indentation for next line
+          } else {
+            indent = 0; // Self-closing tag or text node
+          }
+          
+          formatted += '  '.repeat(pad) + node + '\n';
+          pad += indent;
+        });
+        
+        return formatted.trim();
+      } catch (e) {
+        return '❌ Error: Failed to format XML. Check your syntax.';
+      }
+
+    case 'html-table-to-json':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your HTML <table> code here.';
+      try {
+        const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+        const colRegex = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi;
+        
+        let rows = [];
+        let match;
+        
+        while ((match = rowRegex.exec(input)) !== null) {
+          let cols = [];
+          let colMatch;
+          while ((colMatch = colRegex.exec(match[1])) !== null) {
+            // Strip inner HTML tags from cell content
+            cols.push(colMatch[1].replace(/<[^>]+>/g, '').trim());
+          }
+          if (cols.length > 0) rows.push(cols);
+        }
+        
+        if (rows.length < 2) return '❌ Error: Table must contain at least a header row and one data row.';
+        
+        const headers = rows[0];
+        const result = [];
+        
+        for (let i = 1; i < rows.length; i++) {
+          let obj: any = {};
+          for (let j = 0; j < headers.length; j++) {
+            const key = headers[j] || `column_${j}`;
+            obj[key] = rows[i][j] || '';
+          }
+          result.push(obj);
+        }
+        
+        return JSON.stringify(result, null, 2);
+      } catch (e) {
+        return '❌ Error: Failed to parse HTML table.';
+      }
+
+    case 'google-search-operator-builder':
+      if (!input || input.trim() === '') return '💡 Hint: Enter data separated by a pipe ( | ).\nFormat: Domain | Include Keyword | Exclude Keyword\nExample 1: site.com | login | admin\nExample 2: .edu | "write for us" | pdf';
+      try {
+        const parts = input.split('|').map(p => p.trim());
+        const domain = parts[0] ? `site:${parts[0]}` : '';
+        const include = parts[1] ? `intitle:${parts[1].includes(' ') ? `"${parts[1]}"` : parts[1]}` : '';
+        const exclude = parts[2] ? `-inurl:${parts[2].includes(' ') ? `"${parts[2]}"` : parts[2]}` : '';
+        
+        let query = [domain, include, exclude].filter(q => q !== '').join(' ');
+        
+        if (!query) return '❌ Error: Please provide at least a domain or keyword.';
+        
+        return `✅ Copy this query into Google Search:\n\n${query}\n\n---\n🌐 Quick Link:\nhttps://www.google.com/search?q=${encodeURIComponent(query)}`;
+      } catch (e) {
+        return '❌ Error: Failed to build query.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

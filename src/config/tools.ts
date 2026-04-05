@@ -1151,6 +1151,36 @@ Color consistency is key to professional web design. While many modern tools sup
     outputType: 'text',
     longDescription: 'Authorized Digital Sellers (ads.txt) is an IAB initiative that helps publishers protect their ad inventory from domain spoofing and ad fraud. Google AdSense and other premium ad networks require a valid ads.txt file at the root of your domain to monetize traffic. Our free Ads.txt Generator allows publishers, SEOs, and webmasters to easily compile their advertising network domains, publisher IDs, and account types (DIRECT or RESELLER) into a compliant, ready-to-upload text file.',
     externalReferences: []
+  },
+  {
+    slug: 'xml-formatter-beautifier',
+    title: 'XML Formatter & Beautifier',
+    description: 'Format, indent, and beautify messy or minified XML code and Sitemaps instantly.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Reading minified or raw XML data from APIs, RSS feeds, or SEO Sitemaps is nearly impossible for developers and webmasters. Our free online XML Formatter and Beautifier takes messy, unformatted XML code and instantly applies proper indentation, line breaks, and structural hierarchy. This essential developer tool ensures your XML syntax is readable, well-formed, and perfectly structured for debugging SOAP requests, SVG graphics, or Google Search Console sitemaps.',
+    externalReferences: []
+  },
+  {
+    slug: 'html-table-to-json',
+    title: 'HTML Table to JSON Converter',
+    description: 'Extract data from HTML tables and convert it into a clean JSON array of objects.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Web scraping and data extraction often involve pulling information structured within standard HTML tables (<tr>, <td>). Manually converting this tabular data into backend-ready formats takes hours. Our free HTML Table to JSON Converter parses raw HTML table markup, uses the table headers (<th>) as data keys, and maps all row data into a perfectly formatted, machine-readable JSON array. Ideal for data scientists, frontend React developers, and SEO analysts.',
+    externalReferences: []
+  },
+  {
+    slug: 'google-search-operator-builder',
+    title: 'Advanced Google Search Operator Builder',
+    description: 'Generate complex Google Search operators (Dorks) for deep SEO research and link building.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Mastering Advanced Google Search Operators (often called Google Dorks) is a superpower for Technical SEOs and Link Builders. Typing complex queries using "site:", "intitle:", and "inurl:" can be prone to syntax errors. Our free Google Search Operator Builder automates this process. Simply input your target domains, target keywords, and footprints, and instantly generate copy-paste ready queries to find guest post opportunities, indexed duplicate content, and unsecured competitor assets.',
+    externalReferences: []
   }
 ];
 
