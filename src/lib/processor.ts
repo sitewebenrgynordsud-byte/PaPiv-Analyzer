@@ -1363,6 +1363,84 @@ export function processText(toolSlug: string, input: string): string {
         return '❌ Error: Failed to build query.';
       }
 
+    case 'sql-formatter-beautifier':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your raw SQL query here.\nExample:\nselect id,name from users where age>18 order by id desc';
+      try {
+        let formattedSql = input.replace(/\s+/g, ' ').trim();
+        // Capitalize major SQL keywords and add newlines
+        const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'ORDER BY', 'GROUP BY', 'HAVING', 'LIMIT', 'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM'];
+        
+        keywords.forEach(kw => {
+          const regex = new RegExp(`\\b${kw}\\b`, 'gi');
+          formattedSql = formattedSql.replace(regex, `\n${kw}`);
+        });
+
+        // Clean up leading newlines
+        formattedSql = formattedSql.trim();
+        
+        return `✅ Beautified SQL:\n\n${formattedSql}`;
+      } catch (e) {
+        return '❌ Error: Failed to format SQL.';
+      }
+
+    case 'json-string-escaper':
+      if (!input || input.trim() === '') return '💡 Hint: Paste JSON to escape it, or paste an escaped string to unescape it.';
+      try {
+        const text = input.trim();
+        // Auto-detect if it's already escaped (contains lots of \")
+        if (text.includes('\\"')) {
+          // Attempt to Unescape
+          let unescaped = text;
+          if (text.startsWith('"') && text.endsWith('"')) {
+             unescaped = JSON.parse(text); // Native unescape if valid string
+          } else {
+             unescaped = text.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+          }
+          // Try to format it if it's valid JSON
+          try {
+             return `🔓 Unescaped Output:\n\n${JSON.stringify(JSON.parse(unescaped), null, 2)}`;
+          } catch (err) {
+             return `🔓 Unescaped Output (Raw String):\n\n${unescaped}`;
+          }
+        } else {
+          // Attempt to Escape
+          // Try to minify it first if it's valid JSON to save space
+          let rawToEscape = text;
+          try {
+             rawToEscape = JSON.stringify(JSON.parse(text));
+          } catch (err) { /* ignore, just escape as plain text */ }
+          
+          const escaped = JSON.stringify(rawToEscape);
+          return `🔒 Escaped Output:\n\n${escaped}`;
+        }
+      } catch (e) {
+        return '❌ Error: Failed to process string.';
+      }
+
+    case 'meta-robots-tag-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Type comma-separated directives.\nAvailable: index, noindex, follow, nofollow, noarchive, nosnippet\nExample 1: noindex, nofollow\nExample 2: index, follow, noarchive';
+      try {
+        const validDirectives = ['index', 'noindex', 'follow', 'nofollow', 'noarchive', 'nosnippet', 'noimageindex', 'nocache'];
+        const userDirectives = input.toLowerCase().split(',').map(d => d.trim());
+        
+        const matched = userDirectives.filter(d => validDirectives.includes(d));
+        
+        if (matched.length === 0) {
+           return `❌ Error: No valid directives found.\nPlease use keywords like: ${validDirectives.join(', ')}`;
+        }
+
+        // Check for conflicting directives
+        let warnings = '';
+        if (matched.includes('index') && matched.includes('noindex')) warnings += '\n⚠️ Warning: "index" and "noindex" conflict!';
+        if (matched.includes('follow') && matched.includes('nofollow')) warnings += '\n⚠️ Warning: "follow" and "nofollow" conflict!';
+
+        const tag = `<meta name="robots" content="${matched.join(', ')}">`;
+        
+        return `✅ Generated HTML Tag:\n\n${tag}${warnings}\n\n<!-- Paste this inside your <head> section -->`;
+      } catch (e) {
+        return '❌ Error: Failed to generate tag.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

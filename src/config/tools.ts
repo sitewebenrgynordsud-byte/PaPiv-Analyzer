@@ -1181,6 +1181,36 @@ Color consistency is key to professional web design. While many modern tools sup
     outputType: 'text',
     longDescription: 'Mastering Advanced Google Search Operators (often called Google Dorks) is a superpower for Technical SEOs and Link Builders. Typing complex queries using "site:", "intitle:", and "inurl:" can be prone to syntax errors. Our free Google Search Operator Builder automates this process. Simply input your target domains, target keywords, and footprints, and instantly generate copy-paste ready queries to find guest post opportunities, indexed duplicate content, and unsecured competitor assets.',
     externalReferences: []
+  },
+  {
+    slug: 'sql-formatter-beautifier',
+    title: 'SQL Formatter & Beautifier',
+    description: 'Instantly format, indent, and beautify messy SQL queries for better readability.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Database administrators, backend engineers, and data analysts frequently work with complex, minified, or disorganized SQL queries. Reading raw, unformatted database commands is prone to errors. Our free online SQL Formatter and Beautifier instantly parses your raw SQL statements, capitalizes standard keywords (SELECT, FROM, WHERE, JOIN), and applies proper line breaks and indentation. This essential dev tool supports syntax from MySQL, PostgreSQL, SQL Server, and SQLite.',
+    externalReferences: []
+  },
+  {
+    slug: 'json-string-escaper',
+    title: 'JSON String Escaper & Unescaper',
+    description: 'Escape JSON strings with backslashes or unescape them back into clean JSON format.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'When passing JSON data inside stringified payloads or environments like cURL, Docker, or bash scripts, developers must properly escape double quotes using backslashes. Doing this manually for large API responses is nearly impossible. Our free JSON String Escaper and Unescaper tool instantly toggles your data between a raw JSON object and a safely stringified format. Protect your code against syntax errors and streamline your backend API testing workflows.',
+    externalReferences: []
+  },
+  {
+    slug: 'meta-robots-tag-generator',
+    title: 'Meta Robots Tag Generator',
+    description: 'Generate advanced Meta Robots tags to control Googlebot indexing and crawling behavior.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Controlling how search engine crawlers interact with your website is a fundamental pillar of Technical SEO. The Meta Robots tag instructs Googlebot whether to index a page, follow its links, or show snippets in search results. Our free Meta Robots Tag Generator allows SEO professionals and webmasters to easily select directives (like index, noindex, follow, nofollow, noarchive) and instantly generate the exact HTML <meta> tag needed to protect sensitive pages or optimize crawl budgets.',
+    externalReferences: []
   }
 ];
 
