@@ -1211,6 +1211,36 @@ Color consistency is key to professional web design. While many modern tools sup
     outputType: 'text',
     longDescription: 'Controlling how search engine crawlers interact with your website is a fundamental pillar of Technical SEO. The Meta Robots tag instructs Googlebot whether to index a page, follow its links, or show snippets in search results. Our free Meta Robots Tag Generator allows SEO professionals and webmasters to easily select directives (like index, noindex, follow, nofollow, noarchive) and instantly generate the exact HTML <meta> tag needed to protect sensitive pages or optimize crawl budgets.',
     externalReferences: []
+  },
+  {
+    slug: 'job-posting-schema-generator',
+    title: 'Job Posting Schema (JSON-LD) Generator',
+    description: 'Generate valid JobPosting structured data to get your listings featured on Google Jobs.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Getting your open roles featured in the "Google for Jobs" rich snippet is the most effective way to attract top talent organically. However, Google requires strict JobPosting JSON-LD structured data to understand your listing. Our free Job Posting Schema Generator allows HR professionals, recruiters, and SEOs to input job titles, company names, locations, and salaries, instantly generating the exact schema markup needed to dominate the SERPs and increase applicant conversions.',
+    externalReferences: []
+  },
+  {
+    slug: 'nginx-redirect-generator',
+    title: 'Nginx 301 Redirect Generator',
+    description: 'Instantly generate bulk Nginx rewrite rules for 301 redirects and SEO site migrations.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'When migrating a website or restructuring URLs on modern tech stacks, Nginx is the web server of choice for high-performance sites. Properly configuring 301 redirects is critical to preserving link equity and avoiding SEO penalties. Our free Nginx 301 Redirect Generator takes a bulk list of old and new URLs and automatically formats them into perfect Nginx "rewrite" or "return 301" server block directives, ensuring a flawless and SEO-safe migration for SysAdmins and Webmasters.',
+    externalReferences: []
+  },
+  {
+    slug: 'csv-to-xml-converter',
+    title: 'CSV to XML Converter',
+    description: 'Convert tabular CSV data into clean, well-structured XML format instantly.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'While JSON has become the standard for web APIs, XML remains heavily used in enterprise systems, RSS feeds, SOAP APIs, and Google Merchant Center product data feeds. Manually converting spreadsheet data (CSV) into nested XML tags is tedious. Our free CSV to XML Converter instantly maps your comma-separated headers to XML nodes and wraps your data in a clean, hierarchical <root> structure. Perfect for data engineers and backend developers migrating legacy systems.',
+    externalReferences: []
   }
 ];
 
