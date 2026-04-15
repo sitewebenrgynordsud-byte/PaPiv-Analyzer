@@ -157,7 +157,7 @@ Common Use Cases
 This is the standard for naming React components (e.g., \`MyComponent\`). In C# and Java, it's used for classes, interfaces, enums, and records. In TypeScript, it's used for type aliases and interfaces. Essentially, any time you are defining a "type" or a "construct," PascalCase is often the preferred convention.
 
 Why Use PaPiv for Case Conversion?
-PaPiv ensures that your text formatting tasks are quick, accurate, and private. The PascalCase Converter works entirely client-side, making it a secure choice for developers working with sensitive or proprietary information. The instant feedback loop allows for rapid and efficient work without context switching. By using this tool, you can easily maintain a consistent and professional coding style across your entire project, which is a hallmark of high-quality software engineering.`,
+PaPiv ensures that your text formatting tasks are quick, accurate, and private. The PascalCase Converter works entirely client-side, making it a secure choice for developers working with sensitive or proprietary code. The instant feedback loop allows for rapid and efficient work without context switching. By using this tool, you can easily maintain a consistent and professional coding style across your entire project, which is a hallmark of high-quality software engineering.`,
     externalReferences: [
         { text: "React Docs: Component Naming", href: "https://react.dev/learn/your-first-component#naming-a-component" },
         { text: "Microsoft C# Coding Conventions", href: "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions#pascal-case" }
@@ -1239,8 +1239,38 @@ Color consistency is key to professional web design. While many modern tools sup
     category: 'Developer',
     inputType: 'text',
     outputType: 'text',
-    longDescription: 'While JSON has become the standard for web APIs, XML remains heavily used in enterprise systems, RSS feeds, SOAP APIs, and Google Merchant Center product data feeds. Manually converting spreadsheet data (CSV) into nested XML tags is tedious. Our free CSV to XML Converter instantly maps your comma-separated headers to XML nodes and wraps your data in a clean, hierarchical <root> structure. Perfect for data engineers and backend developers migrating legacy systems.',
+    longDescription: `While JSON has become the standard for web APIs, XML remains heavily used in enterprise systems, RSS feeds, SOAP APIs, and Google Merchant Center product data feeds. Manually converting spreadsheet data (CSV) into nested XML tags is tedious. Our free CSV to XML Converter instantly maps your comma-separated headers to XML nodes and wraps your data in a clean, hierarchical <root> structure. Perfect for data engineers and backend developers migrating legacy systems.`,
     externalReferences: []
+  },
+  {
+    slug: 'youtube-thumbnail-extractor',
+    title: 'YouTube Thumbnail Extractor',
+    description: 'Instantly extract and download high-resolution (HD) thumbnails from any YouTube video URL.',
+    category: 'Video/SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Content creators, marketers, and designers often need to analyze competitor thumbnails or retrieve their own lost cover images. Our free YouTube Thumbnail Extractor securely parses any YouTube video link (including Shorts and youtu.be URLs) and instantly retrieves the official thumbnail images directly from YouTubes servers in multiple sizes, including High Definition (HD) and Maximum Resolution (MaxRes). No software installation required.',
+    externalReferences: [],
+  },
+  {
+    slug: 'article-schema-generator',
+    title: 'Article / Blog Schema Generator',
+    description: 'Generate valid Article JSON-LD structured data to rank in Google Top Stories.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'If you publish news, blog posts, or editorial content, Article Schema markup is mandatory for advanced SEO. Implementing valid NewsArticle or BlogPosting JSON-LD tells search engines exactly who wrote the piece, when it was published, and what image to display. Our free Article Schema Generator allows publishers to easily input their article metadata and instantly generates the required structured data script to help your content appear in the highly-coveted Google Top Stories carousel.',
+    externalReferences: [],
+  },
+  {
+    slug: 'markdown-toc-generator',
+    title: 'Markdown Table of Contents (TOC) Generator',
+    description: 'Automatically generate a clickable Table of Contents from your Markdown text files.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Writing long documentation on GitHub, GitLab, or developer blogs like Dev.to requires a Table of Contents (TOC) for good user experience. Creating these internal anchor links manually is incredibly tedious. Our free Markdown TOC Generator automatically scans your raw Markdown text, extracts all H1-H6 headings, formats them into a perfectly indented list, and creates URL-safe clickable anchor tags. Speed up your technical writing and documentation workflow instantly.',
+    externalReferences: [],
   }
 ];
 

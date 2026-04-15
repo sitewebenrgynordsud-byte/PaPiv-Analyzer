@@ -1560,6 +1560,86 @@ export function processText(toolSlug: string, input: string): string {
       } catch (e) {
         return '❌ Error: Failed to convert CSV to XML.';
       }
+    case 'youtube-thumbnail-extractor':
+      if (!input || input.trim() === '') return '💡 Hint: Paste a YouTube Video URL here.\nExample: https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+      try {
+        const text = input.trim();
+        // Regex to extract video ID from various YT URL formats
+        const match = text.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+        if (!match || !match[1]) return '❌ Error: Could not detect a valid YouTube Video ID. Please check the URL.';
+        
+        const videoId = match[1];
+        let output = `✅ Thumbnail Links for Video ID: ${videoId}\n\n`;
+        output += `🔥 Maximum Resolution (HD 1080p):\nhttps://img.youtube.com/vi/${videoId}/maxresdefault.jpg\n\n`;
+        output += `📺 Standard Quality (SD):\nhttps://img.youtube.com/vi/${videoId}/sddefault.jpg\n\n`;
+        output += `📱 High Quality (HQ):\nhttps://img.youtube.com/vi/${videoId}/hqdefault.jpg\n\n`;
+        output += `🖼️ Medium Quality (MQ):\nhttps://img.youtube.com/vi/${videoId}/mqdefault.jpg\n\n`;
+        output += `(Note: Copy and paste the link in your browser, right-click, and select "Save Image As...")`;
+        return output;
+      } catch (e) {
+        return '❌ Error: Failed to extract thumbnail.';
+      }
+
+    case 'article-schema-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Enter details separated by a pipe ( | ).\nFormat: Headline | Author Name | Publisher | Image URL | Date Published (YYYY-MM-DD)\nExample: SEO Tips | John Doe | TechBlog | https://site.com/img.jpg | 2024-05-20';
+      try {
+        const parts = input.split('|').map(p => p.trim());
+        if (parts.length < 3) return '❌ Error: Please provide at least Headline, Author, and Publisher separated by |.';
+        
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": parts[0],
+          "author": {
+            "@type": "Person",
+            "name": parts[1]
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": parts[2],
+            "logo": {
+              "@type": "ImageObject",
+              "url": ""
+            }
+          },
+          "image": parts[3] ? [parts[3]] : [],
+          "datePublished": parts[4] || new Date().toISOString().split('T')[0]
+        };
+
+        return `<!-- Paste this code inside your <head> section -->\n<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>`;
+      } catch (e) {
+        return '❌ Error: Failed to generate Article Schema.';
+      }
+
+    case 'markdown-toc-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your Markdown text here containing headings (e.g., # Heading 1, ## Heading 2).';
+      try {
+        const lines = input.split(/\r?\n/);
+        let toc = '## Table of Contents\n\n';
+        let found = false;
+
+        // Function to create a valid anchor link from text
+        const slugify = (text: string) => text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+
+        lines.forEach(line => {
+          const match = line.match(/^(#{1,6})\s+(.+)$/);
+          if (match) {
+            found = true;
+            const level = match[1].length;
+            const title = match[2].trim();
+            const anchor = slugify(title);
+            // Indent based on heading level (H1 = 0, H2 = 1, etc.)
+            const indent = '  '.repeat(level - 1);
+            toc += `${indent}- [${title}](#${anchor})\n`;
+          }
+        });
+
+        if (!found) return '❌ Error: No markdown headings found. Make sure to use # for headings.';
+        
+        return `${toc}\n---\n\n<!-- Your original content is below -->\n\n${input}`;
+      } catch (e) {
+        return '❌ Error: Failed to generate TOC.';
+      }
 
     default:
       return `Error: Tool with slug '${slug}' not found.`;
