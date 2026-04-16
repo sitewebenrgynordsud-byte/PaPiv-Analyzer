@@ -1641,6 +1641,81 @@ export function processText(toolSlug: string, input: string): string {
         return '❌ Error: Failed to generate TOC.';
       }
 
+    case 'open-graph-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Enter details separated by a pipe ( | ).\nFormat: Title | Description | URL | Image URL\nExample: My Site | Best SEO Tools | https://site.com | https://site.com/logo.png';
+      try {
+        const parts = input.split('|').map(p => p.trim());
+        const title = parts[0] || 'Page Title';
+        const desc = parts[1] || 'Page Description';
+        const url = parts[2] || 'https://example.com';
+        const img = parts[3] || 'https://example.com/image.jpg';
+        
+        let tags = `<!-- Open Graph / Facebook -->\n`;
+        tags += `<meta property="og:type" content="website">\n`;
+        tags += `<meta property="og:url" content="${url}">\n`;
+        tags += `<meta property="og:title" content="${title}">\n`;
+        tags += `<meta property="og:description" content="${desc}">\n`;
+        tags += `<meta property="og:image" content="${img}">\n\n`;
+        tags += `<!-- Twitter -->\n`;
+        tags += `<meta property="twitter:card" content="summary_large_image">\n`;
+        tags += `<meta property="twitter:url" content="${url}">\n`;
+        tags += `<meta property="twitter:title" content="${title}">\n`;
+        tags += `<meta property="twitter:description" content="${desc}">\n`;
+        tags += `<meta property="twitter:image" content="${img}">`;
+        
+        return tags;
+      } catch (e) {
+        return '❌ Error: Failed to generate meta tags.';
+      }
+
+    case 'text-to-morse-converter':
+      if (!input || input.trim() === '') return '💡 Hint: Type text to encode, or dots and dashes to decode.';
+      try {
+        const charMap: any = {
+          'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----', ' ': '/'
+        };
+        const morseMap: any = Object.fromEntries(Object.entries(charMap).map(([k, v]) => [v, k]));
+        const text = input.trim().toUpperCase();
+        
+        if (/^[.\-\/\s]+$/.test(text)) {
+          // Decode Morse to Text
+          return text.split(' ').map(symbol => morseMap[symbol] || '?').join('');
+        } else {
+          // Encode Text to Morse
+          return text.split('').map(char => charMap[char] || '').filter(Boolean).join(' ');
+        }
+      } catch (e) {
+        return '❌ Error: Failed to convert Morse code.';
+      }
+
+    case 'json-to-yaml-converter':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your JSON code here.';
+      try {
+        const obj = JSON.parse(input.trim());
+        const toYAML = (val: any, depth: number = 0): string => {
+          const indent = '  '.repeat(depth);
+          if (val === null) return 'null';
+          if (typeof val === 'string') return `"${val.replace(/"/g, '\\"')}"`;
+          if (typeof val !== 'object') return String(val);
+          
+          let yaml = '';
+          if (Array.isArray(val)) {
+            val.forEach(item => {
+              yaml += `\n${indent}- ${toYAML(item, depth + 1).trim()}`;
+            });
+          } else {
+            Object.keys(val).forEach(key => {
+              const value = val[key];
+              yaml += `\n${indent}${key}: ${toYAML(value, depth + 1)}`;
+            });
+          }
+          return yaml;
+        };
+        return toYAML(obj).trim();
+      } catch (e) {
+        return '❌ Error: Invalid JSON. Please check your syntax.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

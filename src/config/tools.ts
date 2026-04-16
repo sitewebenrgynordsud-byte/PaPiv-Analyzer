@@ -1269,8 +1269,38 @@ Color consistency is key to professional web design. While many modern tools sup
     category: 'Developer',
     inputType: 'text',
     outputType: 'text',
-    longDescription: 'Writing long documentation on GitHub, GitLab, or developer blogs like Dev.to requires a Table of Contents (TOC) for good user experience. Creating these internal anchor links manually is incredibly tedious. Our free Markdown TOC Generator automatically scans your raw Markdown text, extracts all H1-H6 headings, formats them into a perfectly indented list, and creates URL-safe clickable anchor tags. Speed up your technical writing and documentation workflow instantly.',
+    longDescription: `Writing long documentation on GitHub, GitLab, or developer blogs like Dev.to requires a Table of Contents (TOC) for good user experience. Creating these internal anchor links manually is incredibly tedious. Our free Markdown TOC Generator automatically scans your raw Markdown text, extracts all H1-H6 headings, formats them into a perfectly indented list, and creates URL-safe clickable anchor tags. Speed up your technical writing and documentation workflow instantly.`,
     externalReferences: [],
+  },
+  {
+    slug: 'open-graph-generator',
+    title: 'Open Graph & Twitter Card Generator',
+    description: 'Generate high-quality social media meta tags for Facebook, LinkedIn, and Twitter previews.',
+    category: 'Marketing',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Social media optimization (SMO) is a key component of a modern SEO strategy. When your content is shared on Facebook, LinkedIn, or Twitter, search engines and social platforms look for Open Graph (OG) tags to determine what image, title, and description to display. Our free Open Graph Generator allows you to instantly create valid meta tags that ensure your links look professional, increase click-through rates (CTR) from social feeds, and boost your overall brand authority.',
+    externalReferences: []
+  },
+  {
+    slug: 'text-to-morse-converter',
+    title: 'Text to Morse Code Converter',
+    description: 'Instantly translate plain text into Morse code or decode Morse code back into readable text.',
+    category: 'Fun/Dev',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Morse code is a timeless method of communication used in telecommunications, aviation, and amateur radio. Whether you are a student, a developer working on a cipher project, or just curious, our free Text to Morse Code Converter provides instant, accurate translations. We support standard International Morse Code characters, allowing you to encode English text into dots and dashes or decode signals back into plain language with precision.',
+    externalReferences: []
+  },
+  {
+    slug: 'json-to-yaml-converter',
+    title: 'JSON to YAML Converter',
+    description: 'Convert complex JSON data structures into clean, human-readable YAML format instantly.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'As DevOps practices and cloud computing (AWS, Kubernetes, Docker) continue to dominate software engineering, YAML has become the standard for configuration files. However, most APIs still return data in JSON format. Our free JSON to YAML Converter simplifies the transition by instantly parsing your JSON objects and outputting correctly indented YAML code. Perfect for backend developers and system administrators needing to convert API payloads into configuration manifests.',
+    externalReferences: []
   }
 ];
 
