@@ -1716,6 +1716,112 @@ export function processText(toolSlug: string, input: string): string {
         return '❌ Error: Invalid JSON. Please check your syntax.';
       }
 
+    case 'howto-schema-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Enter details separated by a pipe ( | ).\nFormat: Title | Description | Step 1 | Step 2 | Step 3...\nExample: How to tie a tie | A quick guide | Cross the wide end | Pull it under | Tie the knot';
+      try {
+        const parts = input.split('|').map(p => p.trim()).filter(p => p !== '');
+        if (parts.length < 3) return '❌ Error: Please provide at least a Title, Description, and ONE Step separated by |.';
+        
+        const title = parts[0];
+        const description = parts[1];
+        const steps = parts.slice(2).map((stepText, index) => {
+          return {
+            "@type": "HowToStep",
+            "name": `Step ${index + 1}`,
+            "text": stepText
+          };
+        });
+
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          "name": title,
+          "description": description,
+          "step": steps
+        };
+
+        return `<!-- Paste this code inside your <head> or before </body> -->\n<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>`;
+      } catch (e) {
+        return '❌ Error: Failed to generate How-To Schema.';
+      }
+
+    case 'video-schema-generator':
+      if (!input || input.trim() === '') return '💡 Hint: Enter details separated by a pipe ( | ).\nFormat: Title | Description | Thumbnail URL | Content/Embed URL | Upload Date (YYYY-MM-DD)\nExample: SEO Guide | Best tips | https://img.com/a.jpg | https://youtube.com/embed/xyz | 2024-05-01';
+      try {
+        const parts = input.split('|').map(p => p.trim());
+        if (parts.length < 5) return '❌ Error: Please provide all 5 fields separated by |.';
+        
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "name": parts[0],
+          "description": parts[1],
+          "thumbnailUrl": [parts[2]],
+          "uploadDate": parts[4],
+          "contentUrl": parts[3],
+          "embedUrl": parts[3]
+        };
+
+        return `<!-- Paste this code inside your <head> section -->\n<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>`;
+      } catch (e) {
+        return '❌ Error: Failed to generate Video Schema.';
+      }
+
+    case 'docker-run-to-compose':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your "docker run" command here.\nExample:\ndocker run -d --name my-app -p 8080:80 -e ENV=prod nginx:latest';
+      try {
+        let cmd = input.trim().replace(/\\\s*\n/g, ' '); // Join multi-line commands
+        if (!cmd.startsWith('docker run')) return '❌ Error: Command must start with "docker run"';
+
+        const parseArgs = (flag: string) => {
+           const regex = new RegExp(`(?:${flag})\\s+([^\\s]+)`, 'g');
+           let matches = [];
+           let match;
+           while ((match = regex.exec(cmd)) !== null) matches.push(match[1].replace(/['"]/g, ''));
+           return matches;
+        };
+
+        const ports = parseArgs('-p|--publish');
+        const envs = parseArgs('-e|--env');
+        const volumes = parseArgs('-v|--volume');
+        
+        const nameMatch = cmd.match(/--name[=\s]+([^\s]+)/);
+        let containerName = nameMatch ? nameMatch[1].replace(/['"]/g, '') : 'my-service';
+        
+        // Extract image (usually the last argument not starting with -)
+        const tokens = cmd.split(/\s+/);
+        let image = 'unknown-image';
+        for (let i = tokens.length - 1; i >= 0; i--) {
+           if (!tokens[i].startsWith('-') && tokens[i] !== containerName) {
+              image = tokens[i];
+              break;
+           }
+        }
+
+        let yaml = `version: '3.8'\nservices:\n  ${containerName}:\n    image: ${image}\n    container_name: ${containerName}\n`;
+        
+        if (cmd.includes(' -d ') || cmd.includes(' --detach ')) yaml += `    restart: unless-stopped\n`;
+        
+        if (ports.length > 0) {
+           yaml += `    ports:\n`;
+           ports.forEach(p => yaml += `      - "${p}"\n`);
+        }
+        
+        if (envs.length > 0) {
+           yaml += `    environment:\n`;
+           envs.forEach(e => yaml += `      - ${e}\n`);
+        }
+        
+        if (volumes.length > 0) {
+           yaml += `    volumes:\n`;
+           volumes.forEach(v => yaml += `      - ${v}\n`);
+        }
+
+        return `✅ Docker Compose Generated:\n\n${yaml}`;
+      } catch (e) {
+        return '❌ Error: Failed to parse docker run command.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }
