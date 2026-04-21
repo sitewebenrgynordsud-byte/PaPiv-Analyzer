@@ -930,7 +930,7 @@ Color consistency is key to professional web design. While many modern tools sup
     category: 'Web',
     inputType: 'text',
     outputType: 'text',
-    longDescription: 'Optimizing web performance and Core Web Vitals is crucial for modern SEO. Loading SVGs as external files requires additional HTTP requests. By converting raw SVG code into a Data URI or Base64 string, frontend developers can inline vectors directly into CSS background-image properties. This free tool instantly encodes SVG data safely, reducing latency and boosting page load speeds.',
+    longDescription: 'Optimizing web performance and Core Web Vitals is crucial for modern SEO. Loading SVGs as external files requires additional HTTP requests. By converting raw SVG code into a Data URI or Base64 string, frontend developers can inline vectors directly into CSS background-image properties. This free tool instantly encodes SVG data safely, reducing latency, and boosting page load speeds.',
     externalReferences: [
       { text: "MDN: Data URIs", href: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs" },
       { text: "CSS Tricks: Probably Don't Base64 SVG", href: "https://css-tricks.com/probably-dont-base64-svg/" }
@@ -1010,7 +1010,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Securing a Rich Snippet in Google Search can exponentially increase your organic click-through rate (CTR). Our free FAQ Schema Generator converts standard questions and answers into perfectly formatted JSON-LD structured data. SEO professionals and content creators can simply paste their Q&A pairs, and our tool outputs the exact script required by search engines to display your FAQs directly on the search engine results page (SERP).',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'utm-campaign-builder',
@@ -1020,7 +1020,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Accurate tracking is the backbone of any successful digital marketing campaign. Our free UTM Campaign URL Builder allows performance marketers, social media managers, and SEOs to easily append tracking parameters (utm_source, utm_medium, utm_campaign) to their destination links. This ensures that every click from Facebook Ads, email newsletters, or affiliate links is perfectly attributed inside Google Analytics 4 (GA4).',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'google-disavow-generator',
@@ -1030,7 +1030,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: `Toxic backlinks and negative SEO attacks can severely harm your website rankings. To recover from algorithmic penalties, webmasters must submit a perfectly formatted Disavow file to Google Search Console. Our free Google Disavow File Generator takes your messy list of spammy URLs and domains, automatically formats them with the required "domain:" prefix, removes duplicates, and generates a safe, ready-to-upload text file.`,
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'local-business-schema-generator',
@@ -1040,7 +1040,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Ranking in the Google Local Pack requires accurate structured data. Our free Local Business Schema Generator allows SEO professionals and local business owners to input their company details (Name, Address, Phone, Website) and instantly generate perfectly formatted JSON-LD code. Paste this script into your websites HTML <head> to improve local search visibility, enhance Google Maps integration, and boost local organic traffic.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'keyword-combiner-multiplier',
@@ -1050,7 +1050,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Building comprehensive keyword lists for Google Ads (PPC) and long-tail SEO campaigns can take hours. Our free Keyword Combiner and Multiplier tool automates this process. Simply input your prefixes (e.g., "buy, cheap"), core terms, and suffixes on separate lines. The tool uses a Cartesian product algorithm to instantly merge them into every possible combination, ensuring you never miss a profitable search query.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'youtube-chapters-formatter',
@@ -1060,7 +1060,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'YouTube Chapters (Timestamps) are heavily utilized by Google Search to display "Key Moments" rich snippets in video results. However, formatting them manually can be tedious, and if the first timestamp does not start exactly at 00:00, YouTube will reject the chapters. Our free YouTube Timestamp Formatter cleans messy notes, extracts the timecodes, enforces the 00:00 rule, and outputs a perfectly structured list ready for your video description.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'bulk-root-domain-extractor',
@@ -1070,7 +1070,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Backlink auditing and competitor analysis often involve exporting thousands of messy, raw URLs from tools like Ahrefs, Semrush, or Majestic. Processing these manually is impossible. Our free Bulk Root Domain Extractor parses complex URLs, strips out http, https, www, subdirectories, and query parameters, and outputs a clean, deduplicated list of root domains. Essential for SEO professionals preparing Google Disavow files or outreach target lists.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'seo-stop-words-remover',
@@ -1080,7 +1080,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'In Natural Language Processing (NLP) and Search Engine Optimization, "stop words" are common words (like "the", "is", "at", "which") that search engines often filter out when evaluating a pages core topic. Our free SEO Stop Words Remover scans your content, instantly strips away these filler words, and leaves only the semantic keywords behind. Perfect for analyzing keyword prominence, preparing content for topic modeling, or generating optimized URL slugs.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'bbcode-to-html-converter',
@@ -1090,7 +1090,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Bulletin Board Code (BBCode) is a lightweight markup language used by millions of forums and message boards worldwide to format posts securely. However, migrating forum content to modern CMS platforms like WordPress requires standard HTML. Our free BBCode to HTML Converter instantly translates tags like [b], [url], and [img] into their semantic HTML equivalents (<strong>, <a>, <img>), saving developers and content marketers hours of manual syntax rewriting.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'html-minifier',
@@ -1100,7 +1100,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Website loading speed is a critical ranking factor for Google Core Web Vitals. Raw HTML files often contain unnecessary whitespace, line breaks, and developer comments that bloat the file size. Our free HTML Minifier securely compresses your HTML markup directly in the browser. By reducing your DOM payload, you can significantly improve page speed, reduce bandwidth costs, and boost your overall technical SEO performance.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'breadcrumb-schema-generator',
@@ -1110,7 +1110,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Breadcrumb navigation helps both users and search engines understand the hierarchy and structure of your website. By implementing BreadcrumbList schema markup, Google can display clean, clickable category paths in the search results (SERPs) instead of a raw URL. Our free Breadcrumb Schema Generator allows SEOs to input their page hierarchy and instantly generates the exact JSON-LD script required by Google Search Central guidelines.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'csv-to-markdown-table',
@@ -1120,7 +1120,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Writing Markdown tables manually is a frustrating and error-prone process. Whether you are writing a README file for GitHub, publishing a technical article on Dev.to, or posting on Reddit, you need properly aligned Markdown syntax. Our free CSV to Markdown Table Converter instantly parses comma-separated values (CSV) and transforms them into perfectly formatted, pipe-separated Markdown tables, saving developers and technical writers hours of formatting time.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'json-to-typescript-interfaces',
@@ -1130,7 +1130,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Frontend developers and software engineers working with React, Angular, or Vue frequently consume REST APIs. Manually typing out interfaces for complex JSON payloads is tedious and prone to errors. Our free JSON to TypeScript interface generator instantly parses deep JSON objects and outputs perfectly formatted, strictly-typed TypeScript interfaces. This essential developer tool speeds up your workflow, ensures type safety, and prevents runtime bugs in modern web applications.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'html-to-jsx-converter',
@@ -1140,7 +1140,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Migrating legacy HTML templates into modern React.js or Next.js applications requires converting standard HTML into JSX syntax. Browsers forgive unclosed tags, but React compilers will throw fatal errors. Our free HTML to JSX Converter automatically translates "class" to "className", "for" to "htmlFor", self-closes void elements like <img>, <br>, and <input>, and properly formats inline styles. Save hours of manual syntax correction with this essential React developer tool.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'ads-txt-generator',
@@ -1150,7 +1150,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Authorized Digital Sellers (ads.txt) is an IAB initiative that helps publishers protect their ad inventory from domain spoofing and ad fraud. Google AdSense and other premium ad networks require a valid ads.txt file at the root of your domain to monetize traffic. Our free Ads.txt Generator allows publishers, SEOs, and webmasters to easily compile their advertising network domains, publisher IDs, and account types (DIRECT or RESELLER) into a compliant, ready-to-upload text file.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'xml-formatter-beautifier',
@@ -1160,7 +1160,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Reading minified or raw XML data from APIs, RSS feeds, or SEO Sitemaps is nearly impossible for developers and webmasters. Our free online XML Formatter and Beautifier takes messy, unformatted XML code and instantly applies proper indentation, line breaks, and structural hierarchy. This essential developer tool ensures your XML syntax is readable, well-formed, and perfectly structured for debugging SOAP requests, SVG graphics, or Google Search Console sitemaps.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'html-table-to-json',
@@ -1170,7 +1170,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Web scraping and data extraction often involve pulling information structured within standard HTML tables (<tr>, <td>). Manually converting this tabular data into backend-ready formats takes hours. Our free HTML Table to JSON Converter parses raw HTML table markup, uses the table headers (<th>) as data keys, and maps all row data into a perfectly formatted, machine-readable JSON array. Ideal for data scientists, frontend React developers, and SEO analysts.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'google-search-operator-builder',
@@ -1180,7 +1180,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Mastering Advanced Google Search Operators (often called Google Dorks) is a superpower for Technical SEOs and Link Builders. Typing complex queries using "site:", "intitle:", and "inurl:" can be prone to syntax errors. Our free Google Search Operator Builder automates this process. Simply input your target domains, target keywords, and footprints, and instantly generate copy-paste ready queries to find guest post opportunities, indexed duplicate content, and unsecured competitor assets.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'sql-formatter-beautifier',
@@ -1190,7 +1190,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Database administrators, backend engineers, and data analysts frequently work with complex, minified, or disorganized SQL queries. Reading raw, unformatted database commands is prone to errors. Our free online SQL Formatter and Beautifier instantly parses your raw SQL statements, capitalizes standard keywords (SELECT, FROM, WHERE, JOIN), and applies proper line breaks and indentation. This essential dev tool supports syntax from MySQL, PostgreSQL, SQL Server, and SQLite.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'json-string-escaper',
@@ -1200,7 +1200,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'When passing JSON data inside stringified payloads or environments like cURL, Docker, or bash scripts, developers must properly escape double quotes using backslashes. Doing this manually for large API responses is nearly impossible. Our free JSON String Escaper and Unescaper tool instantly toggles your data between a raw JSON object and a safely stringified format. Protect your code against syntax errors and streamline your backend API testing workflows.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'meta-robots-tag-generator',
@@ -1210,7 +1210,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Controlling how search engine crawlers interact with your website is a fundamental pillar of Technical SEO. The Meta Robots tag instructs Googlebot whether to index a page, follow its links, or show snippets in search results. Our free Meta Robots Tag Generator allows SEO professionals and webmasters to easily select directives (like index, noindex, follow, nofollow, noarchive) and instantly generate the exact HTML <meta> tag needed to protect sensitive pages or optimize crawl budgets.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'howto-schema-generator',
@@ -1220,7 +1220,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Ranking for tutorial and instructional queries requires precise structured data. Google uses the HowTo Schema to display your articles as rich step-by-step snippets directly in the search results, dramatically increasing your Click-Through Rate (CTR). Our free How-To Schema Generator allows content writers and SEO professionals to input their title, description, and instructional steps to instantly output valid JSON-LD code ready to be injected into any blog post or webpage.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'video-schema-generator',
@@ -1230,7 +1230,7 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Search engines cannot "watch" embedded videos. To get your pages to rank in the Google Video tab and display video thumbnails in the main search results, you must implement VideoObject JSON-LD markup. Our free Video Schema Generator takes your video title, description, thumbnail URL, and upload date, and instantly generates the exact structured data script required by Google Search Central to maximize your video SEO strategy.',
-    externalReferences: []
+    externalReferences: [],
   },
   {
     slug: 'docker-run-to-compose',
@@ -1240,6 +1240,36 @@ Color consistency is key to professional web design. While many modern tools sup
     inputType: 'text',
     outputType: 'text',
     longDescription: 'Translating long, complex "docker run" commands into standard docker-compose.yml files is a tedious task for DevOps engineers and backend developers. Instead of manually mapping environment variables (-e), volumes (-v), and ports (-p), our free Docker Run to Docker Compose Converter automates the process. Simply paste your CLI command, and we instantly output properly indented YAML syntax, accelerating your container deployment and infrastructure-as-code workflows.',
+    externalReferences: [],
+  },
+  {
+    slug: 'product-schema-generator',
+    title: 'Product & Review Schema Generator',
+    description: 'Generate valid Product JSON-LD to display prices and star ratings in Google Search.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'In the highly competitive E-commerce SEO space, standing out on the Search Engine Results Page (SERP) is crucial. By implementing Product and Review structured data, Google can display Rich Snippets for your products, including real-time prices, availability, and star ratings. Our free Product Schema Generator allows store owners and SEO experts to input product details and instantly generate perfectly formatted JSON-LD markup, drastically improving organic Click-Through Rates (CTR) and online sales.',
+    externalReferences: []
+  },
+  {
+    slug: 'eeat-author-schema-generator',
+    title: 'E-E-A-T Author Schema Generator',
+    description: 'Create Person (Author) Schema to boost your Google E-E-A-T signals and establish trust.',
+    category: 'SEO',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'With Googles Helpful Content Update and the rising importance of Experience, Expertise, Authoritativeness, and Trustworthiness (E-E-A-T), proving the identity and credibility of your authors is mandatory. Anonymous content is often penalized. Our free E-E-A-T Author Schema Generator helps publishers and bloggers create valid "Person" JSON-LD markup. Link your authors social profiles, job titles, and company affiliations directly to your articles to satisfy Google guidelines and recover organic traffic.',
+    externalReferences: []
+  },
+  {
+    slug: 'chmod-permission-calculator',
+    title: 'Unix Chmod Permission Calculator',
+    description: 'Easily convert Linux/Unix file permissions between Octal (e.g., 755) and Symbolic (e.g., rwxr-xr-x).',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Webmasters, SysAdmins, and developers constantly deal with Linux server file permissions. Incorrect chmod settings can lead to "403 Forbidden" errors or severe security vulnerabilities. Our free Unix Chmod Permission Calculator instantly translates numeric octal values (like 777 or 644) into readable symbolic notation (like rwxrwxrwx or rw-r--r--), and vice versa. An essential utility for securely managing web hosting environments, Docker containers, and SSH deployments.',
     externalReferences: []
   }
 ];
