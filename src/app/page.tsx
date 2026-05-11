@@ -19,7 +19,7 @@ export default function Home() {
         <section className="container mx-auto py-12 px-4 md:px-6">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold font-headline tracking-tight">
-              PaPiv Suite
+              Free Developer Tools — PaPiv Suite
             </h1>
             <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               A collection of free, instant, and privacy-focused developer

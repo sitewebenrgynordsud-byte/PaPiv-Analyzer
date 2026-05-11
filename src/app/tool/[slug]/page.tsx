@@ -32,7 +32,7 @@ export async function generateMetadata({
 
   return {
     title: title,
-    description: tool.description,
+    description: `Free online ${tool.title.toLowerCase()} — paste your ${tool.inputType} and get instant ${tool.outputType} output. No upload, no server, 100% private.`,
     alternates: {
       canonical: `https://www.papiv.com/tool/${tool.slug}`,
     },
@@ -82,11 +82,6 @@ export default function ToolPage({ params }: ToolPageProps) {
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Windows, macOS, Android, iOS, Linux',
     url: `https://www.papiv.com/tool/${tool.slug}`,
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '150',
-    },
     offers: {
       '@type': 'Offer',
       price: '0',
