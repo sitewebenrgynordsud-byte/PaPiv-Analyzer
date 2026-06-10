@@ -1,0 +1,43 @@
+# PaPiv Suite
+
+> Free, secure, and instant online tools for developers, content creators, and SEO professionals. Every tool operates 100% client-side in the browser, ensuring absolute privacy without uploading any data to external servers.
+
+## Essential Information
+
+- [About PaPiv Suite](https://www.papiv.com/about): Learn more about our privacy-first philosophy and project mission.
+- [Privacy Policy](https://www.papiv.com/privacy-policy): Detailed overview of our client-side processing guarantees.
+- [Terms of Service](https://www.papiv.com/terms): Terms of using our free developer utilities.
+
+## Developer & Code Tools
+
+Instant utilities for formatting, encoding, and code generation.
+
+- [JSON to CSV Converter](https://www.papiv.com/tool/json-to-csv): Instantly convert nested JSON arrays and objects into clean, structured CSV files.
+- [JSON Formatter & Beautifier](https://www.papiv.com/tool/json-formatter): Format and beautify ugly, minified JSON payloads into readable indented trees.
+- [JSON to YAML Converter](https://www.papiv.com/tool/json-to-yaml): Convert JSON structures to YAML format for Docker and Kubernetes configuration files.
+- [Text to Hex Converter](https://www.papiv.com/tool/text-to-hex): Encode raw text strings into hexadecimal representation.
+- [SHA-256 Hash Generator](https://www.papiv.com/tool/sha-256-hash-generator): Generate secure SHA-256 cryptographic hashes locally in your browser.
+- [JSON to TypeScript Interfaces](https://www.papiv.com/tool/json-to-typescript-interfaces): Convert raw API JSON responses into strictly typed TypeScript interfaces.
+- [HTML to JSX Converter](https://www.papiv.com/tool/html-to-jsx-converter): Translate legacy HTML templates into valid React/Next.js JSX syntax.
+- [Unix Chmod Permission Calculator](https://www.papiv.com/tool/chmod-permission-calculator): Calculate symbolic and octal permissions for Linux filesystems.
+
+## Technical SEO & Web Tools
+
+Utilities designed to optimize websites, audit configurations, and build structured data schemas.
+
+- [FAQ Page Schema Generator](https://www.papiv.com/tool/faq-schema-generator): Generate valid JSON-LD FAQ Schema markup to secure Google Rich Snippets.
+- [Robots.txt Generator](https://www.papiv.com/tool/robots-txt-generator): Create optimized robots.txt files to manage search engine crawler budgets.
+- [URL List to XML Sitemap Generator](https://www.papiv.com/tool/urls-to-xml-sitemap): Convert raw URLs in bulk into a valid XML sitemap ready for Google Search Console.
+- [Open Graph Meta Tag Generator](https://www.papiv.com/tool/og-meta-generator): Create rich social sharing metadata for Facebook, LinkedIn, and Discord.
+- [Hreflang Tags Generator](https://www.papiv.com/tool/hreflang-tags-generator): Build valid international SEO hreflang tags for multi-language platforms.
+- [.htaccess 301 Redirect Generator](https://www.papiv.com/tool/htaccess-redirect-generator): Generate Apache mod_rewrite redirection codes for safe site migrations.
+- [E-E-A-T Author Schema Generator](https://www.papiv.com/tool/eeat-author-schema-generator): Create Person schema to demonstrate authority and trust in Google Helpful Content updates.
+
+## Text & Data Cleansing
+
+Clean, format, and filter messy data structures securely.
+
+- [Title Case Converter](https://www.papiv.com/tool/title-case-converter): Capitalize headlines based on AP, APA, or Chicago styling guidelines.
+- [Remove Extra Spaces](https://www.papiv.com/tool/remove-extra-spaces): Strip duplicated whitespaces, tabs, and line breaks from messy copy-pastes.
+- [VTT to SRT Subtitle Converter](https://www.papiv.com/tool/vtt-to-srt-converter): Convert WebVTT (.vtt) caption formats into standard SubRip (.srt) subtitle formats.
+- [Word Frequency & Keyword Density](https://www.papiv.com/tool/word-frequency-counter): Analyze lexical patterns to avoid keyword stuffing in SEO.
