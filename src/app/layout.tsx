@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: '%s | PaPiv Suite',
   },
   description:
-    'An open-source suite of free, real-time tools for developers and data professionals. Convert JSON, analyze text, generate slugs, and more, all within your browser for maximum privacy and speed.',
+    'Free, secure, and instant online tools for developers. Convert JSON, format code, analyze text, and generate SEO tags in your browser with 100% privacy.',
   manifest: '/site.webmanifest',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: 'PaPiv Suite',
     images: [
       {
-        url: 'https://www.papiv.com/og-image.png', // Assuming an OG image will be at this path
+        url: 'https://www.papiv.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'PaPiv Suite Hero Image',

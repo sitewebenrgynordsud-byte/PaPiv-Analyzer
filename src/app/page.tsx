@@ -56,6 +56,40 @@ export default function Home() {
           </div>
         </section>
 
+        {/* SEMANTIC SEO EXPLAINER SECTION */}
+        <section className="container mx-auto py-12 px-4 md:px-6 border-t border-border/40 bg-muted/20 rounded-2xl max-w-7xl my-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold font-headline tracking-tight text-foreground text-center mb-6">
+              Why Choose PaPiv Suite for Your Developer Workflows?
+            </h2>
+            <div className="prose prose-stone dark:prose-invert max-w-none text-muted-foreground leading-relaxed space-y-6 text-base">
+              <p>
+                Welcome to <strong>PaPiv Suite</strong>, a high-performance directory of <strong>free developer tools</strong> designed to accelerate your day-to-day software development, data formatting, and text processing tasks. Every utility in our ecosystem is built to operate with optimal performance and maximum security, providing instant outputs in real-time.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 text-left">
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold font-headline text-foreground">🔒 100% Client-Side Privacy</h3>
+                  <p className="text-sm">
+                    Your data safety is our absolute commitment. Unlike other online converters, PaPiv Suite processes all text, JSON, and code files locally in your browser. Absolutely zero data is uploaded to a remote server.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold font-headline text-foreground">⚡ Built for Pure Speed</h3>
+                  <p className="text-sm">
+                    No reloading, no latency. Powered by Next.js and React, our free developer tools react instantly as you type. Format massive JSON payloads, compute hashes, or clean list formats in milliseconds.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold font-headline text-foreground">🛠️ Curated Developer Utilities</h3>
+                  <p className="text-sm">
+                    From technical SEO tools like sitemap generators to code converters like HTML-to-JSX and SHA-256 calculators, our suite serves as a unified workstation for web developers and data analysts.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="container mx-auto py-12 px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold font-headline tracking-tight">

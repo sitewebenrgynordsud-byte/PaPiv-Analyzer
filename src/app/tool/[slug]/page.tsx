@@ -3,12 +3,17 @@ import { ALL_TOOLS } from '@/config/tools';
 import Header from '@/components/header';
 import ToolLoader from '@/components/tools/ToolLoader';
 import Footer from '@/components/footer';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 interface ToolPageProps {
   params: {
     slug: string;
   };
 }
+
+const LEGACY_REDIRECTS: Record<string, string> = {
+  'open-graph-generator': 'og-meta-generator',
+};
 
 export async function generateStaticParams() {
   return ALL_TOOLS.map((tool) => ({
@@ -20,15 +25,26 @@ export async function generateMetadata({
   params,
 }: ToolPageProps): Promise<Metadata> {
   const currentSlug = decodeURIComponent(params.slug).toLowerCase();
+  
+  const redirectSlug = LEGACY_REDIRECTS[currentSlug];
+  if (redirectSlug) {
+    permanentRedirect(`/tool/${redirectSlug}`);
+  }
+
   const tool = ALL_TOOLS.find((t) => t.slug.toLowerCase() === currentSlug);
 
   if (!tool) {
-    return {
-      title: 'Tool not found',
-    };
+    notFound();
   }
 
-  const title = `${tool.title} - Free Online Tool`;
+  const templateLength = 14;
+  let title = `${tool.title} - Free Online Tool`;
+  if (title.length + templateLength > 60) {
+    title = `${tool.title} - Free Tool`;
+  }
+  if (title.length + templateLength > 60) {
+    title = tool.title;
+  }
 
   return {
     title: title,
@@ -37,9 +53,12 @@ export async function generateMetadata({
       canonical: `https://www.papiv.com/tool/${tool.slug}`,
     },
     openGraph: {
-      title: title,
+      title: `${title} | PaPiv Suite`,
       description: tool.description,
       url: `https://www.papiv.com/tool/${tool.slug}`,
+      siteName: 'PaPiv Suite',
+      locale: 'en_US',
+      type: 'website',
       images: [
         {
           url: 'https://www.papiv.com/og-image.png',
@@ -49,27 +68,27 @@ export async function generateMetadata({
         },
       ],
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | PaPiv Suite`,
+      description: tool.description,
+      images: ['https://www.papiv.com/og-image.png'],
+    },
   };
 }
 
 export default function ToolPage({ params }: ToolPageProps) {
   const currentSlug = decodeURIComponent(params.slug).toLowerCase();
+
+  const redirectSlug = LEGACY_REDIRECTS[currentSlug];
+  if (redirectSlug) {
+    permanentRedirect(`/tool/${redirectSlug}`);
+  }
+
   const tool = ALL_TOOLS.find((t) => t.slug.toLowerCase() === currentSlug);
 
   if (!tool) {
-    return (
-      <div className="flex flex-col min-h-screen bg-background">
-        <Header />
-        <main className="flex-1 container mx-auto py-12 px-4 md:px-6">
-          <div className="p-8 text-red-500 bg-red-50 border border-red-200 rounded-lg">
-            Critical Error: Tool "{params.slug}" not found in registry.
-            <br />
-            Current Registry Slugs: {ALL_TOOLS.map((t) => t.slug).join(', ')}
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
+    notFound();
   }
 
   const title = `${tool.title} - Free Online Tool`;
@@ -148,7 +167,6 @@ export default function ToolPage({ params }: ToolPageProps) {
                 {tool.longDescription.split('\n\n').map((paragraph, index) => {
                     const parts = paragraph.split('\n');
                     const heading = parts[0];
-                    // Check if the paragraph starts with a heading marker
                     if (heading.startsWith('What') || heading.startsWith('How') || heading.startsWith('Why') || heading.startsWith('Common')) {
                        const content = parts.slice(1).join('\n');
                        return (
@@ -158,7 +176,6 @@ export default function ToolPage({ params }: ToolPageProps) {
                          </div>
                        )
                     }
-                    // Otherwise, render as a standard paragraph
                     return <p key={index}>{paragraph}</p>
                 })}
             </div>
@@ -176,6 +193,15 @@ export default function ToolPage({ params }: ToolPageProps) {
                     </ul>
                 </div>
             )}
+
+            {/* BRAND ALIGNMENT FOOTNOTE */}
+            <div className="mt-8 pt-6 border-t border-border/60 text-sm text-muted-foreground">
+              <p>
+                This <strong>{tool.title}</strong> is a <strong>free online tool</strong> hosted on <strong>PaPiv Suite</strong>. 
+                Like all utilities in our developer portal, this converter executes 100% client-side in your browser. 
+                No inputs or parameters are sent to external servers, providing an instant, private, and secure experience for all your development tasks.
+              </p>
+            </div>
           </div>
         </section>
       </main>
