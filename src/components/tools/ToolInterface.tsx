@@ -13,6 +13,10 @@ import {
   Link2,
   Download,
   ArrowUp,
+  FileText,
+  Code,
+  Sparkles,
+  RefreshCw,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -56,10 +60,11 @@ interface HistoryItem {
 
 function StatCard({ title, value }: { title: string; value: string | number }) {
   return (
-    <Card>
-      <CardHeader className="p-4">
-        <CardDescription>{title}</CardDescription>
-        <CardTitle className="text-2xl md:text-3xl">{value}</CardTitle>
+    <Card className="relative overflow-hidden border border-border/60 bg-card/50 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 group">
+      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <CardHeader className="p-5">
+        <CardDescription className="text-xs uppercase tracking-wider font-semibold text-muted-foreground/80">{title}</CardDescription>
+        <CardTitle className="text-2xl md:text-3xl font-bold font-headline mt-1 text-foreground tracking-tight">{value}</CardTitle>
       </CardHeader>
     </Card>
   );
@@ -81,6 +86,13 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   const [currentUrl, setCurrentUrl] = useState('');
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  // Live input & output statistics calculation
+  const inputCharCount = input.length;
+  const inputLineCount = input ? input.split('\n').length : 0;
+  const outputCharCount = output.length;
+  const outputLineCount = output ? output.split('\n').length : 0;
 
   useEffect(() => {
     setMounted(true);
@@ -136,7 +148,6 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
 
     setCurrentUrl(window.location.origin + window.location.pathname);
 
-    // Smart related tools logic
     const sameCategoryTools = ALL_TOOLS.filter(
       (t) => t.category === tool.category && t.slug !== tool.slug
     );
@@ -164,10 +175,10 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
   useEffect(() => {
     if (!mounted) return;
 
-    // Immediately clear previous output and error states to reset to neutral.
     setError(null);
     setOutput('');
     setStats(null);
+    setIsProcessing(true);
 
     const handler = setTimeout(() => {
       const currentPath = window.location.pathname;
@@ -180,6 +191,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
       }
 
       if (input.trim() === '' && tool.slug !== 'lorem-ipsum-generator' && tool.slug !== 'random-password-generator' && tool.slug !== 'uuid-generator' && tool.slug !== 'robots-txt-generator') {
+        setIsProcessing(false);
         return;
       }
 
@@ -238,6 +250,8 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
         const errorMessage =
           e instanceof Error ? e.message : 'An unknown processing error occurred.';
         setError(`Error processing data. ${errorMessage}`);
+      } finally {
+        setIsProcessing(false);
       }
     }, 800);
 
@@ -403,24 +417,42 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
 
   return (
     <TooltipProvider>
-      <div className="container mx-auto p-4 md:p-8">
-        <div className="grid gap-8 md:grid-cols-2">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="capitalize">Input: {tool.inputType}</CardTitle>
-              {input && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleClear}
-                  aria-label="Clear input"
-                >
-                  <Trash className="h-4 w-4" />
-                </Button>
-              )}
+      <div className="container mx-auto p-4 md:p-8 space-y-8">
+        <div className="grid gap-8 lg:grid-cols-2">
+          {/* INPUT CARD */}
+          <Card className="relative overflow-hidden border border-border/80 bg-card shadow-lg hover:shadow-xl transition-all duration-300 focus-within:ring-2 focus-within:ring-accent/50 focus-within:border-accent">
+            <CardHeader className="flex flex-row items-center justify-between border-b border-border/50 bg-muted/30 px-6 py-4">
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                  <FileText className="h-4 w-4" />
+                </div>
+                <CardTitle className="capitalize text-base font-bold font-headline tracking-tight text-foreground">
+                  Input: {tool.inputType}
+                </CardTitle>
+              </div>
+              <div className="flex items-center gap-1">
+                {input && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleClear}
+                        aria-label="Clear input"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                      >
+                        <Trash className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Clear Input</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+              </div>
             </CardHeader>
-            <CardContent>
-              <div className="grid w-full gap-1.5">
+            <CardContent className="p-0 relative">
+              <div className="relative">
                 <Label htmlFor="input-textarea" className="sr-only">
                   Your {tool.inputType} input
                 </Label>
@@ -429,19 +461,39 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                   placeholder={tool.slug === 'lorem-ipsum-generator' ? 'Enter number of paragraphs (e.g., 3)' : `Paste your ${tool.inputType} here...`}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="min-h-[300px] resize-y font-mono"
+                  className="min-h-[380px] w-full border-0 rounded-none bg-transparent p-6 font-mono text-sm leading-relaxed focus-visible:ring-0 focus-visible:ring-offset-0"
                   autoFocus
                 />
               </div>
+              {/* INPUT COUNTER FOOTER */}
+              <div className="flex items-center justify-between border-t border-border/50 bg-muted/20 px-6 py-2.5 text-xs text-muted-foreground font-mono">
+                <div className="flex gap-4">
+                  <span>{inputCharCount.toLocaleString()} chars</span>
+                  <span>{inputLineCount.toLocaleString()} lines</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <span>Ready</span>
+                </div>
+              </div>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="capitalize">
-                Output: {tool.outputType}
-              </CardTitle>
-              <div className="flex items-center gap-1">
-                <Badge variant="outline">{tool.category}</Badge>
+
+          {/* OUTPUT CARD */}
+          <Card className="relative overflow-hidden border border-border/80 bg-card shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardHeader className="flex flex-row items-center justify-between border-b border-border/50 bg-muted/30 px-6 py-4">
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                  <Code className="h-4 w-4" />
+                </div>
+                <CardTitle className="capitalize text-base font-bold font-headline tracking-tight text-foreground">
+                  Output: {tool.outputType}
+                </CardTitle>
+              </div>
+              <div className="flex items-center gap-1.5 bg-muted/40 p-1 rounded-lg">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
@@ -449,6 +501,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                       size="icon"
                       onClick={handleShareWithInput}
                       aria-label="Share with input"
+                      className="h-8 w-8 text-muted-foreground hover:text-foreground"
                     >
                       <Link2 className="h-4 w-4" />
                     </Button>
@@ -465,6 +518,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                       onClick={handleShare}
                       aria-label="Share this tool"
                       disabled={isShared}
+                      className="h-8 w-8 text-muted-foreground hover:text-foreground"
                     >
                       {isShared ? (
                         <Check className="h-4 w-4 text-accent" />
@@ -486,6 +540,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                           size="icon"
                           onClick={handleDownload}
                           aria-label="Download output"
+                          className="h-8 w-8 text-muted-foreground hover:text-foreground"
                         >
                           <Download className="h-4 w-4" />
                         </Button>
@@ -502,6 +557,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                           onClick={handleCopy}
                           aria-label="Copy output"
                           disabled={isCopied}
+                          className="h-8 w-8 text-muted-foreground hover:text-foreground"
                         >
                           {isCopied ? (
                             <Check className="h-4 w-4 text-accent" />
@@ -518,22 +574,27 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 )}
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="p-0 relative">
               {error && (
-                <Alert variant="destructive">
-                  <Terminal className="h-4 w-4" />
-                  <AlertTitle>Error</AlertTitle>
-                  <AlertDescription>
-                    {error.replace(/^(Error:|❌|⚠️)\s*/, '')}
-                  </AlertDescription>
-                </Alert>
+                <div className="p-4 bg-destructive/5 border-b border-destructive/20">
+                  <Alert variant="destructive" className="border-0 bg-transparent p-0">
+                    <Terminal className="h-4 w-4 text-destructive" />
+                    <AlertTitle className="font-headline font-semibold text-destructive">Error</AlertTitle>
+                    <AlertDescription className="text-sm text-destructive/90">
+                      {error.replace(/^(Error:|❌|⚠️)\s*/, '')}
+                    </AlertDescription>
+                  </Alert>
+                </div>
               )}
-              <div className="min-h-[300px]">
+              <div className="relative min-h-[380px]">
                 {tool.slug === 'text-statistics' ? (
-                  <div className="h-full">
+                  <div className="p-6 h-full min-h-[380px] flex flex-col justify-center">
                     {!stats && !error ? (
-                      <div className="flex h-full items-center justify-center rounded-md bg-muted text-muted-foreground">
-                        <p>Waiting for input...</p>
+                      <div className="flex h-[330px] items-center justify-center rounded-xl border border-dashed border-border bg-muted/20 text-muted-foreground">
+                        <div className="text-center space-y-2">
+                          <Sparkles className="h-8 w-8 mx-auto text-accent animate-pulse" />
+                          <p className="text-sm">Waiting for input content...</p>
+                        </div>
                       </div>
                     ) : (
                       stats && (
@@ -557,47 +618,71 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                     id="output-textarea"
                     readOnly
                     value={output}
-                    className="min-h-[300px] resize-y bg-muted font-mono whitespace-pre-wrap"
+                    className="min-h-[380px] w-full border-0 rounded-none bg-muted/40 p-6 font-mono text-sm leading-relaxed whitespace-pre-wrap focus-visible:ring-0 focus-visible:ring-offset-0 select-text"
                     placeholder={!error ? "Waiting for input..." : ""}
                   />
                 )}
               </div>
+              {/* OUTPUT COUNTER FOOTER */}
+              <div className="flex items-center justify-between border-t border-border/50 bg-muted/20 px-6 py-2.5 text-xs text-muted-foreground font-mono">
+                <div className="flex gap-4">
+                  <span>{outputCharCount.toLocaleString()} chars</span>
+                  <span>{outputLineCount.toLocaleString()} lines</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {isProcessing ? (
+                    <>
+                      <RefreshCw className="h-3 w-3 animate-spin text-accent" />
+                      <span>Processing...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-border bg-background uppercase tracking-wider">{tool.category}</Badge>
+                    </>
+                  )}
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
-        <div className="mt-16 space-y-16">
+
+        {/* RECENT ACTIVITY & RELATED TOOLS */}
+        <div className="mt-20 space-y-20">
           {history.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-bold font-headline text-center mb-8">
-                Recent Activity
-              </h2>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle className="text-lg">History</CardTitle>
+            <div className="space-y-6">
+              <div className="text-center max-w-lg mx-auto space-y-1">
+                <h2 className="text-2xl font-bold font-headline tracking-tight text-foreground">
+                  Recent Activity
+                </h2>
+                <p className="text-sm text-muted-foreground">Restore your previously processed developer snippets instantly.</p>
+              </div>
+              <Card className="border border-border/60 shadow-md overflow-hidden bg-card/60 backdrop-blur-sm">
+                <CardHeader className="flex flex-row items-center justify-between border-b border-border/40 bg-muted/10 px-6 py-4">
+                  <CardTitle className="text-sm font-semibold tracking-wide text-foreground">History Log</CardTitle>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={handleClearHistory}
+                    className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                   >
                     <Trash className="mr-2 h-4 w-4" /> Clear All
                   </Button>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
+                <CardContent className="p-0">
+                  <ul className="divide-y divide-border/40">
                     {history.map((item) => (
-                      <li key={item.id}>
-                        <Button
-                          variant="ghost"
-                          className="flex h-auto w-full items-center justify-start gap-4 text-left"
+                      <li key={item.id} className="hover:bg-muted/30 transition-colors">
+                        <button
+                          className="flex h-auto w-full items-center justify-start gap-4 p-5 text-left focus:outline-none focus:bg-muted/40"
                           onClick={() => handleRestoreFromHistory(item)}
                         >
-                          <History className="h-5 w-5 shrink-0 text-muted-foreground" />
+                          <History className="h-5 w-5 shrink-0 text-muted-foreground/60 group-hover:text-foreground" />
                           <div className="flex-grow overflow-hidden">
-                            <p className="font-mono text-sm truncate">
+                            <p className="font-mono text-sm truncate text-foreground/80">
                               {item.input}
                             </p>
-                            <div className="text-xs text-muted-foreground flex items-center gap-2 mt-1">
-                              <Badge variant="secondary">{item.toolSlug.replace(/-/g, ' ')}</Badge>
+                            <div className="text-xs text-muted-foreground flex items-center gap-3 mt-1.5">
+                              <Badge variant="secondary" className="capitalize text-[10px] tracking-wide font-medium">{item.toolSlug.replace(/-/g, ' ')}</Badge>
                               <div className="flex items-center gap-1">
                                 <Clock className="h-3 w-3" />
                                 {formatDistanceToNow(new Date(item.timestamp), {
@@ -606,7 +691,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                               </div>
                             </div>
                           </div>
-                        </Button>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -616,39 +701,42 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
           )}
 
           {relatedTools.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-bold font-headline text-center mb-8">
-                You Might Also Like
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="space-y-6">
+              <div className="text-center max-w-lg mx-auto space-y-1">
+                <h2 className="text-2xl font-bold font-headline tracking-tight text-foreground">
+                  You Might Also Like
+                </h2>
+                <p className="text-sm text-muted-foreground">Discover other complementary developer tools to streamline your process.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {relatedTools.map((relatedTool) => (
                   <Card
                     key={relatedTool.slug}
-                    className="h-full flex flex-col hover:border-accent transition-shadow duration-300 shadow-sm hover:shadow-lg"
+                    className="h-full flex flex-col border border-border/60 bg-card shadow-sm hover:shadow-xl hover:border-accent/40 transition-all duration-300 rounded-xl group hover:-translate-y-1"
                   >
-                    <CardHeader>
-                      <CardTitle className="font-headline text-lg">
+                    <CardHeader className="p-6 pb-4">
+                      <CardTitle className="font-headline text-lg font-bold text-foreground tracking-tight">
                         <Link
                           href={`/tool/${relatedTool.slug}`}
                           prefetch={false}
                           title={`Try our ${relatedTool.title} tool`}
-                          className="hover:underline focus:outline-none focus:ring-2 focus:ring-ring rounded-sm"
+                          className="hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring rounded-sm transition-colors"
                         >
                           {relatedTool.title}
                         </Link>
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="flex-grow">
-                      <p className="text-sm text-muted-foreground">
+                    <CardContent className="flex-grow px-6 py-0">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {relatedTool.description}
                       </p>
                     </CardContent>
-                    <div className="p-6 pt-0">
+                    <div className="p-6 pt-5">
                       <Link
                         href={`/tool/${relatedTool.slug}`}
                         prefetch={false}
                         title={`Try our ${relatedTool.title} tool`}
-                        className="font-semibold text-accent inline-flex items-center gap-1 group"
+                        className="font-bold text-sm text-accent inline-flex items-center gap-1.5 group"
                       >
                         Try our {relatedTool.title}
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -667,7 +755,7 @@ export default function ToolInterface({ tool }: ToolInterfaceProps) {
                 <Button
                     variant="outline"
                     size="icon"
-                    className="fixed bottom-8 right-8 z-50 rounded-full shadow-lg"
+                    className="fixed bottom-8 right-8 z-50 rounded-full shadow-lg bg-background hover:bg-muted border border-border hover:scale-105 active:scale-95 transition-all"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     aria-label="Scroll to top"
                 >
