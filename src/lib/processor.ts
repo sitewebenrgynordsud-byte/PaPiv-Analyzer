@@ -1652,6 +1652,60 @@ export function processText(toolSlug: string, input: string): string {
       } catch (e) {
         return '❌ Error: Failed to calculate permissions.';
       }
+        case 'base64-encoder-decoder':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your plain text to encode to Base64, or paste Base64 text to decode it.';
+      try {
+        const text = input.trim();
+        const isBase64 = /^[a-zA-Z0-9+/]*={0,2}$/.test(text) && text.length % 4 === 0 && text.length > 0;
+        if (isBase64) {
+          try {
+            return decodeURIComponent(atob(text).split('').map((c) => {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+          } catch (err) {
+            return btoa(encodeURIComponent(text).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+              return String.fromCharCode(parseInt(p1, 16));
+            }));
+          }
+        } else {
+          return btoa(encodeURIComponent(text).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+            return String.fromCharCode(parseInt(p1, 16));
+          }));
+        }
+      } catch (e) {
+        return '❌ Error: Failed to process Base64.';
+      }
+
+    case 'online-diff-checker':
+      if (!input || input.trim() === '') return '💡 Hint: Paste your original and modified text separated by "===DIVIDER===" to check the differences.\n\nExample:\nOriginal text line 1\nOriginal text line 2\n===DIVIDER===\nOriginal text line 1\nModified text line 2 modified!';
+      try {
+        const parts = input.split(/\s*===DIVIDER===\s*/);
+        if (parts.length < 2) return '❌ Error: Please provide the original text and modified text separated exactly by ===DIVIDER===';
+        const originalLines = parts[0].trim().split(/\r?\n/);
+        const modifiedLines = parts[1].trim().split(/\r?\n/);
+        
+        let diffOutput = '🔍 Line-by-Line Diff Output:\n\n';
+        const maxLines = Math.max(originalLines.length, modifiedLines.length);
+        
+        for (let i = 0; i < maxLines; i++) {
+          const orig = originalLines[i];
+          const mod = modifiedLines[i];
+          
+          if (orig === undefined) {
+            diffOutput += `[Line ${i + 1}] ➕ Added: "${mod}"\n`;
+          } else if (mod === undefined) {
+            diffOutput += `[Line ${i + 1}] ➖ Removed: "${orig}"\n`;
+          } else if (orig !== mod) {
+            diffOutput += `[Line ${i + 1}] ⚠️ Modified:\n  Original: "${orig}"\n  Modified: "${mod}"\n`;
+          } else {
+            diffOutput += `[Line ${i + 1}] 🟢 No Change: "${orig}"\n`;
+          }
+        }
+        return diffOutput;
+      } catch (e) {
+        return '❌ Error: Failed to compare texts.';
+      }
+
     default:
       return `Error: Tool with slug '${slug}' not found.`;
   }

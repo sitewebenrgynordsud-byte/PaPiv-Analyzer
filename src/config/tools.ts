@@ -1272,6 +1272,31 @@ Color consistency is key to professional web design. While many modern tools sup
     longDescription: 'Webmasters, SysAdmins, and developers constantly deal with Linux server file permissions. Incorrect chmod settings can lead to "403 Forbidden" errors or severe security vulnerabilities. Our free Unix Chmod Permission Calculator instantly translates numeric octal values (like 777 or 644) into readable symbolic notation (like rwxrwxrwx or rw-r--r--), and vice versa. An essential utility for securely managing web hosting environments, Docker containers, and SSH deployments.',
     externalReferences: []
   }
+,
+  {
+    slug: 'base64-encoder-decoder',
+    title: 'Base64 Encoder & Decoder',
+    description: 'Encode plain text to Base64 format or decode Base64 back to readable text instantly.',
+    category: 'Developer',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Base64 encoding schemes are commonly used when there is a need to encode binary data that needs to be stored and transferred over media that are designed to deal with textual data. This ensures that the data remains intact without modification during transport. Our free online Base64 Encoder & Decoder provides an instant, secure, and client-side method to encode and decode your strings with 100% privacy.',
+    externalReferences: [
+      { text: 'MDN Web Docs: Base64 encoding and decoding', href: 'https://developer.mozilla.org/en-US/docs/Glossary/Base64' }
+    ]
+  },
+  {
+    slug: 'online-diff-checker',
+    title: 'Online Diff Checker & Text Compare',
+    description: 'Compare two texts line-by-line to instantly identify added, removed, or modified parts.',
+    category: 'Text',
+    inputType: 'text',
+    outputType: 'text',
+    longDescription: 'Comparing text files manually to find differences is slow and error-prone. The Online Diff Checker & Text Compare tool automates this process by comparing two blocks of text (separated by a divider) line-by-line. It visually highlights added, removed, and modified lines instantly, making it perfect for comparing code versions, document drafts, or config files. All processing is done locally in your browser to maintain 100% privacy.',
+    externalReferences: [
+      { text: 'Wikipedia: Diff utility', href: 'https://en.wikipedia.org/wiki/Diff' }
+    ]
+  }
 ];
 
 export function getToolBySlug(slug: string): ToolConfig | undefined {
